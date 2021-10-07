@@ -5,13 +5,13 @@
 5. Document progress and changes to project will be the responsibility of Abele Abdi.
 6. Develop requirement tracker in GitHub repository will be the responsibility of Chris Meyer.
 7. Validate code’s security will be the responsibility of Nicholas Ruth.
-8. Providing user’s access for android application will be responsibility of Prayag Pandit.
+8. Providing user’s access for web application will be responsibility of Prayag Pandit.
 9. Develop database for users in the application will be responsibility of Prayag Pandit.
-10. Investigate possible problems with android applications will be the responsibility of Prayag Pandit.
-11. Tracking/monitoring the android application’s outgoing and incoming network activity by utilizing security notifications, ping tools, and Wi-Fi analyzer as needed will be the 12. responsibility of Prayag Pandit. 
-13. General troubleshooting for android application will be the responsibility of Prayag Pandit.
+10. Investigate possible problems with web applications will be the responsibility of Prayag Pandit.
+11. Tracking/monitoring the web application’s outgoing and incoming network activity by utilizing security notifications, ping tools, and Wi-Fi analyzer as needed will be the 12. responsibility of Prayag Pandit. 
+13. General troubleshooting for web application will be the responsibility of Prayag Pandit.
 14. Research possible improvements / additions to the app will be the responsibility of Alex Mezcua.
-15. Investigate whether android of iOS would be better for the app will be the responsibility of Alex Mezcua.
+15. Investigate whether Android, iOS or Web would be better for the app will be the responsibility of Alex Mezcua.
 16. Refine prototype to minimize users' input will be the responsibility of Alex Mezcua.
 17. Document code styling for readable code and consistency will be the responsibility of Alex Mezcua.
 18. Developing the user interface for an activity will be the responsibility of Abele Abdi.
