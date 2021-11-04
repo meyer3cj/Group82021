@@ -4,7 +4,8 @@ import NameList from './names/NameList';
 
 function App() {
   const [currentTime, setCurrentTime] = useState(0);
-
+ 
+  
   
   useEffect(() => {
     fetch('/time').then(res => res.json()).then(data => {
@@ -15,8 +16,9 @@ function App() {
    
         <div>
         <NameList/>
+        <button>add</button>
         
-        <p>Time is: {currentTime}</p>
+       
         </div>
     
   );

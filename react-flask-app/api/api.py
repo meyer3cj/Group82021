@@ -6,9 +6,8 @@ app = Flask(__name__)
 
 @app.route('/time')
 def get_current_time():
-    result =db.queryDB("Select * from [test]")
     selectItems.GetItems()
 
 
 
-    return {"time": result}
+ 

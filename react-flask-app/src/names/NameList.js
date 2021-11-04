@@ -1,21 +1,55 @@
 import React, {Component, useState, useEffect } from 'react';
 import { render } from 'react-dom';
-import names from '../../src/names.json'
+import items from '../../src/items.json'
+
 
 
 class NameList extends Component {
   
+    handleClick = () => {
+        console.log("delete" ,this.props);
+      }
   render() {
-
-    return(
+      const divstyle = {
+          padding: "20px",
+        
+          
+      }
+      const liststyle={
+        display:'flex',
+        justifyContent:'center',
     
-        <div>
-            <h1>
-                Hello There
-                {names.map((PersonName, index)=>{return<div><h1>{PersonName.id}</h1><p>{PersonName.name}</p></div>})}
+    
+    }
+      const itemdiv={
+            
+          border:'2px solid #ff0000',
+            borderRadius: '4px',
+            minWidth:'20%',width:'30%',
+            margin: '2px',
+        }
+    return(
+            
+    <div>
+        <h1>Hello There </h1>   
+        <div style={divstyle}>
+
+                {items.map((item, index)=>{return(
+                <div style={itemdiv}>
+                    <div>
+                    <h3>{item.name}</h3>
+                    <p style={{}}>{item.price}</p>
+                    </div>
+                    <p>{item.description}</p>
+                    <button onClick={this.handleClick}>edit</button>
+                    <a href={item.url} target="_blank">Go to Listing</a>
+                    <button>delete</button>
+                </div>
+                )})}
                 
-            </h1>
+           
         </div>
+        </div> 
         
         )
     
