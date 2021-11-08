@@ -41,10 +41,13 @@ def queryDB(query):
     cnxn: pyodbc.Connection= pyodbc.connect(connectionString)
 
     csr: pyodbc.Cursor= cnxn.cursor()
-
+    nocount= """
+    SET NOCOUNT ON
+    
+    """
 
     
-    select= query
+    select= nocount+''+query
     csr.execute(select)
     result=csr.fetchall()
     print(csr.fetchall())

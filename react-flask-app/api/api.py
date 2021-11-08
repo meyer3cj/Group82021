@@ -1,12 +1,18 @@
 import time
 from flask import Flask
-import db
-import selectItems
+import readdb
+import itemfunctions
+import deleteItemsdb
 app = Flask(__name__)
 
-@app.route('/time')
+@app.route('/')
 def get_current_time():
-    selectItems.GetItems()
+    itemfunctions.GetItems()
+    return('1')
+@app.route('/del/<id>', methods=['DELETE'])
+def delete(id):
+    itemfunctions.DeleteItems(id)
+    return('2')
 
 
 
