@@ -47,7 +47,10 @@ def queryDB(query):
     select= query
     '''nocount+''+'''
     csr.execute(select)
+    cnxn.commit()
     
     print (query)
+    csr.close()
     return('done')
+
 

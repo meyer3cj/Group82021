@@ -32,13 +32,12 @@ def GetItems():
 
     return(objects_list)
 
+
+
 def DeleteItems(id):
     id=str(id)
-    query="Delete from [Items] where ItemID = "
+    query="Delete from [Items] where ItemID = "+id
     print(query)
     deleteItemsdb.queryDB(query)
-
-
-
 
 GetItems()

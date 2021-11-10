@@ -13,8 +13,8 @@ function App() {
   
   
   useEffect(() => {
-    fetch('/').then(res => res.json()).then(data => {
-      setCurrentTime(data.time);
+    fetch('/home').then(res => res.json()).then(data => {
+    
     });
   }, []);
   return (
