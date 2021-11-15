@@ -1,0 +1,10 @@
+
+.link{
+    color:black;
+}
+.link:hover{
+    color :rgb(0,0,100);
+ 
+    font-size: 20px;
+    transition-duration: .5s;
+}

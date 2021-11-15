@@ -1,22 +1,24 @@
 from typing import Collection
-import db
+import dbfuncs
 import json
+import cutsiteURL
 import collections
 
-
 def GetItems():
-    rows= db.queryDB('Select * from [Items]')
+    rows= dbfuncs.readDB('Select * from [Items]')
 
     objects_list=[]
     for row in rows:
         d= collections.OrderedDict()
-        d['name']= row[2]
+        d['id']=row[0]
+        d['name']= row[2].capitalize()
         amount=row[3]
         currency= "${:,.2f}".format(amount)
         d['price']= currency
         d['url']=row[7]
+        #d['Store']=cutsiteURL.getStore(row[7])
         d['description']= row[4]
-        
+
         objects_list.append(d)
     j=json.dumps(objects_list)
 
@@ -31,7 +33,8 @@ def GetItems():
 
 
 
-
-
-
-GetItems()
+def DeleteItems(id):
+    id=str(id)
+    query="Delete from [Items] where ItemID = "+id
+    print(query)
+    dbfuncs.modifyDB(query)
