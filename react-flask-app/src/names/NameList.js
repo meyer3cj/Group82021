@@ -1,21 +1,17 @@
 import React, {Component, useState, useEffect } from 'react';
 import { render } from 'react-dom';
-import items from '../../src/items.json'
-import '../../src/names/list.css'
+import items from '../../src/items.json';
+import '../../src/names/list.css';
+import axios from 'axios';
 
+
+const api= axios.create({
+    baseURL: `http://localhost:5000/`
+})
 
 class NameList extends Component {
-    
-    Item= (props)=>{
-        
-    }
-    handleClick = () => {
-        console.log("edit" ,this.props);
+  
 
-      }
-      Delete=()=>{
-          console.log('clicked');
-      }
       
     
   render(){
@@ -28,6 +24,9 @@ class NameList extends Component {
         backgroundColor:'rgb(220,220,220'
         
         }
+
+        
+       
         const linkstyle= {
             
             textDecoration:'none'
@@ -55,6 +54,9 @@ class NameList extends Component {
                         console.log(item.id+' completed')
                         
                         }}>delete</button>
+
+                    
+                    
                 </div>
                 )})}
                 

@@ -18,7 +18,8 @@ function App() {
     });
   }, []);
   return (
-        <div >
+        
+        <div>
         <div style={liststyle}>
           <div>
           <NameList/>
