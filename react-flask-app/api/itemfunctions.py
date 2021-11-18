@@ -26,11 +26,9 @@ def GetItems():
         f.write(j)
     print(j)
 
-    print('function ran')
     f.close()
 
     return(objects_list)
-
 
 
 def DeleteItems(id):
@@ -38,3 +36,13 @@ def DeleteItems(id):
     query="Delete from [Items] where ItemID = "+id
     print(query)
     dbfuncs.modifyDB(query)
+
+def addItemList(request):
+    print(request)
+    query = """
+                INSERT INTO [dbo].[Items] (ItemID, UserID, ItemName, ItemPrice, ItemDescription, Purchased, ItemURL)
+                VALUES (?,?,?,?,?,?,?)
+                """
+                
+    dbfuncs.addQuery(query, request)
+    return '', 200

@@ -1,4 +1,3 @@
-import time
 from flask import Flask,request
 import itemfunctions
 
@@ -8,6 +7,7 @@ app = Flask(__name__)
 def get_item_list():
     itemfunctions.GetItems()
     return('1')
+    
 @app.route('/del/<id>', methods=['DELETE'])
 def delete(id):
     
@@ -16,9 +16,8 @@ def delete(id):
 
     return('2')
 
-
-
-
-
-
- 
+@app.route('/addItem', methods=['POST'])
+def addItemList():
+    response = request.json
+    itemfunctions.addItemList(response)
+    return '', 200

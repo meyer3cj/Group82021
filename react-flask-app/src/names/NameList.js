@@ -1,40 +1,143 @@
 import React, {Component, useState, useEffect } from 'react';
-import { render } from 'react-dom';
 import items from '../../src/items.json';
 import '../../src/names/list.css';
 import axios from 'axios';
 
 
-const api= axios.create({
-    baseURL: `http://localhost:5000/`
+const api = axios.create({
+    baseURL: 'http://localhost:3000/'
 })
 
 class NameList extends Component {
-  
 
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            view: '',
+            itemName: '',
+            price: '',
+            description: '',
+            url: ''
+        }
+    }
+  
+    handleClick = () => {
+        console.log("delete" ,this.props);
+    }
+
+    // Adds item url link
+    addItemClicked = () => {
+        this.setState({
+            view: "addItem"
+        });
+  }
+
+  handleChange = (e) => {
+      this.setState({
+          [e.target.name]: e.target.value
+      })
+  }
+
+  handleSubmit = async (e) => {
+      e.preventDefault()
+      await api.post('/addItem', this.state)
+      .then(response =>{
+          console.log(response)
+      })
       
+    this.state.view = ""
+  }
     
-  render(){
-      const itemstyle={
+  render() {
+    const {itemName, price, description, url} = this.state
+
+    const itemstyle={
         border: '2px solid black',
         marginBottom:'20px',
         boxShadow:'2px 2px 4px 6px white',
         width: '80%',
         marginLeft: '10%',
         backgroundColor:'rgb(220,220,220'
-        
-        }
-
-        
+    }
        
-        const linkstyle= {
-            
-            textDecoration:'none'
+    const linkstyle= { 
+        textDecoration:'none'
+    }
 
+    // View if add button
+    if(this.state.view === "addItem") {
+        return (
+            <div>
+                <form name="request" 
+                    onSubmit={this.handleSubmit}>
 
-        }
-    return(
-            
+                    <div>
+                        <label>
+                            Item name
+                            <div>
+                                <input 
+                                type='text' 
+                                name='itemName'
+                                value={itemName}
+                                onChange={this.handleChange}
+                                ></input>
+                            </div>
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            Price
+                            <div>
+                            <input 
+                                type='number' 
+                                name='price'
+                                value={price}
+                                onChange={this.handleChange}
+                                ></input>
+                            </div>
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            Description
+                            <div>
+                            <input 
+                                type='text' 
+                                name='description'
+                                value={description}
+                                onChange={this.handleChange}
+                                ></input>
+                            </div>
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            URL
+                            <div>
+                                <input type="text"
+                                 name='url'
+                                 value={url}
+                                 onChange={this.handleChange}>
+                                 </input>
+                            </div>
+                        </label>
+                    </div>
+                    <div>
+                        <button
+                            type = 'submit'
+                            onClick={this.handleChange}
+                        >
+                            add
+                        </button>
+                    </div>
+                </form>
+            </div>
+        )
+    }
+     
+    // Default view
+    return( 
     <div>
         
         <div>
@@ -58,11 +161,17 @@ class NameList extends Component {
                     
                     
                 </div>
-                )})}
+            )})}
+
+            <button
+                onClick = {this.addItemClicked}
+            >
+            add
+            </button>
                 
            
         </div>
-        </div> 
+    </div> 
         
         )
     

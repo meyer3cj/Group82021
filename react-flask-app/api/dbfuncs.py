@@ -104,3 +104,49 @@ def modifyDB(query):
     print (query)
     csr.close()
     return('done')
+
+
+
+def addQuery(query, request):
+    """Connects to database and queries based on input"""
+    #sql driver
+    driver='{ODBC Driver 17 for SQL Server}'
+    
+    
+    #server and database information
+    server_name='kartzserver'
+    database_name='KartzDB'
+    server='{server_name}.database.windows.net,1433'.format(server_name=server_name)
+    
+    
+    #password to database
+    username= "Admin5000"
+    password= "Pw^?CWu']y}@Ym9g"
+
+    #generate connection string
+    connectionString= textwrap.dedent('''
+        Driver={driver};
+        Server={server};
+        Database={database};
+        Uid={username};
+        Pwd={password};
+        Encrypt=yes;
+        Connection Timeout=30;
+
+
+    '''.format(
+        driver=driver,
+        server=server,
+        database=database_name,
+        username=username,
+        password=password
+
+    ))
+    #connect to database
+    cnxn: pyodbc.Connection= pyodbc.connect(connectionString)
+
+    csr: pyodbc.Cursor= cnxn.cursor()
+    
+    result = csr.execute(query, (0, 1, request['itemName'], request['price'], request['description'], False, request['url']))
+    cnxn.commit()
+    return (result)
