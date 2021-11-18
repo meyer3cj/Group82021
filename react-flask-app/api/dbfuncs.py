@@ -147,6 +147,6 @@ def addQuery(query, request):
 
     csr: pyodbc.Cursor= cnxn.cursor()
     
-    result = csr.execute(query, (0, 1, request['itemName'], request['price'], request['description'], False, request['url']))
+    result = csr.execute(query, (1, request['itemName'], request['price'], request['description'], False, request['url']))
     cnxn.commit()
     return (result)

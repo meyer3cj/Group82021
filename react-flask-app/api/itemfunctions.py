@@ -24,7 +24,6 @@ def GetItems():
 
     with open('../src/items.json','w')as f:
         f.write(j)
-    print(j)
 
     f.close()
 
@@ -34,15 +33,13 @@ def GetItems():
 def DeleteItems(id):
     id=str(id)
     query="Delete from [Items] where ItemID = "+id
-    print(query)
     dbfuncs.modifyDB(query)
 
 def addItemList(request):
-    print(request)
     query = """
-                INSERT INTO [dbo].[Items] (ItemID, UserID, ItemName, ItemPrice, ItemDescription, Purchased, ItemURL)
-                VALUES (?,?,?,?,?,?,?)
-                """
+                INSERT INTO [dbo].[Items] (UserID, ItemName, ItemPrice, ItemDescription, Purchased, ItemURL)
+                VALUES (?,?,?,?,?,?)
+            """
                 
     dbfuncs.addQuery(query, request)
     return '', 200

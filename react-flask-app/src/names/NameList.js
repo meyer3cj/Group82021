@@ -42,11 +42,7 @@ class NameList extends Component {
   handleSubmit = async (e) => {
       e.preventDefault()
       await api.post('/addItem', this.state)
-      .then(response =>{
-          console.log(response)
-      })
-      
-    this.state.view = ""
+      window.location.href = '.'
   }
     
   render() {
