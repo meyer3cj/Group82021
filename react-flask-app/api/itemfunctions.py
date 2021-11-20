@@ -42,7 +42,8 @@ def addItemList(request):
                 VALUES 
                     (?,?,?,?,?,?,?)
             """
-    tuple = (0, 1, request['itemName'], request['price'], request['description'], False, request['url'])
+    id= dbfuncs.getIDs()
+    tuple = (id, 1, request['itemName'], request['price'], request['description'], False, request['url'])
 
     dbfuncs.addQuery(query, tuple)
 

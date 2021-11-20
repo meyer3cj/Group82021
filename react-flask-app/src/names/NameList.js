@@ -68,7 +68,7 @@ class NameList extends Component {
         // View if add button
         if(this.state.view === "addItem") {
             return (
-                <div>
+                <div class= 'form-div'>
                     <form name="request" 
                         onSubmit={this.handleSubmit}>
 
@@ -129,14 +129,14 @@ class NameList extends Component {
                                 onClick={this.handleChange}
                             >
                                 add
-                            </button>
+                            </button><button>Cancel</button>
                         </div>
                     </form>
                 </div>
             )
         }
 
-        // View if add button
+        // View if edit button
         if(this.state.view === "editItem") {
             return (
                 <div>
