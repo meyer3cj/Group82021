@@ -24,17 +24,56 @@ def GetItems():
 
     with open('../src/items.json','w')as f:
         f.write(j)
-    print(j)
 
-    print('function ran')
     f.close()
 
     return(objects_list)
 
 
-
 def DeleteItems(id):
     id=str(id)
     query="Delete from [Items] where ItemID = "+id
-    print(query)
     dbfuncs.modifyDB(query)
+
+def addItemList(request):
+    query = """
+                INSERT INTO 
+                    [dbo].[Items] (itemID, UserID, ItemName, ItemPrice, ItemDescription, Purchased, ItemURL)
+                VALUES 
+                    (?,?,?,?,?,?,?)
+            """
+    tuple = (0, 1, request['itemName'], request['price'], request['description'], False, request['url'])
+
+    dbfuncs.addQuery(query, tuple)
+
+    return '', 200
+
+def editItemList(id, request):
+    query = """
+                UPDATE 
+                    [dbo].[Items]
+                SET 
+                    itemName = ?,
+                    itemPrice = ?,
+                    itemDescription = ?,
+                    itemURL = ?
+                WHERE 
+                    itemID = ?
+            """
+    # Inputs set into tuple for execute function
+    tuple = (request['itemName'], request['price'], request['description'], False, request['url'], str(id))
+
+    dbfuncs.addQuery(query, tuple)
+
+    return '', 200
+
+def updateItemList(id):
+    query = """
+                SELECT * FROM [dbo].[Items]
+                WHERE itemID = ?
+            """
+    tuple = (str(id))
+
+    dbfuncs.readDB(query)
+    
+    return '', 200
