@@ -13,7 +13,7 @@ def GetItems():
         d['id']=row[0]
         d['name']= row[2].capitalize()
         amount=row[3]
-        currency= "${:,.2f}".format(amount)
+        currency= "{:,.2f}".format(amount)
         d['price']= currency
         d['url']=row[7]
         #d['Store']=cutsiteURL.getStore(row[7])
@@ -24,17 +24,60 @@ def GetItems():
 
     with open('../src/items.json','w')as f:
         f.write(j)
-    print(j)
 
-    print('function ran')
     f.close()
 
     return(objects_list)
 
 
-
 def DeleteItems(id):
     id=str(id)
     query="Delete from [Items] where ItemID = "+id
-    print(query)
     dbfuncs.modifyDB(query)
+
+def addItemList(request):
+    query = """
+                INSERT INTO 
+                    [dbo].[Items] (itemID, UserID, ItemName, ItemPrice, ItemDescription, Purchased, ItemURL)
+                VALUES 
+                    (?,?,?,?,?,?,?)
+            """
+    id= dbfuncs.getIDs()
+    tuple = (id, 1, request['itemName'], request['price'], request['description'], False, request['url'])
+
+    dbfuncs.addQuery(query, tuple)
+
+    return '', 200
+
+def editItemList(id, request):
+    query = """
+                UPDATE 
+                    [dbo].[Items]
+                SET 
+                    itemName = ?,
+                    itemPrice = ?,
+                    itemDescription = ?,
+                    itemURL = ?
+                WHERE 
+                    itemID = ?
+            """
+    # Inputs set into tuple for execute function
+    tuple = (request['itemName'], request['price'], request['description'], request['url'], id)
+    print(query)
+    dbfuncs.addQuery(query, tuple)
+
+    return '', 200
+
+def updateItemList(id):
+    query = """ SELECT * FROM [dbo].[Items] WHERE itemID = """+str(id)
+
+
+
+    dbfuncs.readDB(query)
+    print(query)
+
+    return '', 200
+
+
+updateItemList(1)
+
