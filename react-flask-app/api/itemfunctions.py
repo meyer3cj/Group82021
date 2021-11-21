@@ -13,7 +13,7 @@ def GetItems():
         d['id']=row[0]
         d['name']= row[2].capitalize()
         amount=row[3]
-        currency= "${:,.2f}".format(amount)
+        currency= "{:,.2f}".format(amount)
         d['price']= currency
         d['url']=row[7]
         #d['Store']=cutsiteURL.getStore(row[7])
@@ -62,19 +62,22 @@ def editItemList(id, request):
                     itemID = ?
             """
     # Inputs set into tuple for execute function
-    tuple = (request['itemName'], request['price'], request['description'], False, request['url'], str(id))
-
+    tuple = (request['itemName'], request['price'], request['description'], request['url'], id)
+    print(query)
     dbfuncs.addQuery(query, tuple)
 
     return '', 200
 
 def updateItemList(id):
-    query = """
-                SELECT * FROM [dbo].[Items]
-                WHERE itemID = ?
-            """
-    tuple = (str(id))
+    query = """ SELECT * FROM [dbo].[Items] WHERE itemID = """+str(id)
+
+
 
     dbfuncs.readDB(query)
-    
+    print(query)
+
     return '', 200
+
+
+updateItemList(1)
+

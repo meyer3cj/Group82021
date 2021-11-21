@@ -18,7 +18,8 @@ class NameList extends Component {
             itemName: '',
             price: '',
             description: '',
-            url: ''
+            url: '',
+            id:''
         }
     }
 
@@ -28,12 +29,24 @@ class NameList extends Component {
             view: "addItem"
         });
     }
-
     // Edit item url link
-    editItemClicked = async (id) => {
-        await api.get('/update/' + id, this.state)
+    editItemClicked = async () => {
+        await api.post(`/edit/${this.state.id}`, this.state)
+
+    
+    }
+
+    editTestClicked = async (id,name,price,description,url) => {
+        //await api.get(`/update/${id}`)
+        console.log(price)
         this.setState({
-            view: "editItem"
+            view: "editItem",
+            itemName:name,
+            price:price,
+            description:description,
+            url:url,
+            id: id
+
         });
     }
 
@@ -139,9 +152,9 @@ class NameList extends Component {
         // View if edit button
         if(this.state.view === "editItem") {
             return (
-                <div>
+                <div class= 'form-div'>
                     <form name="request" 
-                        onSubmit={this.handleSubmit}>
+                        onSubmit={this.editItemClicked}>
 
                         <div>
                             <label>
@@ -152,7 +165,8 @@ class NameList extends Component {
                                         name='itemName'
                                         value={itemName}
                                         onChange={this.handleChange}
-                                    ></input>
+                                        
+                                    />
                                 </div>
                             </label>
                         </div>
@@ -163,9 +177,9 @@ class NameList extends Component {
                                 <input 
                                     type='number' 
                                     name='price'
-                                    value={price}
+                                    value={price.toString()}
                                     onChange={this.handleChange}
-                                    ></input>
+                                    />
                                 </div>
                             </label>
                         </div>
@@ -173,12 +187,12 @@ class NameList extends Component {
                             <label>
                                 Description
                                 <div>
-                                <input 
-                                    type='text' 
-                                    name='description'
-                                    value={description}
-                                    onChange={this.handleChange}
-                                    ></input>
+                                    <input 
+                                        type='text' 
+                                        name='description'
+                                        value={description}
+                                        onChange={this.handleChange}
+                                    />
                                 </div>
                             </label>
                         </div>
@@ -189,8 +203,8 @@ class NameList extends Component {
                                     <input type="text"
                                         name='url'
                                         value={url}
-                                        onChange={this.handleChange}>
-                                    </input>
+                                        onChange={this.handleChange} 
+                                    />
                                 </div>
                             </label>
                         </div>
@@ -199,7 +213,7 @@ class NameList extends Component {
                                 type = 'submit'
                                 onClick={this.handleChange}
                             >
-                                add
+                                Submit
                             </button>
                         </div>
                     </form>
@@ -221,10 +235,10 @@ class NameList extends Component {
                             <p>{item.id.toString()}</p>
                             <h3><a class='link' style={linkstyle} href={item.url}target="_blank">{item.name}</a></h3>
                             <p><b>{item.Store}</b></p>
-                            <p>{item.price}</p>
+                            <p>${item.price}</p>
                             </div>
                             <p>{item.description}</p>
-                            <button onClick={e=> {e.preventDefault(); this.editItemClicked(item.id)}}>edit</button>
+                            <button onClick={e=> {e.preventDefault(); this.editTestClicked(item.id,item.name,item.price,item.description,item.url)}}>edit</button>
                             <button onClick= {()=>{
                                 fetch('/del/'+item.id,{'method':'DELETE'})
                                 console.log(item.id+' completed')

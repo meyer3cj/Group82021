@@ -36,6 +36,10 @@ def editItemList(id):
 # Get information for single list item update from database
 @app.route('/update/<id>', methods=['GET'])
 def getItemList(id):
+    
     itemfunctions.updateItemList(id)
 
     return '', 200
+
+
+

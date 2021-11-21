@@ -192,7 +192,7 @@ def addQuery(query, tuple):
     cnxn: pyodbc.Connection= pyodbc.connect(connectionString)
 
     csr: pyodbc.Cursor= cnxn.cursor()
-    
+    print(query)
     result = csr.execute(query, tuple)
     cnxn.commit()
 
@@ -259,5 +259,3 @@ def getIDs():
     
     return (nextId)
 
-
-print(getIDs())
