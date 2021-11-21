@@ -142,7 +142,7 @@ class NameList extends Component {
                                 onClick={this.handleChange}
                             >
                                 add
-                            </button><button>Cancel</button>
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -234,7 +234,6 @@ class NameList extends Component {
                             <div>
                             <p>{item.id.toString()}</p>
                             <h3><a class='link' style={linkstyle} href={item.url}target="_blank">{item.name}</a></h3>
-                            <p><b>{item.Store}</b></p>
                             <p>${item.price}</p>
                             </div>
                             <p>{item.description}</p>
