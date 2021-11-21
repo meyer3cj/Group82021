@@ -7,7 +7,7 @@ app = Flask(__name__)
 def get_item_list():
     itemfunctions.GetItems()
     
-    return('1')
+    return '',200
     
 @app.route('/del/<id>', methods=['DELETE'])
 def delete(id):
@@ -15,7 +15,7 @@ def delete(id):
     itemfunctions.DeleteItems(id)
     get_item_list()
 
-    return('2')
+    return '',200
 
 # Add item to database
 @app.route('/addItem', methods=['POST'])
