@@ -248,6 +248,7 @@ def getIDs():
     csr.close()
     print(result)
     ids=[]
+    ids.append(0)
     for i in result:
         ids.append(i[0])
     print(ids)
