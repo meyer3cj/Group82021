@@ -94,6 +94,7 @@ class NameList extends Component {
                                         name='itemName'
                                         value={itemName}
                                         onChange={this.handleChange}
+                                        
                                     ></input>
                                 </div>
                             </label>

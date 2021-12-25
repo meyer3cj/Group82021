@@ -1,5 +1,7 @@
 from flask import Flask,request
 import itemfunctions
+import imageapi
+
 
 app = Flask(__name__)
 
@@ -8,7 +10,12 @@ def get_item_list():
     itemfunctions.GetItems()
     
     return '',200
-    
+
+@app.route('/getimages', methods=['GET'])
+def getimages():
+    imageapi.searchImage('apple')
+    return '',200
+
 @app.route('/del/<id>', methods=['DELETE'])
 def delete(id):
     
