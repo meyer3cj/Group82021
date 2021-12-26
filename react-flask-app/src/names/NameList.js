@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import items from '../../src/items.json';
 import '../../src/names/list.css';
 import axios from 'axios';
 
@@ -32,8 +31,6 @@ class NameList extends Component {
     // Edit item url link
     editItemClicked = async () => {
         await api.post(`/edit/${this.state.id}`, this.state)
-
-    
     }
 
     editTestClicked = async (id,name,price,description,url) => {
@@ -63,20 +60,21 @@ class NameList extends Component {
     }
     
     render() {
+
         const {itemName, price, description, url} = this.state
 
-        const itemstyle={
-            border: '2px solid black',
-            marginBottom:'20px',
-            boxShadow:'2px 2px 4px 6px white',
-            width: '80%',
-            marginLeft: '10%',
-            backgroundColor:'rgb(220,220,220'
-        }
+        // const itemstyle={
+        //     border: '2px solid black',
+        //     marginBottom:'20px',
+        //     boxShadow:'2px 2px 4px 6px white',
+        //     width: '80%',
+        //     marginLeft: '10%',
+        //     backgroundColor:'rgb(220,220,220'
+        // }
         
-        const linkstyle= { 
-            textDecoration:'none'
-        }
+        // const linkstyle= { 
+        //     textDecoration:'none'
+        // }
 
         // View if add button
         if(this.state.view === "addItem") {
@@ -226,9 +224,7 @@ class NameList extends Component {
         // Default view
         return( 
             <div>
-                
-                <div>
-
+                {/* <div>
                     {items.map((item, index)=>{return(
                         <div class='item'style={itemstyle}>
                             <div>
@@ -245,9 +241,8 @@ class NameList extends Component {
                                 }}>delete</button>   
                         </div>
                     )})}
-
                     <button onClick = {this.addItemClicked}>add</button>
-                </div>
+                </div> */}
             </div> 
         )
     }

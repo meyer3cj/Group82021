@@ -42,13 +42,8 @@ def readDB(query):
 
     csr: pyodbc.Cursor= cnxn.cursor()
     
+    result = csr.execute(query)
 
-    
-    select= query
-    csr.execute(select)
-    result=csr.fetchall()
-    print(csr.fetchall())
-    csr.close()
     return (result)
 
 
@@ -101,7 +96,6 @@ def modifyDB(query):
     csr.execute(select)
     cnxn.commit()
     
-    print (query)
     csr.close()
     return('done')
 
@@ -192,7 +186,7 @@ def addQuery(query, tuple):
     cnxn: pyodbc.Connection= pyodbc.connect(connectionString)
 
     csr: pyodbc.Cursor= cnxn.cursor()
-    print(query)
+    
     result = csr.execute(query, tuple)
     cnxn.commit()
 

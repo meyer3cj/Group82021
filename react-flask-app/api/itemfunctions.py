@@ -22,12 +22,7 @@ def GetItems():
         objects_list.append(d)
     j=json.dumps(objects_list)
 
-    with open('../src/items.json','w')as f:
-        f.write(j)
-
-    f.close()
-
-    return(objects_list)
+    return(j)
 
 
 def DeleteItems(id):
@@ -78,6 +73,4 @@ def updateItemList(id):
 
     return '', 200
 
-
-updateItemList(1)
 

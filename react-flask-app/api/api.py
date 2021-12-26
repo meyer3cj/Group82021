@@ -4,16 +4,15 @@ import itemfunctions
 app = Flask(__name__)
 
 @app.route('/home', methods=['GET'])
-def get_item_list():
-    itemfunctions.GetItems()
+def itemList():
+    return itemfunctions.GetItems()
     
-    return '',200
     
 @app.route('/del/<id>', methods=['DELETE'])
 def delete(id):
     
     itemfunctions.DeleteItems(id)
-    get_item_list()
+    itemList()
 
     return '',200
 
