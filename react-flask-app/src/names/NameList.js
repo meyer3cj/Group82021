@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../../src/names/list.css';
 import axios from 'axios';
 
-
+// TODO: This is used in many places, can extract into its own file
 const api = axios.create({
     baseURL: 'http://localhost:3000/'
 })
@@ -33,19 +33,7 @@ class NameList extends Component {
         await api.post(`/edit/${this.state.id}`, this.state)
     }
 
-    editTestClicked = async (id,name,price,description,url) => {
-        //await api.get(`/update/${id}`)
-        console.log(price)
-        this.setState({
-            view: "editItem",
-            itemName:name,
-            price:price,
-            description:description,
-            url:url,
-            id: id
-
-        });
-    }
+    
 
     handleChange = (e) => {
         this.setState({

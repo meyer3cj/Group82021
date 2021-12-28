@@ -99,7 +99,7 @@ def modifyDB(query):
     csr.close()
     return('done')
 
-def updateQuery(query):
+def updateQuery(query, tuple):
     """Connects to database and queries based on input"""
     #sql driver
     driver='{ODBC Driver 17 for SQL Server}'
@@ -137,13 +137,13 @@ def updateQuery(query):
     #connect to database
     cnxn: pyodbc.Connection= pyodbc.connect(connectionString)
 
-    csr: pyodbc.Cursor= cnxn.cursor()
-
-    result = csr.execute(query)
-
-    cnxn.commit()
+    csr: pyodbc.Cursor = cnxn.cursor()
     
-    return (result)
+    csr.execute(query, tuple)
+
+    myresult = csr.fetchall()
+
+    return (myresult)
 
 
 

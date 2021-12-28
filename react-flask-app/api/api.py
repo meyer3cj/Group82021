@@ -17,7 +17,7 @@ def delete(id):
     return '',200
 
 # Add item to database
-@app.route('/addItem', methods=['POST'])
+@app.route('/add', methods=['POST'])
 def addItemList():
     response = request.json
     itemfunctions.addItemList(response)
@@ -35,10 +35,7 @@ def editItemList(id):
 # Get information for single list item update from database
 @app.route('/update/<id>', methods=['GET'])
 def getItemList(id):
-    
-    itemfunctions.updateItemList(id)
-
-    return '', 200
+    return itemfunctions.updateItemList(id)
 
 
 

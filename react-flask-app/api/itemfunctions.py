@@ -5,9 +5,10 @@ import cutsiteURL
 import collections
 
 def GetItems():
-    rows= dbfuncs.readDB('Select * from [Items]')
+    rows = dbfuncs.readDB('Select * from [Items]')
 
-    objects_list=[]
+    objects_list = []
+
     for row in rows:
         d= collections.OrderedDict()
         d['id']=row[0]
@@ -16,14 +17,11 @@ def GetItems():
         currency= "{:,.2f}".format(amount)
         d['price']= currency
         d['url']=row[7]
-        #d['Store']=cutsiteURL.getStore(row[7])
         d['description']= row[4]
 
         objects_list.append(d)
-    j=json.dumps(objects_list)
 
-    return(j)
-
+    return json.dumps(objects_list)
 
 def DeleteItems(id):
     id=str(id)
@@ -37,7 +35,7 @@ def addItemList(request):
                 VALUES 
                     (?,?,?,?,?,?,?)
             """
-    id= dbfuncs.getIDs()
+    id = dbfuncs.getIDs()
     tuple = (id, 1, request['itemName'], request['price'], request['description'], False, request['url'])
 
     dbfuncs.addQuery(query, tuple)
@@ -58,19 +56,34 @@ def editItemList(id, request):
             """
     # Inputs set into tuple for execute function
     tuple = (request['itemName'], request['price'], request['description'], request['url'], id)
-    print(query)
     dbfuncs.addQuery(query, tuple)
 
     return '', 200
 
 def updateItemList(id):
-    query = """ SELECT * FROM [dbo].[Items] WHERE itemID = """+str(id)
+    query = """ 
+                SELECT * 
+                FROM [dbo].[Items] 
+                WHERE itemID = ?
+            """
+    
+    tuple = (str(id))
+    rows = dbfuncs.updateQuery(query, tuple)
 
+    objects_list = []
 
+    for row in rows:
+        d= collections.OrderedDict()
+        d['id']=row[0]
+        d['name']= row[2].capitalize()
+        amount=row[3]
+        currency= "{:,.2f}".format(amount)
+        d['price']= currency
+        d['url']=row[7]
+        d['description']= row[4]
 
-    dbfuncs.readDB(query)
-    print(query)
+        objects_list.append(d)
 
-    return '', 200
+    return json.dumps(objects_list)
 
 

@@ -1,0 +1,110 @@
+import React, { useState, useEffect } from 'react';
+import { Form, Input, Button } from 'semantic-ui-react';
+import { useNavigate, useParams } from 'react-router-dom';
+import axios from 'axios';
+
+// TODO: This is used in many places, can extract into its own file
+const api = axios.create({
+    baseURL: 'http://localhost:3000/'
+})
+
+const EditItem = () => {
+    // Hooks for setting and using user inputted information.
+    const [name, setName] = useState("");
+    const [price, setPrice] = useState("");
+    const [description, setDescription] = useState("");
+    const [url, setUrl] = useState("");
+
+    const [item, setItem] = useState({
+        name: "",
+        price: "",
+        description: "",
+        url: ""
+    })
+    
+    // This hook is a dictionary which will be used to display fields to user.
+    //const [items, setItem] = useState([]);
+
+    // Use Effect to fetch data info
+    useEffect(() => {
+        fetch(`/update/${id}`).then(response => {
+        if(response.status == 200) {
+            return response.json()
+        }
+        }).then(data => {
+            setName(data[0].name);
+            setPrice(data[0].price);
+            setDescription(data[0].description);
+            setUrl(data[0].url);
+        })
+    }, [])
+
+    // Used for obtaining the item ID to edit.
+    let { id } = useParams();
+
+    // Navigation
+    const navigate = useNavigate();
+
+    const navigateHome = () =>{ 
+        navigate("/home");
+    }
+
+
+    return(   
+        <Form>
+            <Form.Field>
+                <Input
+                    type = "text"
+                    value = {name}
+                    onChange = {e => setName(e.target.value)}
+                />
+            </Form.Field>
+            <Form.Field>
+                <Input
+                    type = "number"
+                    value = {price}
+                    onChange = {e => setPrice(e.target.value)}
+                />
+            </Form.Field>
+            <Form.Field>
+                <Input
+                    type = "text"
+                    value = {description}
+                    onChange = {e => setDescription(e.target.value)}
+                />
+            </Form.Field>
+            <Form.Field>
+                <Input
+                    type = "text"
+                    value = {url}
+                    onChange = {e => setUrl(e.target.value)}
+                />
+            </Form.Field>
+            <Form.Field>
+                <Button onClick={navigateHome}>
+                    Home
+                </Button>
+            </Form.Field>
+            <Form.Field>
+                <Button onClick={async () => {
+                    const item = {
+                        itemName: name,
+                        price: price,
+                        description: description,
+                        url: url.replace(/(^\w+:|^)\/\//, '')
+                    };
+
+                    const response = await api.post(`/edit/${id}`, item)
+
+                    if (response.status == 200) {
+                        navigateHome();
+                    }
+                }}>
+                    Submit
+                </Button>
+            </Form.Field>
+        </Form>
+    )   
+}
+
+export default EditItem;

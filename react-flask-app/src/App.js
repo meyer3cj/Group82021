@@ -1,22 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import NameList from './names/NameList';
-import NameList2 from './names/NameFile2';
-import '../src/App.css'
+import { BrowserRouter, Route, Routes } from "react-router-dom"
+import Home from './Home';
+import AddItem from './AddItem';
+import EditItem from "./EditItem";
 
-function App() {
-  const [items, setItems] = useState([])
-
-  useEffect(() => {
-    fetch("/home").then(response => {
-      if(response.status == 200) {
-        return response.json()
-      }
-    }).then(data => setItems(data))
-  }, [])
-
-  return (
-    <NameList2 items={items}/>  
-  );
+export const App = () => {
+    return(
+        <div>
+            <div>
+                <BrowserRouter>
+                    <div>
+                        <Routes>
+                            <Route exact path = '/' element={<Home />}/>
+                            <Route exact path = '/home' element={<Home />}/>
+                            <Route exact path = '/add' element={<AddItem />}/>
+                            <Route exact path = '/edit/:id' element={<EditItem />}/>
+                        </Routes>
+                    </div>
+                </BrowserRouter>
+            </div>
+        </div>
+    )
 }
 
 export default App;
