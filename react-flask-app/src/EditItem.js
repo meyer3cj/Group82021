@@ -14,20 +14,13 @@ const EditItem = () => {
     const [price, setPrice] = useState("");
     const [description, setDescription] = useState("");
     const [url, setUrl] = useState("");
-
-    const [item, setItem] = useState({
-        name: "",
-        price: "",
-        description: "",
-        url: ""
-    })
     
     // This hook is a dictionary which will be used to display fields to user.
     //const [items, setItem] = useState([]);
 
     // Use Effect to fetch data info
     useEffect(() => {
-        fetch(`/update/${id}`).then(response => {
+        fetch(`/update/${itemId}`).then(response => {
         if(response.status == 200) {
             return response.json()
         }
@@ -40,7 +33,7 @@ const EditItem = () => {
     }, [])
 
     // Used for obtaining the item ID to edit.
-    let { id } = useParams();
+    let { itemId } = useParams();
 
     // Navigation
     const navigate = useNavigate();
@@ -94,7 +87,7 @@ const EditItem = () => {
                         url: url.replace(/(^\w+:|^)\/\//, '')
                     };
 
-                    const response = await api.post(`/edit/${id}`, item)
+                    const response = await api.post(`/edit/${itemId}`, item)
 
                     if (response.status == 200) {
                         navigateHome();

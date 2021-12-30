@@ -233,24 +233,18 @@ def getIDs():
 
     csr: pyodbc.Cursor= cnxn.cursor()
     
-
-    
     select= 'select ItemID from Items'
     csr.execute(select)
     result=csr.fetchall()
-    print(csr.fetchall())
+
     csr.close()
-    print(result)
-    ids=[]
+
+    ids = []
     ids.append(0)
     for i in result:
         ids.append(i[0])
-    print(ids)
-    nextId=max(ids)+1
-    print(nextId)
 
-    
-    
+    nextId = max(ids) + 1
     
     return (nextId)
 

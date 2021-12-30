@@ -13,7 +13,7 @@ export const App = () => {
                             <Route exact path = '/' element={<Home />}/>
                             <Route exact path = '/home' element={<Home />}/>
                             <Route exact path = '/add' element={<AddItem />}/>
-                            <Route exact path = '/edit/:id' element={<EditItem />}/>
+                            <Route exact path = '/edit/:itemId' element={<EditItem />}/>
                         </Routes>
                     </div>
                 </BrowserRouter>

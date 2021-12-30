@@ -10,22 +10,23 @@ def GetItems():
     objects_list = []
 
     for row in rows:
-        d= collections.OrderedDict()
-        d['id']=row[0]
-        d['name']= row[2].capitalize()
-        amount=row[3]
-        currency= "{:,.2f}".format(amount)
-        d['price']= currency
-        d['url']=row[7]
-        d['description']= row[4]
+        d = collections.OrderedDict()
+        d['itemId'] = row[0]
+        d['userId'] = row[1]
+        d['name'] = row[2].capitalize()
+        amount = row[3]
+        currency = "{:,.2f}".format(amount)
+        d['price'] = currency
+        d['url'] = row[7]
+        d['description'] = row[4]
 
         objects_list.append(d)
 
     return json.dumps(objects_list)
 
-def DeleteItems(id):
-    id=str(id)
-    query="Delete from [Items] where ItemID = "+id
+def DeleteItems(itemId):
+    itemId = str(itemId)
+    query = "Delete from [Items] where ItemID = "+ itemId
     dbfuncs.modifyDB(query)
 
 def addItemList(request):
@@ -35,14 +36,14 @@ def addItemList(request):
                 VALUES 
                     (?,?,?,?,?,?,?)
             """
-    id = dbfuncs.getIDs()
-    tuple = (id, 1, request['itemName'], request['price'], request['description'], False, request['url'])
+    itemId = dbfuncs.getIDs()
+    tuple = (itemId, request['userId'], request['itemName'], request['price'], request['description'], False, request['url'])
 
     dbfuncs.addQuery(query, tuple)
 
     return '', 200
 
-def editItemList(id, request):
+def editItemList(itemId, request):
     query = """
                 UPDATE 
                     [dbo].[Items]
@@ -55,32 +56,33 @@ def editItemList(id, request):
                     itemID = ?
             """
     # Inputs set into tuple for execute function
-    tuple = (request['itemName'], request['price'], request['description'], request['url'], id)
+    tuple = (request['itemName'], request['price'], request['description'], request['url'], itemId)
     dbfuncs.addQuery(query, tuple)
 
     return '', 200
 
-def updateItemList(id):
+def updateItemList(itemId):
     query = """ 
                 SELECT * 
                 FROM [dbo].[Items] 
                 WHERE itemID = ?
             """
     
-    tuple = (str(id))
+    tuple = (str(itemId))
     rows = dbfuncs.updateQuery(query, tuple)
 
     objects_list = []
 
     for row in rows:
         d= collections.OrderedDict()
-        d['id']=row[0]
-        d['name']= row[2].capitalize()
-        amount=row[3]
-        currency= "{:,.2f}".format(amount)
-        d['price']= currency
-        d['url']=row[7]
-        d['description']= row[4]
+        d['itemId'] = row[0]
+        d['userId'] = row[1]
+        d['name' ]= row[2].capitalize()
+        amount = row[3]
+        currency = "{:,.2f}".format(amount)
+        d['price'] = currency
+        d['url'] = row[7]
+        d['description'] = row[4]
 
         objects_list.append(d)
 

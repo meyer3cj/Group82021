@@ -1,6 +1,6 @@
 import React from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import {List, Header } from "semantic-ui-react";
+import { useNavigate } from 'react-router-dom';
+import {List} from "semantic-ui-react";
 
 export const ItemList = ({items}) => {
     // Use navigation for different forms
@@ -17,8 +17,8 @@ export const ItemList = ({items}) => {
      *                                  necessary information                                    *
     **********************************************************************************************
     */
-    const editItemClicked = (id) => {
-        navigate(`/edit/${id}`);
+    const editItemClicked = (itemId) => {
+        navigate(`/edit/${itemId}`);
     }
 
     // TODO: Move style to a css file which this file can access
@@ -29,7 +29,12 @@ export const ItemList = ({items}) => {
             width: '80%',
             marginLeft: '10%',
             backgroundColor:'rgb(220,220,220'
-        }
+    }
+
+    // TODO: Move style to a css file which this file can access
+    const linkstyle= { 
+            textDecoration:'none'
+    }
 
     return(    
         <List>
@@ -38,12 +43,12 @@ export const ItemList = ({items}) => {
                     <List.Item key = {item.name}>
                         <div class='item'style={itemstyle}>
                             <div>
-                                <p>{item.id.toString()}</p>
-                                <h3><a class='link' href={`//${item.url}`} target="_blank">{item.name}</a></h3>
+                                <p>{item.itemId.toString()}</p>
+                                <h3><a class='link' style={linkstyle} href={`//${item.url}`} target="_blank">{item.name}</a></h3>
                                 <p>${item.price}</p>
                             </div>
                             <p>{item.description}</p>
-                            <button onClick={e => {e.preventDefault(); editItemClicked(item.id)}}>edit</button>
+                            <button onClick={e => {e.preventDefault(); editItemClicked(item.itemId)}}>edit</button>
                         </div>
                     </List.Item>
                 )
