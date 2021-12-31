@@ -37,7 +37,8 @@ export const ItemList = ({items}) => {
     }
 
     const imageStyle= {
-        float: 'right'
+        float: 'right',
+        margin:'20px',
     }
     return(    
         <List>

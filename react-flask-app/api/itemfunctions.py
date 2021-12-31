@@ -51,12 +51,12 @@ def deleteItems(itemId):
 def addItemList(request):
     query = """
                 INSERT INTO 
-                    [dbo].[Items] (itemID, UserID, ItemName, ItemPrice, ItemDescription, Purchased, ItemURL)
+                    [dbo].[Items] (itemID, UserID, ItemName, ItemPrice, ItemDescription, Purchased, ItemURL,ItemImage)
                 VALUES 
-                    (?,?,?,?,?,?,?)
+                    (?,?,?,?,?,?,?,?)
             """
     itemId = dbfuncs.getIDs()
-    tuple = (itemId, request['userId'], request['itemName'], request['price'], request['description'], False, request['url'])
+    tuple = (itemId, request['userId'], request['itemName'], request['price'], request['description'], False, request['url'],request['image'])
 
     dbfuncs.editDB(query, tuple)
 

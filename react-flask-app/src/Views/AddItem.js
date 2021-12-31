@@ -9,13 +9,14 @@ import "../CSS_Files/ItemInfo.css";
 const api = axios.create({
     baseURL: 'http://localhost:3000/'
 })
-
+let iName='';
 const AddItem = () => {
     const [name, setName] = useState("");
     const [price, setPrice] = useState("");
     const [description, setDescription] = useState("");
     const [url, setUrl] = useState("");
     const [userId, setUserId] = useState("");
+    const [image, setImage]= useState("");
 
      // Use Effect to fetch data info
      /* TODO: When we create login feature need to obtain userId from login
@@ -29,7 +30,7 @@ const AddItem = () => {
             setUserId(1);
         })
     }, [])
-
+    
     const navigate = useNavigate();
 
     // Need to prevent default to prevent warning message that form is disconnected
@@ -37,10 +38,12 @@ const AddItem = () => {
         e.preventDefault()
         navigate("/home");
     }
-    const getImages=async() =>{
-        
-    } 
+    const getImage= async () =>{
+        iName={name}
+        console.log(iName)
+        axios.post()
 
+    }
     return(
         <Form className = "formView">
             <Form.Field className = "inputContainer">
@@ -93,7 +96,9 @@ const AddItem = () => {
                         userId: userId,
                         price: price,
                         description: description,
-                        url: url.toString().replace(/(^\w+:|^)\/\//, '')
+                        url: url.toString().replace(/(^\w+:|^)\/\//, ''),
+                        image: image,
+
                     };
 
                     const response = await api.post('/add', item)
