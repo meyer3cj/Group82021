@@ -37,17 +37,24 @@ const AddItem = () => {
         e.preventDefault()
         navigate("/home");
     }
+    const getImages=async() =>{
+        
+    } 
 
     return(
         <Form className = "formView">
             <Form.Field className = "inputContainer">
                 <Input
                     className='input'
+                    id= 'itemName' 
                     type = "text"
                     placeholder = "Item Name"
                     value = {name}
                     onChange = {e => setName(e.target.value)}
                 />
+            </Form.Field>
+            <Form.Field>
+                 <Button onClick= {async() =>{console.log(itemName.value())}}>Hello</Button>            
             </Form.Field>
             <Form.Field className = "inputContainer">
                 <Input

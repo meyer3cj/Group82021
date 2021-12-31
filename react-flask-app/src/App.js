@@ -14,6 +14,7 @@ export const App = () => {
                             <Route exact path = '/home' element={<Home />}/>
                             <Route exact path = '/add' element={<AddItem />}/>
                             <Route exact path = '/edit/:itemId' element={<EditItem />}/>
+                            
                         </Routes>
                     </div>
                 </BrowserRouter>

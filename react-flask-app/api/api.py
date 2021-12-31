@@ -1,5 +1,7 @@
 from flask import Flask,request
 import itemfunctions
+import getImages
+
 
 app = Flask(__name__)
 
@@ -14,7 +16,10 @@ def itemList():
 def getItemList(itemId):
     return itemfunctions.getItemList(itemId)
 
-# Post requestsj
+@app.route('/getImages', methods=['GET'])
+def getImagedata():
+    getImages.getImages('tv')
+
 # Add item to database
 @app.route('/add', methods=['POST'])
 def addItemList():

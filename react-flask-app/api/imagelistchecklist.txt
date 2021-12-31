@@ -1,0 +1,8 @@
+backend function to pull images (done)
+send data from add and edit pages to call api and get images when button is clicked
+show images on pages when button is clicked
+save image link to database for that item when user clicks on image
+
+
+
+

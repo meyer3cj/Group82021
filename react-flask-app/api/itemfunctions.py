@@ -26,7 +26,8 @@ def getItems():
         amount = row[3]
         currency = "{:,.2f}".format(amount)
         d['price'] = currency
-        d['url'] = row[6]
+        d['image_url']=row[8]
+        d['url'] = row[7]
         d['description'] = row[4]
 
         objects_list.append(d)

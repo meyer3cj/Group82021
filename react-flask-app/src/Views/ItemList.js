@@ -36,6 +36,9 @@ export const ItemList = ({items}) => {
         }
     }
 
+    const imageStyle= {
+        float: 'right'
+    }
     return(    
         <List>
             {items.map(item => {
