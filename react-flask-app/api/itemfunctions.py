@@ -43,7 +43,7 @@ def deleteItems(itemId):
             '''
     tuple = (str(itemId), 1)
 
-    dbfuncs.addQuery(query, tuple)
+    dbfuncs.editDB(query, tuple)
 
     return '', 200
 
@@ -57,7 +57,7 @@ def addItemList(request):
     itemId = dbfuncs.getIDs()
     tuple = (itemId, request['userId'], request['itemName'], request['price'], request['description'], False, request['url'])
 
-    dbfuncs.addQuery(query, tuple)
+    dbfuncs.editDB(query, tuple)
 
     return '', 200
 
@@ -78,7 +78,7 @@ def editItemList(itemId, request):
             """
     # Inputs set into tuple for execute function
     tuple = (request['itemName'], request['price'], request['description'], request['url'], itemId, 1)
-    dbfuncs.addQuery(query, tuple)
+    dbfuncs.editDB(query, tuple)
 
     return '', 200
 

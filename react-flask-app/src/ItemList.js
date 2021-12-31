@@ -26,20 +26,12 @@ export const ItemList = ({items}) => {
         navigate(`/edit/${itemId}`);
     }
 
-    const navigateHome = () =>{ 
-        navigate("/home");
-    }
-
     const deleteItemClicked = async (itemId) => {
         const response = await api.delete(`/del/${itemId}`)
-        
-        /******************************************************************************** 
-         *   In order to not force a refresh of the page which is inefficient, we can   *
-         *  change to a dumbie route and then route back to the correct route instantly *    
-         ********************************************************************************/ 
+
         if (response.status === 200) {
-            navigate("/delete");
-            navigateHome();
+            // Force a refresh of the page.
+            window.location.reload();
         }
         
 

@@ -12,6 +12,7 @@ def itemList():
 # Get information for single list item update from database
 @app.route('/item/<itemId>', methods=['GET'])
 def getItemList(itemId):
+    print(itemId)
     return itemfunctions.getItemList(itemId)
 
 # Post requestsj

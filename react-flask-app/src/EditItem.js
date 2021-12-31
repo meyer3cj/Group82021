@@ -19,8 +19,7 @@ const EditItem = () => {
     let { itemId } = useParams();
 
     // Use Effect to fetch data info
-    // itemId is a dependency but only need to pass into useEffect optionally
-    useEffect((itemId) => {
+    useEffect(() => {
         fetch(`/item/${itemId}`).then(response => {
         if(response.status === 200) {
             return response.json()
@@ -31,13 +30,15 @@ const EditItem = () => {
             setDescription(data[0].description);
             setUrl(data[0].url);
         })
-    }, [])
+    }, [itemId])
     
 
     // Navigation
     const navigate = useNavigate();
 
-    const navigateHome = () =>{ 
+    // Need to prevent default to prevent warning message that form is disconnected
+    const navigateHome = (e) => {
+        e.preventDefault();
         navigate("/home");
     }
 
@@ -88,7 +89,7 @@ const EditItem = () => {
                     const response = await api.post(`/edit/${itemId}`, item)
 
                     if (response.status === 200) {
-                        navigateHome();
+                        navigate("/home")
                     }
                 }}>
                     Submit

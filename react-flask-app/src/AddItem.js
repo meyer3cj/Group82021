@@ -30,7 +30,9 @@ const AddItem = () => {
 
     const navigate = useNavigate();
 
-    const navigateHome = () =>{ 
+    // Need to prevent default to prevent warning message that form is disconnected
+    const navigateHome = (e) => { 
+        e.preventDefault()
         navigate("/home");
     }
 
@@ -86,7 +88,7 @@ const AddItem = () => {
                     const response = await api.post('/add', item)
 
                     if (response.status === 200) {
-                        navigateHome();
+                        navigate("/home")
                     }
                 }}>
                     Submit
