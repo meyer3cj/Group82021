@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Input, Button } from 'semantic-ui-react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -13,6 +13,20 @@ const AddItem = () => {
     const [price, setPrice] = useState("");
     const [description, setDescription] = useState("");
     const [url, setUrl] = useState("");
+    const [userId, setUserId] = useState("");
+
+     // Use Effect to fetch data info
+     /* TODO: When we create login feature need to obtain userId from login
+        Currently hard codes userId to be 1 */
+     useEffect(() => {
+        fetch(`/home`).then(response => {
+        if(response.status === 200) {
+            return response.json()
+        }
+        }).then(data => {
+            setUserId(1);
+        })
+    }, [])
 
     const navigate = useNavigate();
 
@@ -23,28 +37,32 @@ const AddItem = () => {
     return(
         <Form>
             <Form.Field>
-                <Input 
+                <Input
+                    type = "text"
                     placeholder = "Item Name"
                     value = {name}
                     onChange = {e => setName(e.target.value)}
                 />
             </Form.Field>
             <Form.Field>
-                <Input 
+                <Input
+                    type = "number"
                     placeholder = "Price"
                     value = {price}
                     onChange = {e => setPrice(e.target.value)}
                 />
             </Form.Field>
             <Form.Field>
-                <Input 
+                <Input
+                    type = "text"
                     placeholder = "Description"
                     value = {description}
                     onChange = {e => setDescription(e.target.value)}
                 />
             </Form.Field>
             <Form.Field>
-                <Input 
+                <Input
+                    type = "text"
                     placeholder = "url"
                     value = {url}
                     onChange = {e => setUrl(e.target.value)}
@@ -59,14 +77,15 @@ const AddItem = () => {
                 <Button onClick={async () => {
                     const item = {
                         itemName: name,
+                        userId: userId,
                         price: price,
                         description: description,
-                        url: url.replace(/(^\w+:|^)\/\//, '')
+                        url: url.toString().replace(/(^\w+:|^)\/\//, '')
                     };
 
                     const response = await api.post('/add', item)
 
-                    if (response.status == 200) {
+                    if (response.status === 200) {
                         navigateHome();
                     }
                 }}>

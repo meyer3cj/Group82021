@@ -1,11 +1,20 @@
-from typing import Collection
 import dbfuncs
 import json
-import cutsiteURL
 import collections
 
-def GetItems():
-    rows = dbfuncs.readDB('Select * from [Items]')
+def getItems():
+    query = '''
+                SELECT 
+                    *
+                FROM 
+                    [Items]
+                WHERE 
+                    userId = ?
+            '''
+            
+    tuple = (1);
+
+    rows = dbfuncs.readDB(query, tuple);
 
     objects_list = []
 
@@ -17,17 +26,26 @@ def GetItems():
         amount = row[3]
         currency = "{:,.2f}".format(amount)
         d['price'] = currency
-        d['url'] = row[7]
+        d['url'] = row[6]
         d['description'] = row[4]
 
         objects_list.append(d)
 
     return json.dumps(objects_list)
 
-def DeleteItems(itemId):
-    itemId = str(itemId)
-    query = "Delete from [Items] where ItemID = "+ itemId
-    dbfuncs.modifyDB(query)
+def deleteItems(itemId):
+    query = '''
+                DELETE FROM [Items] 
+                WHERE 
+                    ItemID = ?
+                AND
+                    userId = ?
+            '''
+    tuple = (str(itemId), 1)
+
+    dbfuncs.addQuery(query, tuple)
+
+    return '', 200
 
 def addItemList(request):
     query = """
@@ -44,6 +62,7 @@ def addItemList(request):
     return '', 200
 
 def editItemList(itemId, request):
+    print (request)
     query = """
                 UPDATE 
                     [dbo].[Items]
@@ -53,23 +72,30 @@ def editItemList(itemId, request):
                     itemDescription = ?,
                     itemURL = ?
                 WHERE 
-                    itemID = ?
+                    itemID = ? 
+                AND 
+                    userId = ?
             """
     # Inputs set into tuple for execute function
-    tuple = (request['itemName'], request['price'], request['description'], request['url'], itemId)
+    tuple = (request['itemName'], request['price'], request['description'], request['url'], itemId, 1)
     dbfuncs.addQuery(query, tuple)
 
     return '', 200
 
-def updateItemList(itemId):
+def getItemList(itemId):
     query = """ 
-                SELECT * 
-                FROM [dbo].[Items] 
-                WHERE itemID = ?
+                SELECT 
+                    * 
+                FROM 
+                    [dbo].[Items] 
+                WHERE 
+                    itemID = ?
+                AND
+                    userId = ?
             """
     
-    tuple = (str(itemId))
-    rows = dbfuncs.updateQuery(query, tuple)
+    tuple = (str(itemId), 1)
+    rows = dbfuncs.readDB(query, tuple)
 
     objects_list = []
 
@@ -81,7 +107,7 @@ def updateItemList(itemId):
         amount = row[3]
         currency = "{:,.2f}".format(amount)
         d['price'] = currency
-        d['url'] = row[7]
+        d['url'] = row[6]
         d['description'] = row[4]
 
         objects_list.append(d)

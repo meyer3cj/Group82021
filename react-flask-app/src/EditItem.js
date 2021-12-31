@@ -15,13 +15,14 @@ const EditItem = () => {
     const [description, setDescription] = useState("");
     const [url, setUrl] = useState("");
     
-    // This hook is a dictionary which will be used to display fields to user.
-    //const [items, setItem] = useState([]);
+    // Used for obtaining the item ID to edit.
+    let { itemId } = useParams();
 
     // Use Effect to fetch data info
-    useEffect(() => {
-        fetch(`/update/${itemId}`).then(response => {
-        if(response.status == 200) {
+    // itemId is a dependency but only need to pass into useEffect optionally
+    useEffect((itemId) => {
+        fetch(`/item/${itemId}`).then(response => {
+        if(response.status === 200) {
             return response.json()
         }
         }).then(data => {
@@ -31,9 +32,7 @@ const EditItem = () => {
             setUrl(data[0].url);
         })
     }, [])
-
-    // Used for obtaining the item ID to edit.
-    let { itemId } = useParams();
+    
 
     // Navigation
     const navigate = useNavigate();
@@ -41,7 +40,6 @@ const EditItem = () => {
     const navigateHome = () =>{ 
         navigate("/home");
     }
-
 
     return(   
         <Form>
@@ -84,12 +82,12 @@ const EditItem = () => {
                         itemName: name,
                         price: price,
                         description: description,
-                        url: url.replace(/(^\w+:|^)\/\//, '')
+                        url: url.toString().replace(/(^\w+:|^)\/\//, '')
                     };
 
                     const response = await api.post(`/edit/${itemId}`, item)
 
-                    if (response.status == 200) {
+                    if (response.status === 200) {
                         navigateHome();
                     }
                 }}>
