@@ -16,10 +16,11 @@ def itemList():
 def getItemList(itemId):
     return itemfunctions.getItemList(itemId)
 
-@app.route('/getImages', methods=['GET'])
+@app.route('/getitemName', methods=['POST'])
 def getImagedata():
-    getImages.getImages('tv')
-
+    response= request.json
+    print(response)
+    return '', 200
 # Add item to database
 @app.route('/add', methods=['POST'])
 def addItemList():

@@ -38,12 +38,6 @@ const AddItem = () => {
         e.preventDefault()
         navigate("/home");
     }
-    const getImage= async () =>{
-        iName={name}
-        console.log(iName)
-        axios.post()
-
-    }
     return(
         <Form className = "formView">
             <Form.Field className = "inputContainer">
@@ -56,6 +50,21 @@ const AddItem = () => {
                     onChange = {e => setName(e.target.value)}
                 />
             </Form.Field>
+            <Form.Field>
+                <Button onClick={async () => {
+                    const item = {
+                        itemName: name,
+
+
+                    };
+                    console.log(item);
+                    const response = await api.post('/getitemName', item);
+
+
+                }}>
+                    Hello
+                </Button>
+            </Form.Field>          
             <Form.Field>
                  <Button onClick= {async() =>{console.log(itemName.value())}}>Hello</Button>            
             </Form.Field>
@@ -101,7 +110,7 @@ const AddItem = () => {
 
                     };
 
-                    const response = await api.post('/add', item)
+                    const response = await api.post('/add', item);
 
                     if (response.status === 200) {
                         navigate("/home")
