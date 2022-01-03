@@ -1,0 +1,30 @@
+.formView {
+    margin: 10%;
+    margin-left: 30%;
+    margin-right: 30%;
+    border: 2px solid black;
+}
+
+.inputContainer {
+    padding: 10px;
+    margin: auto;
+    width: 50%;
+    border: 2px solid blue;
+}
+
+input[type="text"] { 
+    margin: auto;
+    padding: 20px 10px; 
+    line-height: 28px;
+    text-align: center;
+}
+
+.homeButton {
+    margin: 10px;
+    float: left;
+}
+
+.submitButton {
+    margin: 10px;
+    float: right;
+}

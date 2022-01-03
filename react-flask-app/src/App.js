@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
-import Home from './Home';
-import AddItem from './AddItem';
-import EditItem from "./EditItem";
+import Home from './Views/Home';
+import AddItem from './Views/AddItem';
+import EditItem from "./Views/EditItem";
 
 export const App = () => {
     return(

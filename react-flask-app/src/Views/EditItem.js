@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Input, Button } from 'semantic-ui-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 
 // TODO: This is used in many places, can extract into its own file
@@ -8,84 +8,83 @@ const api = axios.create({
     baseURL: 'http://localhost:3000/'
 })
 
-const AddItem = () => {
+const EditItem = () => {
+    // Hooks for setting and using user inputted information.
     const [name, setName] = useState("");
     const [price, setPrice] = useState("");
     const [description, setDescription] = useState("");
     const [url, setUrl] = useState("");
-    const [userId, setUserId] = useState("");
+    
+    // Used for obtaining the item ID to edit.
+    let { itemId } = useParams();
 
-     // Use Effect to fetch data info
-     /* TODO: When we create login feature need to obtain userId from login
-        Currently hard codes userId to be 1 */
-     useEffect(() => {
-        fetch(`/home`).then(response => {
+    // Use Effect to fetch data info
+    useEffect(() => {
+        fetch(`/item/${itemId}`).then(response => {
         if(response.status === 200) {
             return response.json()
         }
         }).then(data => {
-            setUserId(1);
+            setName(data[0].name);
+            setPrice(data[0].price);
+            setDescription(data[0].description);
+            setUrl(data[0].url);
         })
-    }, [])
+    }, [itemId])
+    
 
+    // Navigation
     const navigate = useNavigate();
 
     // Need to prevent default to prevent warning message that form is disconnected
-    const navigateHome = (e) => { 
-        e.preventDefault()
+    const navigateHome = (e) => {
+        e.preventDefault();
         navigate("/home");
     }
 
-    return(
-        <Form>
-            <Form.Field>
+    return(   
+        <Form className = "formView">
+            <Form.Field className = "inputContainer">
                 <Input
                     type = "text"
-                    placeholder = "Item Name"
                     value = {name}
                     onChange = {e => setName(e.target.value)}
                 />
             </Form.Field>
-            <Form.Field>
+            <Form.Field className = "inputContainer">
                 <Input
                     type = "number"
-                    placeholder = "Price"
                     value = {price}
                     onChange = {e => setPrice(e.target.value)}
                 />
             </Form.Field>
-            <Form.Field>
+            <Form.Field className = "inputContainer">
                 <Input
                     type = "text"
-                    placeholder = "Description"
                     value = {description}
                     onChange = {e => setDescription(e.target.value)}
                 />
             </Form.Field>
-            <Form.Field>
+            <Form.Field className = "inputContainer">
                 <Input
                     type = "text"
-                    placeholder = "url"
                     value = {url}
                     onChange = {e => setUrl(e.target.value)}
                 />
             </Form.Field>
             <Form.Field>
-                <Button onClick={navigateHome}>
+                <Button className = "homeButton" onClick={navigateHome}>
                     Home
                 </Button>
-            </Form.Field>
-            <Form.Field>
-                <Button onClick={async () => {
+                <Button className = "submitButton" onClick={async () => {
                     const item = {
                         itemName: name,
-                        userId: userId,
                         price: price,
                         description: description,
                         url: url.toString().replace(/(^\w+:|^)\/\//, '')
                     };
 
-                    const response = await api.post('/add', item)
+                    const response = await api.post(`/edit/${itemId}`, item)
 
                     if (response.status === 200) {
                         navigate("/home")
@@ -95,7 +94,7 @@ const AddItem = () => {
                 </Button>
             </Form.Field>
         </Form>
-    )
+    )   
 }
 
-export default AddItem;
+export default EditItem;

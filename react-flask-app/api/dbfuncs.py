@@ -3,7 +3,6 @@ import textwrap
 
 
 def readDB(query, tuple):
-    print(query)
     """Connects to database and queries based on input"""
     #sql driver
     driver='{ODBC Driver 17 for SQL Server}'
@@ -43,8 +42,6 @@ def readDB(query, tuple):
 
     csr: pyodbc.Cursor = cnxn.cursor()
     
-    
-    print(tuple)
     csr.execute(query, tuple)
 
     myresult = csr.fetchall()

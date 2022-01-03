@@ -2,6 +2,7 @@ import React from 'react';
 import { List } from "semantic-ui-react";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import "../CSS_Files/ListStyle.css";
 
 // TODO: This is used in many places, can extract into its own file
 const api = axios.create({
@@ -33,24 +34,6 @@ export const ItemList = ({items}) => {
             // Force a refresh of the page.
             window.location.reload();
         }
-        
-
-    }
-
-
-    // TODO: Move style to a css file which this file can access
-    const itemstyle={
-            border: '2px solid black',
-            marginBottom:'20px',
-            boxShadow:'2px 2px 4px 6px white',
-            width: '80%',
-            marginLeft: '10%',
-            backgroundColor:'rgb(220,220,220'
-    }
-
-    // TODO: Move style to a css file which this file can access
-    const linkstyle= { 
-            textDecoration:'none'
     }
 
     return(    
@@ -58,10 +41,10 @@ export const ItemList = ({items}) => {
             {items.map(item => {
                 return (
                     <List.Item key = {item.name}>
-                        <div className ='item'style={itemstyle}>
+                        <div className = 'item'>
                             <div>
                                 <p>{item.itemId.toString()}</p>
-                                <h3><a className='link' style={linkstyle} href={`//${item.url}`} target="_blank" rel="noreferrer">{item.name}</a></h3>
+                                <h3><a className='link' href={`//${item.url}`} target="_blank" rel="noreferrer">{item.name}</a></h3>
                                 <p>${item.price}</p>
                             </div>
                             <p>{item.description}</p>

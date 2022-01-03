@@ -62,7 +62,6 @@ def addItemList(request):
     return '', 200
 
 def editItemList(itemId, request):
-    print (request)
     query = """
                 UPDATE 
                     [dbo].[Items]
