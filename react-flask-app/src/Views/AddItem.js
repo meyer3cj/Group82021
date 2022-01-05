@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Input, Button } from 'semantic-ui-react';
 import { useNavigate } from 'react-router-dom';
+import images from './images';
 import axios from 'axios';
 import "../CSS_Files/ItemInfo.css";
 
@@ -16,7 +17,7 @@ const AddItem = () => {
     const [description, setDescription] = useState("");
     const [url, setUrl] = useState("");
     const [userId, setUserId] = useState("");
-    const [image, setImage]= useState("");
+    const [imagestate, setImage]= useState("");
 
      // Use Effect to fetch data info
      /* TODO: When we create login feature need to obtain userId from login
@@ -33,9 +34,17 @@ const AddItem = () => {
     
     const navigate = useNavigate();
 
+    const imagediv= {
+        border: '2px solid black',
+        padding: '5px',
+        width: '40%',
+        marginLeft: '10%'
+    }
+
     // Need to prevent default to prevent warning message that form is disconnected
     const navigateHome = (e) => { 
         e.preventDefault()
+
         navigate("/home");
     }
     return(
@@ -59,12 +68,19 @@ const AddItem = () => {
                     };
                     console.log(item);
                     const response = await api.post('/getitemName', item);
+                    console.log(response.data);
+                    setImage(response.data);
 
+
+
+
+                    
 
                 }}>
-                    Hello
+                    Search Images
                 </Button>
-            </Form.Field>          
+            </Form.Field>
+                
             <Form.Field>
                  <Button onClick= {async() =>{console.log(itemName.value())}}>Hello</Button>            
             </Form.Field>
@@ -77,10 +93,16 @@ const AddItem = () => {
                     onChange = {e => setPrice(e.target.value)}
                 />
             </Form.Field>
+<<<<<<< HEAD:react-flask-app/src/Views/AddItem.js
             <Form.Field className = "inputContainer">
                 <Input
                     className='input'
                     type = "text"
+=======
+                
+            <Form.Field>
+                <Input 
+>>>>>>> 72c3792 (commit current changes 2):react-flask-app/src/AddItem.js
                     placeholder = "Description"
                     value = {description}
                     onChange = {e => setDescription(e.target.value)}
@@ -105,9 +127,14 @@ const AddItem = () => {
                         userId: userId,
                         price: price,
                         description: description,
+<<<<<<< HEAD:react-flask-app/src/Views/AddItem.js
                         url: url.toString().replace(/(^\w+:|^)\/\//, ''),
                         image: image,
 
+=======
+                        url: url.replace(/(^\w+:|^)\/\//, ''),
+                        image: imagestate,
+>>>>>>> 72c3792 (commit current changes 2):react-flask-app/src/AddItem.js
                     };
 
                     const response = await api.post('/add', item);
