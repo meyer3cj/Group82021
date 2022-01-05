@@ -10,17 +10,29 @@ app = Flask(__name__)
 @app.route('/home', methods=['GET'])
 def itemList():
     return itemfunctions.getItems()
+    
+
+@app.route('/del/<id>', methods=['DELETE'])
+def delete(id):
+    
+    itemfunctions.DeleteItems(id)
+    itemList()
 
 # Get information for single list item update from database
 @app.route('/item/<itemId>', methods=['GET'])
 def getItemList(itemId):
     return itemfunctions.getItemList(itemId)
 
+
 @app.route('/getitemName', methods=['POST'])
 def getImagedata():
     response= request.json
-    print(response)
-    return '', 200
+    itemname= response['itemName']
+    print (itemname)
+    return itemfunctions.searchImages(itemname)
+
+
+
 # Add item to database
 @app.route('/add', methods=['POST'])
 def addItemList():
