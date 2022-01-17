@@ -16,6 +16,8 @@ const AddItem = () => {
     const [description, setDescription] = useState("");
     const [url, setUrl] = useState("");
     const [userId, setUserId] = useState("");
+    const [image,setImage]= useState("");
+
 
      // Use Effect to fetch data info
      /* TODO: When we create login feature need to obtain userId from login
@@ -29,8 +31,8 @@ const AddItem = () => {
             setUserId(1);
         })
     }, [])
-
     const navigate = useNavigate();
+    
 
     // Need to prevent default to prevent warning message that form is disconnected
     const navigateHome = (e) => { 
@@ -48,6 +50,50 @@ const AddItem = () => {
                     value = {name}
                     onChange = {e => setName(e.target.value)}
                 />
+            </Form.Field>
+            <Form.Field>
+                <Button onClick={async () => {
+                    
+                    let itemName= name;
+
+
+                    console.log(itemName)
+                    const response = await api.get(`/getitemName/${itemName}`, itemName)
+                    console.log(response.data)
+                    let imagediv= document.getElementById('images')
+                    console.log(response.data[0]['url'])
+
+                    
+
+                    let imageClass= document.getElementsByClassName('image')
+                    
+                    const imageclick= ()=>{console.log(this.id);}
+                    let innerHtmlstr= ""
+                    for(let i=0; i< response.data.length; i++){
+                        innerHtmlstr += `<img id='image${i}' onClick=imageclick class='image' src=${response.data[i]['url']} height='200px' ></img>`
+                    }
+                    
+                    
+                    
+                    imagediv.innerHTML = innerHtmlstr;
+                    
+                    
+                    
+
+
+
+
+
+                    
+
+                }}>
+                    Search Images
+                </Button>
+            </Form.Field>
+            <Form.Field>
+                <div id='images'>
+
+                </div>
             </Form.Field>
             <Form.Field className = "inputContainer">
                 <Input
@@ -67,6 +113,7 @@ const AddItem = () => {
                     onChange = {e => setDescription(e.target.value)}
                 />
             </Form.Field>
+            
             <Form.Field className = "inputContainer">
                 <Input
                     className='input'
@@ -86,6 +133,7 @@ const AddItem = () => {
                         userId: userId,
                         price: price,
                         description: description,
+                        imageUrl: image,
                         url: url.toString().replace(/(^\w+:|^)\/\//, '')
                     };
 

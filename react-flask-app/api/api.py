@@ -39,3 +39,10 @@ def delete(itemId):
 
     return '',200
 
+@app.route('/getitemName/<itemName>', methods=['GET'])
+def getImagedata(itemName):
+    name= itemName
+    print ('item name is ' +str(itemName))
+    urls=itemfunctions.SearchImages(name)
+
+    return urls
