@@ -137,10 +137,9 @@ def SearchImages(query):
         d['title']=images[i]['title']
         imagelist.append(d)
 
-    print(imagelist)
     j= json.dumps(imagelist)
-    print(j)
     return j
+    # FIX: This isnt going to get called after return value?
 '''
     with open('images.txt','w') as f:
 

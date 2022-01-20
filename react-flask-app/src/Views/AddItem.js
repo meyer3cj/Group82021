@@ -17,6 +17,7 @@ const AddItem = () => {
     const [url, setUrl] = useState("");
     const [userId, setUserId] = useState("");
     const [image,setImage]= useState("");
+    const [imageList, setImageList] = useState([]);
 
 
      // Use Effect to fetch data info
@@ -56,26 +57,33 @@ const AddItem = () => {
                     
                     let itemName= name;
 
-
-                    console.log(itemName)
                     const response = await api.get(`/getitemName/${itemName}`, itemName)
+
+                    // TODO: Remove console log
                     console.log(response.data)
-                    let imagediv= document.getElementById('images')
-                    console.log(response.data[0]['url'])
 
                     
 
-                    let imageClass= document.getElementsByClassName('image')
+
+                    // let imagediv= document.getElementById('images')
+                    // //console.log(response.data[0]['url'])
+
                     
-                    const imageclick= ()=>{console.log(this.id);}
-                    let innerHtmlstr= ""
-                    for(let i=0; i< response.data.length; i++){
-                        innerHtmlstr += `<img id='image${i}' onClick=imageclick class='image' src=${response.data[i]['url']} height='200px' ></img>`
-                    }
+
+                    // let imageClass= document.getElementsByClassName('image')
+                    
+                    // const imageclick = () => {console.log(this.id);}
+                    // let innerHtmlstr= ""
+                    // for(let i=0; i< response.data.length; i++){
+                    //     <Form.Field>
+                    //         <img id='image${i}' onClick='imageclick' class='image' src={response.data[i]['url']} height='200px' ></img>
+                    //     </Form.Field>
+                    //     //innerHtmlstr += `<img id='image${i}' onClick=imageclick class='image' src=${response.data[i]['url']} height='200px' ></img>`
+                    // }
                     
                     
                     
-                    imagediv.innerHTML = innerHtmlstr;
+                    //imagediv.innerHTML = innerHtmlstr;
                     
                     
                     
