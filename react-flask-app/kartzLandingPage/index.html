@@ -1,120 +1,109 @@
 <!DOCTYPE html>
-<html>
-<head>
-	<title>Login And Registration Form</title>
-	<link rel="stylesheet" href="style.css">
-</head>
-<body>
-	<div class="hero">
-		<div class="form-box">
-			<div class="button-box">
-				<div id="btn"></div>
-				<button type="button" class="toggle-btn" onclick="login()">Log In</button>
-				<button type="button" class="toggle-btn" onclick="register()">Register</button>
-			</div>
-			<div class="social-icons">
-		    	<img src="fb.png">
-				<img src="tw.jpg">
-				<img src="g+.jpg">
-			</div>
-			<form id="login" class="input-group">
-				<input type="text" class="input-field" placeholder="User Id" required>
-				<input type="text" class="input-field" placeholder="Enter Password" required>
-				<input type="checkbox" class="chech-box"><span>Remember Password</span>
-				<button type="submit" class="submit-btn">Log In</button> 
-			</form>
-			<form id="register" class="input-group">
-				<input type="text" class="input-field" placeholder="User Id" required>
-				<input type="email" class="input-field" placeholder="Email" required>
-				<input type="text" class="input-field" placeholder="Enter Password" required>
-				<input type="checkbox" class="chech-box"><span>I agree to the terms & conditions</span>
-				<button type="submit" class="submit-btn">Register</button> 
-			</form>
-		</div>
-			</div>
-
-			<script>
-			var x = document.getElementById("login");
-			var y = document.getElementById("register");
-			var z = document.getElementById("btn");
-
-			function register(){
-				x.style.left = "-400px";
-				y.style.left = "50px";
-				z.style.left = "110px";
-			}
-			function login(){
-				x.style.left = "50px";
-				y.style.left = "450px";
-				z.style.left = "0px";
-			}
-
-			</script>
 <html lang="en">
-	<head>
-  	<meta charset="UTF-8">
-  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-  	<title>Icon Button Notification Badge</title>
-  	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  	<style>
-  		body {
-  			margin: 25px;
-		}
-
-		.icon-button {
-  			position: relative;
-  			display: flex;
-  			align-items: center;
-  			justify-content: center;
-  			width: 50px;
-  			height: 50px;
-  			color: #333333;
-  			background: #dddddd;
-  			border: none;
-  			outline: none;
-  			border-radius: 50%;
-		}
-
-		.icon-button:hover {
-		  cursor: pointer;
-		}
-
-		.icon-button:active {
-		  background: #cccccc;
-		}
-
-		.icon-button__badge {
-		  position: absolute;
-		  top: -1px;
-		  right: -1px;
-		  width: 18px;
-		  height: 18px;
-		  background: red;
-		  color: #ffffff;
-		  display: flex;
-		  justify-content: center;
-		  align-items: center;
-		  border-radius: 40%;
-		}
-
-  </style>
+<head>
+  <meta charset="UTF-8" />
+  <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge" /> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>
+   src="https://kit.fontawesome.com/64d58efce2.js"
+   crossorigin="anonymous"
+  </script>  
+  <link rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" 
+    integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="style.css" />
+  <title>Kartz Landing Page</title>
 </head>
 
 <body>
-  <button type="button" class="icon-button">
-    <span class="material-icons">notifications</span>
-    <span class="icon-button__badge">5</span>
-  </button>
-</body>
+  <div class="container">
+  	<div class="forms-container">
+  	 <div class="signin-signup">
+  	   <form action="#" class="sign-in-form">
+  	   	<h2 class="title">Sign In</h2>
+  	   	<div class="input-field">
+  	   	 <i class="fas fa-user"></i>
+  	   	 <input type="text" placeholder="Username" />
+  	   	</div>
+  	   	<div class="input-field">
+  	   	 <i class="fas fa-lock"></i>
+  	   	 <input type="password" placeholder="Password" />  	   	
+  	   	</div>
+  	   	<input class="btn solid" type="submit" value="Login"/>
+  	   	<p class="social-text">Or Sign in with social platforms</p>
+  	   	<div class="social-media">
+  	   	  <a href="#" class="social-icon">
+  	   	  	<i class="fab fa-facebook-f"></i>
+  	  	  </a>
+  	  	  <a href="#" class="social-icon">
+  	   	  	<i class="fab fa-twitter"></i>
+  	  	  </a>
+  	  	  <a href="#" class="social-icon">
+  	   	  	<i class="fab fa-google"></i>
+  	  	  </a>
+  	  	  <a href="#" class="social-icon">
+  	   	  	<i class="fab fa-linkedin-in"></i>
+  	  	  </a>
+  	    </div>
+	   </form>      
+      <!-- <div class="signup-signup"> -->
+  	   <form action="#" class="sign-up-form">
+  	   	<h2 class="title">Sign Up</h2>
+  	   	<div class="input-field">
+  	   	 <i class="fas fa-user"></i>
+  	   	 <input type="text" placeholder="Username" />
+  	   	</div>
+  	   	<div class="input-field">
+  	   	 <i class="fas fa-envelope"></i>
+  	   	 <input type="email" placeholder="Email" />
+  	   	</div>
+  	   	<div class="input-field">
+  	   	 <i class="fas fa-lock"></i>
+  	   	 <input type="password" placeholder="Password" />  	   	
+  	   	</div>
+  	   	<input type="submit" class="btn" value="Sign Up" />
+  	   	<p class="social-text">Or Sign up with social platforms</p>
+  	   	<div class="social-media">
+  	   	  <a href="#" class="social-icon">
+  	   	  	<i class="fab fa-facebook-f"></i>
+  	  	  </a>
+  	  	  <a href="#" class="social-icon">
+  	   	  	<i class="fab fa-twitter"></i>
+  	  	  </a>
+  	  	  <a href="#" class="social-icon">
+  	   	  	<i class="fab fa-google"></i>
+  	  	  </a>
+  	  	  <a href="#" class="social-icon">
+  	   	  	<i class="fab fa-linkedin-in"></i>
+  	  	  </a>
+  	    </div>
+	   </form>
+      </div>
+  	 </div>
 
-		<div class="title">
-			<h1>Kartz</h1>
-		</div>
-		<div class="button">
-			<a href="#" class="btn">User</a>
-			<a href="#" class="btn">Use App</a>
-			<a href="#" class="btn">Order Items</a>
-		</div>
-	</header>
-	</body>
+  	<div class="panels-container">
+  	  <div class="panel left-panel">
+  	  	<div class="content">
+  	  	 <h3>New Here?</h3>
+  	  	  <p>
+  	  	  	The site is designed to allow a user to gather items from their online shopping carts and can notify them of stock updates and price changes from multiple sites. The application will also save purchase information for ease of access when completing a purchase. The site is aimed towards consumers that frequently shop online on multiple websites in order to organize and monitor online items and services.
+  	  	  </p>
+  	  	  <button class="btn transparent" id="sign-up-btn">Sign Up</button>
+  	  	  </div>
+  	  	  <img src="img/log.svg" class="image" alt="" />
+  	  	</div>  	  	
+  	  	<div class="panel right-panel">
+  	  	 <div class="content">
+  	  	  <h3>One of us?</h3>
+  	  	   <p>
+  	  	  		As a frequent online shopping user, I want to organize and save all desired products in one location, so I can keep track of which purchases I have to make or have made. As a company owner, I want a way to make multiple shopping lists in one application, so that I can order each of my employees required equipment. As a mother, I want a way to save gift ideas for my children for later date in a single location, so that I can revisit the items later. As a student, I want a way to order supplies needed for school at the most affordable rate from different sites, so I can get save the most money ordering my supplies. As a teacher, I want a way to save assignment or project ideas for my students that I could come back to later, so I can easily locate the items to order for those projects later.
+  	  	   </p>
+  	  	   <button class="btn transparent" id="sign-in-btn">Sign In</button>
+  	  	  </div>
+  	  	  <img src="img/register.svg" class="image" alt="" />
+  	    </div>
+  	  </div>
+    </div>
+   <script src="app.js"></script>
+ </body>
 </html>
