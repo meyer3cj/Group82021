@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Input, Button } from 'semantic-ui-react';
+import { Form, Input, Button, List } from 'semantic-ui-react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import "../CSS_Files/ItemInfo.css";
@@ -60,9 +60,24 @@ const AddItem = () => {
                     const response = await api.get(`/getitemName/${itemName}`, itemName)
 
                     // TODO: Remove console log
+                    
+                    let items= response.data.map;
                     console.log(response.data)
 
-                    
+
+                    return(
+                        <List>{response.data.map(item => {
+                            return(
+                            
+                            <List.Item key={item.title}>
+                                <div>{item.url}</div>
+                            </List.Item>)
+                        
+                        })
+
+
+
+                            }</List>)
 
 
                     // let imagediv= document.getElementById('images')

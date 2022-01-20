@@ -11,6 +11,7 @@ const api = axios.create({
 
 export const ItemList = ({items}) => {
     // Use navigation for different forms
+    console.log({items})
     const navigate = useNavigate();
 
     // When buttons are clicked Navigate to proper routes
