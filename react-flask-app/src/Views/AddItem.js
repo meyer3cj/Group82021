@@ -22,7 +22,6 @@ const AddItem = () => {
     const [imageSelected, setImageSelected]=useState("");
 
     useEffect(()=>{
-        console.log('useeffect ran')
 
     },[image,imageSelected])
     
@@ -69,11 +68,9 @@ const AddItem = () => {
                     for(let i=0; i< response.data.length; i++){
                         imageUrls.push(response.data[i])
                     }
-                    console.log(response.data)
+                  
                     setImage(itemName)
                     setImageList(imageUrls)
-                    
-
 }}>
                     Search Images
                 </Button>

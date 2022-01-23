@@ -70,14 +70,15 @@ def editItemList(itemId, request):
                     itemName = ?,
                     itemPrice = ?,
                     itemDescription = ?,
-                    itemURL = ?
+                    itemURL = ?,
+                    itemImage = ?
                 WHERE 
                     itemID = ? 
                 AND 
                     userId = ?
             """
     # Inputs set into tuple for execute function
-    tuple = (request['itemName'], request['price'], request['description'], request['url'], itemId, 1)
+    tuple = (request['itemName'], request['price'], request['description'], request['url'], request['imageUrl'], itemId, 1)
     dbfuncs.editDB(query, tuple)
 
     return '', 200
@@ -109,6 +110,7 @@ def getItemList(itemId):
         d['price'] = currency
         d['url'] = row[6]
         d['description'] = row[4]
+        d['image']=row[8]
 
         objects_list.append(d)
 
