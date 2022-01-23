@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Input, Button, List } from 'semantic-ui-react';
 import { useNavigate } from 'react-router-dom';
+import ImageList from './ImageList';
 import axios from 'axios';
 import "../CSS_Files/ItemInfo.css";
 
@@ -17,8 +18,14 @@ const AddItem = () => {
     const [url, setUrl] = useState("");
     const [userId, setUserId] = useState("");
     const [image,setImage]= useState("");
-    const [imageList, setImageList] = useState([]);
+    const [imageList, setImageList]= useState([]);
+    const [imageSelected, setImageSelected]=useState("");
 
+    useEffect(()=>{
+        console.log('useeffect ran')
+
+    },[image,imageSelected])
+    
 
      // Use Effect to fetch data info
      /* TODO: When we create login feature need to obtain userId from login
@@ -58,64 +65,28 @@ const AddItem = () => {
                     let itemName= name;
 
                     const response = await api.get(`/getitemName/${itemName}`, itemName)
-
-                    // TODO: Remove console log
-                    
-                    let items= response.data.map;
+                    let imageUrls= []
+                    for(let i=0; i< response.data.length; i++){
+                        imageUrls.push(response.data[i])
+                    }
                     console.log(response.data)
-
-
-                    return(
-                        <List>{response.data.map(item => {
-                            return(
-                            
-                            <List.Item key={item.title}>
-                                <div>{item.url}</div>
-                            </List.Item>)
-                        
-                        })
-
-
-
-                            }</List>)
-
-
-                    // let imagediv= document.getElementById('images')
-                    // //console.log(response.data[0]['url'])
-
+                    setImage(itemName)
+                    setImageList(imageUrls)
                     
 
-                    // let imageClass= document.getElementsByClassName('image')
-                    
-                    // const imageclick = () => {console.log(this.id);}
-                    // let innerHtmlstr= ""
-                    // for(let i=0; i< response.data.length; i++){
-                    //     <Form.Field>
-                    //         <img id='image${i}' onClick='imageclick' class='image' src={response.data[i]['url']} height='200px' ></img>
-                    //     </Form.Field>
-                    //     //innerHtmlstr += `<img id='image${i}' onClick=imageclick class='image' src=${response.data[i]['url']} height='200px' ></img>`
-                    // }
-                    
-                    
-                    
-                    //imagediv.innerHTML = innerHtmlstr;
-                    
-                    
-                    
-
-
-
-
-
-                    
-
-                }}>
+}}>
                     Search Images
                 </Button>
             </Form.Field>
             <Form.Field>
                 <div id='images'>
-
+                    <ImageList 
+                    name={image} 
+                    images={imageList}
+                    setImageClicked={imageSelected => setImageSelected(imageSelected)}
+                    />
+                    <h2>Selected Image</h2>
+                    <img src={imageSelected}></img>
                 </div>
             </Form.Field>
             <Form.Field className = "inputContainer">
@@ -156,7 +127,7 @@ const AddItem = () => {
                         userId: userId,
                         price: price,
                         description: description,
-                        imageUrl: image,
+                        imageUrl: imageSelected,
                         url: url.toString().replace(/(^\w+:|^)\/\//, '')
                     };
 
@@ -174,3 +145,4 @@ const AddItem = () => {
 }
 
 export default AddItem;
+

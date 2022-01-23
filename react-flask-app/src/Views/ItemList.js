@@ -49,6 +49,7 @@ export const ItemList = ({items}) => {
                                 <p>${item.price}</p>
                             </div>
                             <p>{item.description}</p>
+                            <img src={item.image}></img> <br/>
                             <button onClick={e => {e.preventDefault(); editItemClicked(item.itemId)}}>Edit</button>
                             <button onClick={e => {e.preventDefault(); deleteItemClicked(item.itemId)}}>Delete</button>
                         </div>

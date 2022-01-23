@@ -28,6 +28,7 @@ def getItems():
         d['price'] = currency
         d['url'] = row[6]
         d['description'] = row[4]
+        d['image']=row[8]
 
         objects_list.append(d)
 
@@ -50,12 +51,12 @@ def deleteItems(itemId):
 def addItemList(request):
     query = """
                 INSERT INTO 
-                    [dbo].[Items] (itemID, UserID, ItemName, ItemPrice, ItemDescription, Purchased, ItemURL)
+                    [dbo].[Items] (itemID, UserID, ItemName, ItemPrice, ItemDescription, Purchased, ItemURL, ItemImage)
                 VALUES 
-                    (?,?,?,?,?,?,?)
+                    (?,?,?,?,?,?,?,?)
             """
     itemId = dbfuncs.getIDs()
-    tuple = (itemId, request['userId'], request['itemName'], request['price'], request['description'], False, request['url'])
+    tuple = (itemId, request['userId'], request['itemName'], request['price'], request['description'], False, request['url'], request['imageUrl'])
 
     dbfuncs.editDB(query, tuple)
 
@@ -133,6 +134,7 @@ def SearchImages(query):
     imagelist=[]
     for i in range(15):
         d= collections.OrderedDict()
+        d['id']= i
         d['url']=images[i]['thumbnail']
         d['title']=images[i]['title']
         imagelist.append(d)
