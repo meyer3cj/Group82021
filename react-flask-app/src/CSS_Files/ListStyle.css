@@ -1,4 +1,17 @@
 
+
+.item{
+    border: 1px solid black;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    max-width: 80%;
+    text-align: center;
+}
+.itemList{
+    margin: auto;
+    max-width: 80%;
+}
+
 .imageList{
     list-style: none;
     padding: 35px;

@@ -38,13 +38,13 @@ export const ItemList = ({items}) => {
     }
 
     return(    
-        <List>
+        <List className= 'itemList'>
             {items.map(item => {
                 return (
                     <List.Item key = {item.name}>
-                        <div className = 'item'>
+                        <div>
                             <div>
-                                <p>{item.itemId.toString()}</p>
+                               <p>{item.itemId.toString()}</p>
                                 <h3><a className='link' href={`//${item.url}`} target="_blank" rel="noreferrer">{item.name}</a></h3>
                                 <p>${item.price}</p>
                             </div>

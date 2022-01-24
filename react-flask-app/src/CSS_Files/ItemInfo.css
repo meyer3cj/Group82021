@@ -28,15 +28,3 @@ input[type="text"] {
     margin: 10px;
     float: right;
 }
-.image{
-    border: 2px solid black;
-    padding: 10px;
-    height: 150px;
-    background: #928f8f;
-
-}
-.image:hover{
-    background: #000000;
-    transition-duration: .95s;
-    margin: 10px;
-}
