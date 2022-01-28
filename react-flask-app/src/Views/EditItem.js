@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Input, Button } from 'semantic-ui-react';
+import { Form, Input, Button, Image } from 'semantic-ui-react';
 import { useNavigate, useParams } from 'react-router-dom';
+import ImageList from './ImageList';
 import axios from 'axios';
 
 // TODO: This is used in many places, can extract into its own file
@@ -14,7 +15,10 @@ const EditItem = () => {
     const [price, setPrice] = useState("");
     const [description, setDescription] = useState("");
     const [url, setUrl] = useState("");
-    
+    const [image, setImage]= useState("");
+    const [originalImage,setOriginalImage]= useState("");
+    const [imageList, setImageList]= useState([]);
+    const [imageSelected, setImageSelected]=useState("");    
     // Used for obtaining the item ID to edit.
     let { itemId } = useParams();
 
@@ -29,6 +33,8 @@ const EditItem = () => {
             setPrice(data[0].price);
             setDescription(data[0].description);
             setUrl(data[0].url);
+            setOriginalImage(data[0].image)
+
         })
     }, [itemId])
     
@@ -51,6 +57,36 @@ const EditItem = () => {
                     onChange = {e => setName(e.target.value)}
                 />
             </Form.Field>
+            <Form.Field>
+            <Image src= {originalImage}/> <br></br>
+            <Button onClick={async () => {
+                    
+                    let itemName= name;
+
+                    const response = await api.get(`/getitemName/${itemName}`, itemName)
+                    let imageUrls= []
+                    for(let i=0; i< response.data.length; i++){
+                        imageUrls.push(response.data[i])
+                    }
+                  
+                    setImage(itemName)
+                    setImageList(imageUrls)
+}}>Change Image</Button>
+
+            </Form.Field> 
+            <Form.Field>
+                <div id='images'>
+                    <ImageList 
+                    name={image} 
+                    images={imageList}
+                    setImageClicked={imageSelected => setImageSelected(imageSelected)}
+                    />
+                    <h2>Original Image</h2>
+                    <Image src={originalImage}></Image>
+                    <h2>Selected Image</h2>
+                    <Image src={imageSelected}></Image>
+                </div>
+            </Form.Field>                           
             <Form.Field className = "inputContainer">
                 <Input
                     type = "number"
@@ -81,6 +117,7 @@ const EditItem = () => {
                         itemName: name,
                         price: price,
                         description: description,
+                        imageUrl: imageSelected,
                         url: url.toString().replace(/(^\w+:|^)\/\//, '')
                     };
 

@@ -11,3 +11,7 @@
 .link { 
     text-decoration: none;
 }
+
+.image{
+    display: inline-flex;
+}

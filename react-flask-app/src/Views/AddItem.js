@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Input, Button } from 'semantic-ui-react';
+import { Form, Input, Button, List } from 'semantic-ui-react';
 import { useNavigate } from 'react-router-dom';
+import ImageList from './ImageList';
 import axios from 'axios';
 import "../CSS_Files/ItemInfo.css";
 
@@ -16,6 +17,14 @@ const AddItem = () => {
     const [description, setDescription] = useState("");
     const [url, setUrl] = useState("");
     const [userId, setUserId] = useState("");
+    const [image,setImage]= useState("");
+    const [imageList, setImageList]= useState([]);
+    const [imageSelected, setImageSelected]=useState("");
+
+    useEffect(()=>{
+
+    },[image,imageSelected])
+    
 
      // Use Effect to fetch data info
      /* TODO: When we create login feature need to obtain userId from login
@@ -29,8 +38,8 @@ const AddItem = () => {
             setUserId(1);
         })
     }, [])
-
     const navigate = useNavigate();
+    
 
     // Need to prevent default to prevent warning message that form is disconnected
     const navigateHome = (e) => { 
@@ -48,6 +57,34 @@ const AddItem = () => {
                     value = {name}
                     onChange = {e => setName(e.target.value)}
                 />
+            </Form.Field>
+            <Form.Field>
+                <Button onClick={async () => {
+                    
+                    let itemName= name;
+
+                    const response = await api.get(`/getitemName/${itemName}`, itemName)
+                    let imageUrls= []
+                    for(let i=0; i< response.data.length; i++){
+                        imageUrls.push(response.data[i])
+                    }
+                  
+                    setImage(itemName)
+                    setImageList(imageUrls)
+}}>
+                    Search Images
+                </Button>
+            </Form.Field>
+            <Form.Field>
+                <div id='images'>
+                    <ImageList 
+                    name={image} 
+                    images={imageList}
+                    setImageClicked={imageSelected => setImageSelected(imageSelected)}
+                    />
+                    <h2>Selected Image</h2>
+                    <img src={imageSelected}></img>
+                </div>
             </Form.Field>
             <Form.Field className = "inputContainer">
                 <Input
@@ -67,6 +104,7 @@ const AddItem = () => {
                     onChange = {e => setDescription(e.target.value)}
                 />
             </Form.Field>
+            
             <Form.Field className = "inputContainer">
                 <Input
                     className='input'
@@ -86,6 +124,7 @@ const AddItem = () => {
                         userId: userId,
                         price: price,
                         description: description,
+                        imageUrl: imageSelected,
                         url: url.toString().replace(/(^\w+:|^)\/\//, '')
                     };
 
@@ -103,3 +142,4 @@ const AddItem = () => {
 }
 
 export default AddItem;
+
