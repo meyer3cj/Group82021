@@ -17,7 +17,7 @@ return(
     <List className='imageList'>
         {imageUrls.map(imageUrl=>{
             return(
-                <List.Item key= {imageUrl.id}>
+                <List.Item class = 'image' key= {imageUrl.id}>
                     <Image  
                     onClick={e => {
                         e.preventDefault();
@@ -29,6 +29,7 @@ return(
                 </List.Item>
             )
         })}
+
     </List>
     
     
