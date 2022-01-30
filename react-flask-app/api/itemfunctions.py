@@ -28,7 +28,7 @@ def getItems():
         d['price'] = currency
         d['url'] = row[6]
         d['description'] = row[4]
-        d['image']=row[8]
+        d['image']=row[7]
 
         objects_list.append(d)
 
@@ -51,12 +51,11 @@ def deleteItems(itemId):
 def addItemList(request):
     query = """
                 INSERT INTO 
-                    [dbo].[Items] (itemID, UserID, ItemName, ItemPrice, ItemDescription, Purchased, ItemURL, ItemImage)
+                    [dbo].[Items] (UserID, ItemName, ItemPrice, ItemDescription, Purchased, ItemURL, ItemImage)
                 VALUES 
-                    (?,?,?,?,?,?,?,?)
+                    (?,?,?,?,?,?,?)
             """
-    itemId = dbfuncs.getIDs()
-    tuple = (itemId, request['userId'], request['itemName'], request['price'], request['description'], False, request['url'], request['imageUrl'])
+    tuple = (request['userId'], request['itemName'], request['price'], request['description'], False, request['url'], request['imageUrl'])
 
     dbfuncs.editDB(query, tuple)
 
@@ -110,7 +109,7 @@ def getItemList(itemId):
         d['price'] = currency
         d['url'] = row[6]
         d['description'] = row[4]
-        d['image']=row[8]
+        d['image']=row[7]
 
         objects_list.append(d)
 
