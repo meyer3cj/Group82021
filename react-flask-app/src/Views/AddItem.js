@@ -11,14 +11,12 @@ const api = axios.create({
     baseURL: 'http://localhost:3000/'
 })
 
-// Active user login info
-const user = JSON.parse(localStorage.getItem("user"));
-
 const AddItem = () => {
     const [name, setName] = useState("");
     const [price, setPrice] = useState("");
     const [description, setDescription] = useState("");
     const [url, setUrl] = useState("");
+<<<<<<< HEAD
     const [userId, setUserId] = useState("");
     const [image,setImage]= useState("");
     const [imageList, setImageList]= useState([]);
@@ -39,13 +37,20 @@ const AddItem = () => {
             setUserId(user[0].userId);
         })
     }, [])
+=======
+
+    // Need to get user data for navigation
+    const user = JSON.parse(localStorage.getItem("user"));
+    const userId = user[0].userId;
+
+>>>>>>> faf5eae (Added signup feature. Other changes.)
     const navigate = useNavigate();
     
 
     // Need to prevent default to prevent warning message that form is disconnected
     const navigateHome = (e) => { 
         e.preventDefault()
-        navigate(`/home/${user[0].userId}`);
+        navigate(`/${userId}/home`);
     }
 
     return(
@@ -132,7 +137,7 @@ const AddItem = () => {
                     const response = await api.post('/add', item)
 
                     if (response.status === 200) {
-                        navigate(`/home/${user[0].userId}`)
+                        navigate(`/${userId}/home`)
                     }
                 }}>
                     Submit

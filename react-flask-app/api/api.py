@@ -6,12 +6,12 @@ app = Flask(__name__)
 ## Get requests ##
 
 # Get entire list for user
-@app.route('/home/<userId>', methods=['GET'])
+@app.route('/<userId>/home', methods=['GET'])
 def itemList(userId):
     return queries.getItems(userId)
 
 # Get information for single list item update from database
-@app.route('/item/<itemId>', methods=['GET'])
+@app.route('/<itemId>/item', methods=['GET'])
 def getItemList(itemId):
     return queries.getItemList(itemId)
 
@@ -23,6 +23,12 @@ def login():
     response = request.json
     return queries.login(response)
 
+# Signup to add user to database
+@app.route('/signup', methods=['POST'])
+def signup():
+    response = request.json
+    return queries.signup(response)
+
 # Add item to database
 @app.route('/add', methods=['POST'])
 def addItemList():
@@ -32,7 +38,7 @@ def addItemList():
     return '', 200
 
 # Send request to update database
-@app.route('/edit/<itemId>', methods=['POST'])
+@app.route('/<itemId>/edit', methods=['POST'])
 def editItemList(itemId):
     response = request.json
     queries.editItemList(itemId, response)
@@ -42,10 +48,11 @@ def editItemList(itemId):
 ## Delete requests ##
 
 # Delete aa single item from list
-@app.route('/del/<itemId>', methods=['DELETE'])
+@app.route('/<itemId>/del', methods=['DELETE'])
 def delete(itemId):
     queries.deleteItems(itemId)
 
+<<<<<<< HEAD
     return '',200
 
 @app.route('/getitemName/<itemName>', methods=['GET'])
@@ -55,3 +62,6 @@ def getImagedata(itemName):
     urls=itemfunctions.SearchImages(name)
 
     return urls
+=======
+    return '',200
+>>>>>>> faf5eae (Added signup feature. Other changes.)

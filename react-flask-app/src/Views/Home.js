@@ -8,8 +8,8 @@ const Home = () => {
     useEffect(() => {
         // Get user info from local storage prior to inital load.
         const user = JSON.parse(localStorage.getItem("user"));
-        
-        fetch(`/home/${user[0].userId}`).then(response => {
+         
+        fetch(`/${user[0].userId}/home`).then(response => {
             if(response.status === 200) {
                 
                 return response.json()

@@ -22,6 +22,7 @@ const EditItem = () => {
     const [imageSelected, setImageSelected]=useState("");    
 =======
 
+    // Active user login info
     const user = JSON.parse(localStorage.getItem("user"));
     
 >>>>>>> 0bc6ef6 (Added login page functionality with 401 Exception if login credentials)
@@ -30,7 +31,7 @@ const EditItem = () => {
 
     // Use Effect to fetch data info
     useEffect(() => {
-        fetch(`/item/${itemId}`).then(response => {
+        fetch(`/${itemId}/item`).then(response => {
         if(response.status === 200) {
             return response.json()
         }
@@ -51,7 +52,7 @@ const EditItem = () => {
     // Need to prevent default to prevent warning message that form is disconnected
     const navigateHome = (e) => {
         e.preventDefault();
-        navigate(`/home/${user[0].userId}`);
+        navigate(`/${user[0].userId}/home`);
     }
 
     return(   
@@ -127,10 +128,10 @@ const EditItem = () => {
                         url: url.toString().replace(/(^\w+:|^)\/\//, '')
                     };
 
-                    const response = await api.post(`/edit/${itemId}`, item)
+                    const response = await api.post(`/${itemId}/edit`, item)
 
                     if (response.status === 200) {
-                        navigate(`/home/${user[0].userId}`)
+                        navigate(`/${user[0].userId}/home`)
                     }
                 }}>
                     Submit

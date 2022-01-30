@@ -25,14 +25,15 @@ export const ItemList = ({items}) => {
      *                                  necessary information                                    *
     **********************************************************************************************/
     const editItemClicked = (itemId) => {
-        navigate(`/edit/${itemId}`);
+        navigate(`/${itemId}/edit`);
     }
 
     const deleteItemClicked = async (itemId) => {
-        const response = await api.delete(`/del/${itemId}`)
+        const response = await api.delete(`/${itemId}/del`)
 
         if (response.status === 200) {
             // Force a refresh of the page.
+            // TODO: Look for different way to not force a reload of the page
             window.location.reload();
         }
     }

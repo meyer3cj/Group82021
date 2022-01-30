@@ -22,9 +22,15 @@ const Login = () => {
         const loggedInUser = localStorage.getItem("user");
         if (loggedInUser) {
             const foundUser = JSON.parse(loggedInUser);
-            navigate(`/home/${foundUser[0].userId}`)
+            navigate(`/${foundUser[0].userId}/home`)
         }
     }, [navigate]);
+
+    // Need to prevent default to prevent warning message that form is disconnected
+    const navigateSignup = (e) => { 
+        e.preventDefault()
+        navigate(`/signup`);
+    }
 
     return(   
         <Form >
@@ -71,6 +77,9 @@ const Login = () => {
                     
                 }}>
                     Submit
+                </Button>
+                <Button onClick={navigateSignup}>
+                    Signup
                 </Button>
             </Form.Field>
         </Form>

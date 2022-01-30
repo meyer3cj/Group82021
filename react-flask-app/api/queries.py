@@ -159,9 +159,6 @@ def login(request):
                     *
                 FROM
                     [dbo].[Users]
-                JOIN
-                    [dbo].[Items]
-                ON [dbo].[Users].UserID = [dbo].[Items].UserID
                 WHERE
                     [dbo].[Users].Email = ?
                 AND
@@ -190,6 +187,38 @@ def login(request):
     except:
         return '', 401
 
-        
+def signup(request):
+    query = """
+            INSERT INTO 
+                [dbo].[Users] (UserID, FirstName, LastName, Password, DOB, Email, City, State, ZIPCode, CellPhone, HomePhone)
+            VALUES 
+                (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """
 
+<<<<<<< HEAD
     
+=======
+    userId = getUserIdQuery()
+    print("YO")
+    print()
+    print()
+    print()
+    print(request)
+    tuple = (userId, request['firstName'], request['lastName'], request['password'], request['dob'], request['email'], request['city'], request['state'], request['zipCode'], request['cellPhone'], request['homePhone'])
+
+    dbfuncs.editDB(query, tuple)
+
+    return '', 200
+
+def getUserIdQuery():
+    query = """
+                SELECT
+                    UserID 
+                FROM 
+                    Users
+            """
+            
+    userId = dbfuncs.getUserId(query)
+    
+    return userId
+>>>>>>> faf5eae (Added signup feature. Other changes.)
