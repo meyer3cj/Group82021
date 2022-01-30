@@ -94,7 +94,7 @@ def editDB(query, tuple):
     return (result)
 
 
-def getIDs():
+'''def getIDs():
     """Connects to database and queries based on input"""
     #sql driver
     driver='{ODBC Driver 17 for SQL Server}'
@@ -111,7 +111,7 @@ def getIDs():
     password= "Pw^?CWu']y}@Ym9g"
 
     #generate connection string
-    connectionString= textwrap.dedent('''
+    connectionString= textwrap.dedent(''''''
         Driver={driver};
         Server={server};
         Database={database};
@@ -121,7 +121,7 @@ def getIDs():
         Connection Timeout=30;
 
 
-    '''.format(
+    ''''''.format(
         driver=driver,
         server=server,
         database=database_name,
@@ -148,4 +148,4 @@ def getIDs():
     nextId = max(ids) + 1
     
     return (nextId)
-
+'''
