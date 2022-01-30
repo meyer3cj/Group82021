@@ -15,10 +15,16 @@ const EditItem = () => {
     const [price, setPrice] = useState("");
     const [description, setDescription] = useState("");
     const [url, setUrl] = useState("");
+<<<<<<< HEAD
     const [image, setImage]= useState("");
     const [originalImage,setOriginalImage]= useState("");
     const [imageList, setImageList]= useState([]);
     const [imageSelected, setImageSelected]=useState("");    
+=======
+
+    const user = JSON.parse(localStorage.getItem("user"));
+    
+>>>>>>> 0bc6ef6 (Added login page functionality with 401 Exception if login credentials)
     // Used for obtaining the item ID to edit.
     let { itemId } = useParams();
 
@@ -45,7 +51,7 @@ const EditItem = () => {
     // Need to prevent default to prevent warning message that form is disconnected
     const navigateHome = (e) => {
         e.preventDefault();
-        navigate("/home");
+        navigate(`/home/${user[0].userId}`);
     }
 
     return(   
@@ -124,7 +130,7 @@ const EditItem = () => {
                     const response = await api.post(`/edit/${itemId}`, item)
 
                     if (response.status === 200) {
-                        navigate("/home")
+                        navigate(`/home/${user[0].userId}`)
                     }
                 }}>
                     Submit

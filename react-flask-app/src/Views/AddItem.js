@@ -11,6 +11,9 @@ const api = axios.create({
     baseURL: 'http://localhost:3000/'
 })
 
+// Active user login info
+const user = JSON.parse(localStorage.getItem("user"));
+
 const AddItem = () => {
     const [name, setName] = useState("");
     const [price, setPrice] = useState("");
@@ -27,15 +30,13 @@ const AddItem = () => {
     
 
      // Use Effect to fetch data info
-     /* TODO: When we create login feature need to obtain userId from login
-        Currently hard codes userId to be 1 */
      useEffect(() => {
-        fetch(`/home`).then(response => {
+        fetch(`/home/${user[0].userId}`).then(response => {
         if(response.status === 200) {
             return response.json()
         }
         }).then(data => {
-            setUserId(1);
+            setUserId(user[0].userId);
         })
     }, [])
     const navigate = useNavigate();
@@ -44,7 +45,7 @@ const AddItem = () => {
     // Need to prevent default to prevent warning message that form is disconnected
     const navigateHome = (e) => { 
         e.preventDefault()
-        navigate("/home");
+        navigate(`/home/${user[0].userId}`);
     }
 
     return(
@@ -131,7 +132,7 @@ const AddItem = () => {
                     const response = await api.post('/add', item)
 
                     if (response.status === 200) {
-                        navigate("/home")
+                        navigate(`/home/${user[0].userId}`)
                     }
                 }}>
                     Submit

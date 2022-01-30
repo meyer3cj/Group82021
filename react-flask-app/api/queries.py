@@ -12,7 +12,7 @@ def getItems():
                     userId = ?
             '''
             
-    tuple = (1);
+    tuple = (userId);
 
     rows = dbfuncs.readDB(query, tuple);
 
@@ -35,13 +35,14 @@ def getItems():
     return json.dumps(objects_list)
 
 def deleteItems(itemId):
-    query = '''
+    query = """
                 DELETE FROM [Items] 
                 WHERE 
                     ItemID = ?
                 AND
                     userId = ?
-            '''
+            """
+
     tuple = (str(itemId), 1)
 
     dbfuncs.editDB(query, tuple)
@@ -55,6 +56,7 @@ def addItemList(request):
                 VALUES 
                     (?,?,?,?,?,?,?,?)
             """
+
     itemId = dbfuncs.getIDs()
     tuple = (itemId, request['userId'], request['itemName'], request['price'], request['description'], False, request['url'], request['imageUrl'])
 
@@ -77,6 +79,7 @@ def editItemList(itemId, request):
                 AND 
                     userId = ?
             """
+
     # Inputs set into tuple for execute function
     tuple = (request['itemName'], request['price'], request['description'], request['url'], request['imageUrl'], itemId, 1)
     dbfuncs.editDB(query, tuple)
@@ -150,3 +153,43 @@ def SearchImages(query):
         for i in range (15):
             f.write ('<img src='+images[i]['thumbnail']+' height=100>'+'\n')
 '''
+def login(request):
+    query = """
+                SELECT
+                    *
+                FROM
+                    [dbo].[Users]
+                JOIN
+                    [dbo].[Items]
+                ON [dbo].[Users].UserID = [dbo].[Items].UserID
+                WHERE
+                    [dbo].[Users].Email = ?
+                AND
+                    [dbo].[Users].Password = ?
+            """
+
+    tuple = (request['username'], request['password'])
+
+    rows = dbfuncs.readDB(query, tuple)
+
+    objects_list = []
+    print(rows)
+
+    try:
+        # If rows is not an empty array then populate and return
+        if rows:
+            for row in rows:
+                d= collections.OrderedDict()
+                d['userId'] = row[0]
+                objects_list.append(d)
+        else:
+            # Raise an exception to return a 401
+            raise Exception("Yes")
+
+        return json.dumps(objects_list)
+    except:
+        return '', 401
+
+        
+
+    

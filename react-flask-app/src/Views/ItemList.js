@@ -37,8 +37,21 @@ export const ItemList = ({items}) => {
         }
     }
 
+<<<<<<< HEAD
     return(    
         <List className= 'itemList'>
+=======
+    const logoutClicked = () => {
+        localStorage.clear();
+        navigate("/login");
+    }
+
+    return(
+        <List>
+            <button onClick={logoutClicked}>
+                Logout
+            </button>
+>>>>>>> 0bc6ef6 (Added login page functionality with 401 Exception if login credentials)
             {items.map(item => {
                 return (
                     <List.Item key = {item.name}>
@@ -56,7 +69,7 @@ export const ItemList = ({items}) => {
                     </List.Item>
                 )
             })}
-            <button onClick = {addItemClicked}>add</button>
+            <button onClick = {e => {e.preventDefault(); addItemClicked()}}>add</button>
         </List>
     )
 }

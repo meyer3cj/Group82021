@@ -4,11 +4,16 @@ import ItemList from './ItemList';
 const Home = () => {
     const [items, setItems] = useState([])
 
+    // Get users list
     useEffect(() => {
-        fetch("/home").then(response => {
-        if(response.status === 200) {
-            return response.json()
-        }
+        // Get user info from local storage prior to inital load.
+        const user = JSON.parse(localStorage.getItem("user"));
+        
+        fetch(`/home/${user[0].userId}`).then(response => {
+            if(response.status === 200) {
+                
+                return response.json()
+            }
         }).then(data => setItems(data))
     }, [])
 
