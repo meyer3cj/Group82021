@@ -1,7 +1,8 @@
 from flask import Flask,request
 import itemfunctions
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='../build', static_url_path='/')
+
 
 # Get requests
 # Get entire list for user
@@ -37,5 +38,10 @@ def editItemList(itemId):
 def delete(itemId):
     itemfunctions.deleteItems(itemId)
 
+
+@app.route('/')
+def index():
+    return app.send_static_file('index.html')
+    
     return '',200
 
