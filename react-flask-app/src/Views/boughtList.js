@@ -36,9 +36,9 @@ export const ItemList = ({items}) => {
             window.location.reload();
         }
     }
-    const BoughtItemClicked = async (itemId) => {
+    const unBoughtItemClicked = async (itemId) => {
         console.log(itemId)
-        const response = await api.post(`/setBought/${itemId}`)
+        const response = await api.post(`/setunBought/${itemId}`)
         if(response.status === 200){
             window.location.reload();
         }
@@ -58,7 +58,7 @@ export const ItemList = ({items}) => {
                             <img src={item.image}></img> <br/>
                             <button onClick={e => {e.preventDefault(); editItemClicked(item.itemId)}}>Edit</button>
                             <button onClick={e => {e.preventDefault(); deleteItemClicked(item.itemId)}}>Delete</button>
-                            <button onClick={e => {e.preventDefault(); BoughtItemClicked(item.itemId)}}>set as purchased</button>
+                            <button onClick={e => {e.preventDefault(); unBoughtItemClicked(item.itemId)}}> Return to unbought</button>
                         </div>
                     </List.Item>
                 )

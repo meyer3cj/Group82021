@@ -1,4 +1,5 @@
 from flask import Flask,request
+from werkzeug.wrappers import response
 import itemfunctions
 
 app = Flask(__name__)
@@ -48,3 +49,18 @@ def getImagedata(itemName):
     urls=itemfunctions.SearchImages(name)
 
     return urls
+
+@app.route('/bought', methods=['GET'])
+def getBought():
+    return itemfunctions.getBought()
+
+@app.route('/setBought/<itemId>',methods= ['POST'])
+def setBought(itemId):
+
+    itemfunctions.setBought(itemId)
+    return '', 200
+@app.route('/setunBought/<itemId>',methods= ['POST'])
+def setunBought(itemId):
+
+    itemfunctions.setUnbought(itemId)
+    return '', 200

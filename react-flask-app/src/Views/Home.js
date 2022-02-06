@@ -14,8 +14,10 @@ const Home = () => {
 
 
     return(
-        
+        <div>
+        <a href="/bought">Bought items</a>
         <ItemList items = {items}/>
+        </div>
     );
 };
 

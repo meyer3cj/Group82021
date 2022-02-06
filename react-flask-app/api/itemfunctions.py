@@ -10,11 +10,13 @@ def getItems():
                     [Items]
                 WHERE 
                     userId = ?
+                And
+                    Purchased= 0
             '''
             
-    tuple = (1);
+    tuple = (1)
 
-    rows = dbfuncs.readDB(query, tuple);
+    rows = dbfuncs.readDB(query, tuple)
 
     objects_list = []
 
@@ -150,3 +152,60 @@ def SearchImages(query):
         for i in range (15):
             f.write ('<img src='+images[i]['thumbnail']+' height=100>'+'\n')
 '''
+
+def getBought():
+    query = '''
+                SELECT 
+                    *
+                FROM 
+                    [Items]
+                WHERE 
+                    userId = ?
+                AND
+                    Purchased= 1
+            '''
+            
+    tuple = (1)
+
+    rows = dbfuncs.readDB(query, tuple)
+
+    objects_list = []
+
+    for row in rows:
+        d = collections.OrderedDict()
+        d['itemId'] = row[0]
+        d['userId'] = row[1]
+        d['name'] = row[2].capitalize()
+        amount = row[3]
+        currency = "{:,.2f}".format(amount)
+        d['price'] = currency
+        d['url'] = row[6]
+        d['description'] = row[4]
+        d['image']=row[7]
+
+        objects_list.append(d)
+
+    return json.dumps(objects_list) 
+
+def setBought(itemID):
+    query = '''
+        update Items 
+        set Purchased = 1 
+        where ItemID = ? 
+    '''
+    tuple= (str(itemID))
+
+    dbfuncs.editDB(query, tuple)
+
+    return '', 200    
+def setUnbought(itemID):
+    query = '''
+        update Items 
+        set Purchased = 0
+        where ItemID = ? 
+    '''
+    tuple= (str(itemID))
+
+    dbfuncs.editDB(query, tuple)
+
+    return '', 200

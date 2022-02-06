@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import ItemList from './ItemList';
+import BoughtList from './boughtList'
 
 const Home = () => {
     const [items, setItems] = useState([])
 
     useEffect(() => {
-        fetch("/home").then(response => {
+        fetch("/bought").then(response => {
         if(response.status === 200) {
             return response.json()
         }
@@ -14,8 +15,10 @@ const Home = () => {
 
 
     return(
-        
-        <ItemList items = {items}/>
+        <div>
+        <a href='/'>home</a>
+        <BoughtList items = {items}/>
+        </div>
     );
 };
 
