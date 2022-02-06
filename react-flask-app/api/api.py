@@ -9,6 +9,8 @@ app = Flask(__name__)
 def itemList():
     return itemfunctions.getItems()
 
+
+
 # Get information for single list item update from database
 @app.route('/item/<itemId>', methods=['GET'])
 def getItemList(itemId):
@@ -37,7 +39,7 @@ def editItemList(itemId):
 def delete(itemId):
     itemfunctions.deleteItems(itemId)
 
-    return '',200
+    return '', 200
 
 @app.route('/getitemName/<itemName>', methods=['GET'])
 def getImagedata(itemName):

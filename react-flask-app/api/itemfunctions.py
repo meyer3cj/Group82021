@@ -76,6 +76,7 @@ def editItemList(itemId, request):
                 AND 
                     userId = ?
             """
+
     # Inputs set into tuple for execute function
     tuple = (request['itemName'], request['price'], request['description'], request['url'], request['imageUrl'], itemId, 1)
     dbfuncs.editDB(query, tuple)
@@ -105,7 +106,7 @@ def getItemList(itemId):
         d['userId'] = row[1]
         d['name' ]= row[2].capitalize()
         amount = row[3]
-        currency = "{:,.2f}".format(amount)
+        currency = "{:0.2f}".format(amount)
         d['price'] = currency
         d['url'] = row[6]
         d['description'] = row[4]
