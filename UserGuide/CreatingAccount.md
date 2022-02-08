@@ -6,7 +6,7 @@
 
 * This new screen will require your First Name, Last Name, Email, and password for creating your account.  
 
-![Signup Information](https://github.com/meyer3cj/Group82021/blob/userGuide/UserGuide/Images/signupPage.png)
+![Signup Information](https://github.com/meyer3cj/Group82021/blob/userGuide/UserGuide/Images/signupInfo.png)
 
 * Make sure that the email address is valid as this will be the username for the application. 
 
