@@ -6,4 +6,4 @@
 
 * Towards the bottom of the list there will be a terminate account option. 
 
-* To delete your account select that terminate account button and a window will appear asking if you are sure you want to terminate the account. Click “yes” to delete the account click “no” to return to the user profile page.  
+* To delete your account select that terminate account button and a window will appear asking if you are sure you want to terminate the account. Click “Yes” to delete the account click “No” to return to the user profile page.  
