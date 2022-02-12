@@ -1,4 +1,5 @@
 from flask import Flask,request
+from werkzeug.wrappers import response
 import itemfunctions
 
 app = Flask(__name__)
@@ -8,6 +9,8 @@ app = Flask(__name__)
 @app.route('/home', methods=['GET'])
 def itemList():
     return itemfunctions.getItems()
+
+
 
 # Get information for single list item update from database
 @app.route('/item/<itemId>', methods=['GET'])
@@ -37,7 +40,7 @@ def editItemList(itemId):
 def delete(itemId):
     itemfunctions.deleteItems(itemId)
 
-    return '',200
+    return '', 200
 
 @app.route('/getitemName/<itemName>', methods=['GET'])
 def getImagedata(itemName):
@@ -46,3 +49,18 @@ def getImagedata(itemName):
     urls=itemfunctions.SearchImages(name)
 
     return urls
+
+@app.route('/bought', methods=['GET'])
+def getBought():
+    return itemfunctions.getBought()
+
+@app.route('/setBought/<itemId>',methods= ['POST'])
+def setBought(itemId):
+
+    itemfunctions.setBought(itemId)
+    return '', 200
+@app.route('/setunBought/<itemId>',methods= ['POST'])
+def setunBought(itemId):
+
+    itemfunctions.setUnbought(itemId)
+    return '', 200

@@ -30,6 +30,8 @@ const EditItem = () => {
         }
         }).then(data => {
             setName(data[0].name);
+            console.log(data[0].price);
+            let price = data[0].price.toString();
             setPrice(data[0].price);
             setDescription(data[0].description);
             setUrl(data[0].url);

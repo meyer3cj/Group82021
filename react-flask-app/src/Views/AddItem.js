@@ -128,11 +128,19 @@ const AddItem = () => {
                         url: url.toString().replace(/(^\w+:|^)\/\//, '')
                     };
 
+                    if (name === "") {
+                        alert("Please enter a name");
+                    } else if (price === "") {
+                        alert("Please enter a price");
+                    } else if (url === ""){
+                        alert("Please enter a url");
+                    }else{                   
+
                     const response = await api.post('/add', item)
 
                     if (response.status === 200) {
                         navigate("/home")
-                    }
+                    }} 
                 }}>
                     Submit
                 </Button>
