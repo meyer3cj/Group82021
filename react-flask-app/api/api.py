@@ -34,6 +34,13 @@ def editItemList(itemId):
 
     return '', 200
 
+#soft delete, item will be in history but not in the user's main list
+@app.route('/remove/<itemId>', methods=['POST'])
+def remove(itemId):
+    itemfunctions.removeItems(itemId)
+
+    return '', 200
+
 # Delete requests
 # Delete aa single item from list
 @app.route('/del/<itemId>', methods=['DELETE'])
@@ -53,6 +60,10 @@ def getImagedata(itemName):
 @app.route('/bought', methods=['GET'])
 def getBought():
     return itemfunctions.getBought()
+
+@app.route('/history', methods=['GET'])
+def getHistory():
+    return itemfunctions.getHistory()
 
 @app.route('/setBought/<itemId>',methods= ['POST'])
 def setBought(itemId):
