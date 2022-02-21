@@ -38,6 +38,120 @@ def getItems():
 
     return json.dumps(objects_list)
 
+def searchItems(Term):
+    query = '''
+                SELECT 
+                    *
+                FROM 
+                    [Items]
+                WHERE 
+                    userId = ?
+                And
+                    Purchased= 0
+                And 
+                    inlist = 1
+                And
+                    ItemName LIKE ?
+                or
+                    ItemDescription LIKE ?
+            '''
+            
+    tuple = (1,'%'+Term+'%','%'+Term+'%')
+
+    rows = dbfuncs.readDB(query, tuple)
+
+    objects_list = []
+
+    for row in rows:
+        d = collections.OrderedDict()
+        d['itemId'] = row[0]
+        d['userId'] = row[1]
+        d['name'] = row[2].capitalize()
+        amount = row[3]
+        currency = "{:,.2f}".format(amount)
+        d['price'] = currency
+        d['url'] = row[6]
+        d['description'] = row[4]
+        d['image']=row[7]
+
+        objects_list.append(d)
+
+    return json.dumps(objects_list)
+def searchHistory(Term):
+    query = '''
+                SELECT 
+                    *
+                FROM 
+                    [Items]
+                WHERE
+                    userId = ?
+                AND
+                    itemName LIKE ?
+                or
+                    ItemDescription LIKE ?
+                order by ItemID desc
+            '''
+            
+    tuple = (1,'%'+Term+'%','%'+Term+'%')
+
+    rows = dbfuncs.readDB(query, tuple)
+
+    objects_list = []
+
+    for row in rows:
+        d = collections.OrderedDict()
+        d['itemId'] = row[0]
+        d['userId'] = row[1]
+        d['name'] = row[2].capitalize()
+        amount = row[3]
+        currency = "{:,.2f}".format(amount)
+        d['price'] = currency
+        d['url'] = row[6]
+        d['description'] = row[4]
+        d['image']=row[7]
+
+        objects_list.append(d)
+
+    return json.dumps(objects_list)
+def searchBoughtitems(Term):
+    query = '''
+                SELECT 
+                    *
+                FROM 
+                    [Items]
+                WHERE 
+                    userId = ?
+                And
+                    Purchased= 1
+                And
+                
+                    ItemName LIKE ?
+                or
+                    ItemDescription LIKE ?
+            '''
+            
+    tuple = (1,'%'+Term+'%')
+
+    rows = dbfuncs.readDB(query, tuple)
+
+    objects_list = []
+
+    for row in rows:
+        d = collections.OrderedDict()
+        d['itemId'] = row[0]
+        d['userId'] = row[1]
+        d['name'] = row[2].capitalize()
+        amount = row[3]
+        currency = "{:,.2f}".format(amount)
+        d['price'] = currency
+        d['url'] = row[6]
+        d['description'] = row[4]
+        d['image']=row[7]
+
+        objects_list.append(d)
+
+    return json.dumps(objects_list)
+
 def removeItems(itemId):
     query= '''
         update Items set inlist=0 where ItemID=?
