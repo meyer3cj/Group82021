@@ -1,0 +1,18 @@
+if term != '':
+
+    query = '''
+                SELECT 
+                    *
+                FROM 
+                    [Items]
+                WHERE 
+                    userId = ?
+                And
+                    Purchased= 0
+                And 
+                    inlist = 1
+                And
+                    ItemName LIKE ?
+            '''
+            
+    tuple = (1,'%'+term+'%')

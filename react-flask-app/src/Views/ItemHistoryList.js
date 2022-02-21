@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { List } from "semantic-ui-react";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -9,7 +9,7 @@ const api = axios.create({
     baseURL: 'http://localhost:3000/'
 })
 
-export const ItemList = ({items}) => {
+export const ItemHistoryList = ({items}) => {
     // Use navigation for different forms
     console.log({items})
     const navigate = useNavigate();
@@ -18,7 +18,7 @@ export const ItemList = ({items}) => {
     const addItemClicked = () => { 
         navigate("/add");
     }
-    const [searchTerm, setSearchTerm]= useState('')
+
     /*********************************************************************************************
      * Prevent default is called in order to prevent function from automatically getting called. *
      *    By doing this it will only get called when the user clicks edit and will pass the      *
@@ -28,24 +28,30 @@ export const ItemList = ({items}) => {
         navigate(`/edit/${itemId}`);
     }
 
-    const removeItemClicked = async (itemId) => {
-        const response = await api.post(`/remove/${itemId}`)
+    const deleteItemClicked = async (itemId) => {
+        const response = await api.delete(`/del/${itemId}`)
 
         if (response.status === 200) {
             // Force a refresh of the page.
             window.location.reload();
         }
     }
-    const BoughtItemClicked = async (itemId) => {
+    const unBoughtItemClicked = async (itemId) => {
         console.log(itemId)
-        const response = await api.post(`/setBought/${itemId}`)
+        const response = await api.post(`/setunBought/${itemId}`)
         if(response.status === 200){
             window.location.reload();
         }
     }
-    return(   
-        <div>
+    const returnItemClicked = async (itemId) => {
+        console.log(itemId)
+        const response = await api.post(`/setunBought/${itemId}`)
         
+        if(response.status === 200){
+            window.location.reload();
+        }
+    }
+    return(    
         <List className= 'itemList'>
             {items.map(item => {
                 return (
@@ -59,15 +65,15 @@ export const ItemList = ({items}) => {
                             <p>{item.description}</p>
                             <img src={item.image}></img> <br/>
                             <button onClick={e => {e.preventDefault(); editItemClicked(item.itemId)}}>Edit</button>
-                            <button onClick={e => {e.preventDefault(); removeItemClicked(item.itemId)}}>Remove from list</button>
-                            <button onClick={e => {e.preventDefault(); BoughtItemClicked(item.itemId)}}>set as purchased</button>
+                            <button onClick={e => {e.preventDefault(); deleteItemClicked(item.itemId)}}>Delete</button>
+                            <button onClick={e => {e.preventDefault(); returnItemClicked(item.itemId)}}> Return list</button>
                         </div>
-                    </List.Item> 
+                    </List.Item>
                 )
             })}
             <button onClick = {addItemClicked}>add</button>
-        </List></div>
+        </List>
     )
 }
 
-export default ItemList;
+export default ItemHistoryList;

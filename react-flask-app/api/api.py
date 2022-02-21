@@ -1,5 +1,4 @@
 from flask import Flask,request
-from werkzeug.wrappers import response
 import itemfunctions
 
 app = Flask(__name__)
@@ -10,8 +9,16 @@ app = Flask(__name__)
 def itemList():
     return itemfunctions.getItems()
 
+@app.route('/search/<Term>', methods=['GET'])
+def searchItemList(Term):
+    return itemfunctions.searchItems(Term)
 
-
+@app.route('/searchBoughtList/<Term>', methods=['GET'])
+def searchBoughtList(Term):
+    return itemfunctions.searchBoughtitems(Term)
+@app.route('/searchHistoryList/<Term>', methods=['GET'])
+def searchHistoryList(Term):
+    return itemfunctions.searchHistory(Term)
 # Get information for single list item update from database
 @app.route('/item/<itemId>', methods=['GET'])
 def getItemList(itemId):
@@ -34,6 +41,13 @@ def editItemList(itemId):
 
     return '', 200
 
+#soft delete, item will be in history but not in the user's main list
+@app.route('/remove/<itemId>', methods=['POST'])
+def remove(itemId):
+    itemfunctions.removeItems(itemId)
+
+    return '', 200
+
 # Delete requests
 # Delete aa single item from list
 @app.route('/del/<itemId>', methods=['DELETE'])
@@ -53,6 +67,10 @@ def getImagedata(itemName):
 @app.route('/bought', methods=['GET'])
 def getBought():
     return itemfunctions.getBought()
+
+@app.route('/history', methods=['GET'])
+def getHistory():
+    return itemfunctions.getHistory()
 
 @app.route('/setBought/<itemId>',methods= ['POST'])
 def setBought(itemId):
