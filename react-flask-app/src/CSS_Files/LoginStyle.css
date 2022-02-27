@@ -4,11 +4,13 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    
 }
 
 body,
 input {
   font-family: 'Poppins', sans-serif;
+  background: #003c80;
 }
 
 .container {
@@ -124,6 +126,7 @@ form.sign-up-form {
     font-weight: 600;
     margin: 10px 0;
     transition: all 0.5s;
+    margin-right: 10px;
 }
 
 .btn:hover {

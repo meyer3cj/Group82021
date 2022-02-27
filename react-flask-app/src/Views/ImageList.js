@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { List, Image } from 'semantic-ui-react';
-import "../CSS_Files/ListStyle.css"
+
 
 export const ImageList=(props) =>{
     let imageUrls = props.images

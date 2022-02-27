@@ -1,0 +1,25 @@
+.item{
+    background-color: white;
+    margin: 10px;
+    width: 80%;
+    border-radius: 5px;
+}
+.item img{
+    width:200px;
+}
+.item p{
+    font-size: 20px;
+    margin: 10px;
+}
+.item a{
+    font-size: 20px;
+    margin: 10px;
+    color: blue;
+
+
+}
+
+.btn{
+    margin: 10px;
+}
+

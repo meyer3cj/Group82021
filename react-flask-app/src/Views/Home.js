@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import ItemList from './ItemList';
 import axios from "axios";
+import LoginStyle from '../CSS_Files/LoginStyle.css'
+
 const Home = () => {
     const [items, setItems] = useState([])
 
