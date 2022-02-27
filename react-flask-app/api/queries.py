@@ -174,6 +174,18 @@ def deleteItems(usersId, itemId):
 
     return '', 200
 
+def deleteAccount(usersId):
+    query = '''
+                DELETE FROM [Users]
+                WHERE
+                    userId = ?
+            '''
+    tuple = (usersId)
+    
+    dbfuncs.editDB(query, tuple)
+
+    return '', 200
+
 def addItemList(request):
     query = '''
                 INSERT INTO 
@@ -243,6 +255,30 @@ def getItemList(userId, itemId):
 
     return json.dumps(objects_list)
 
+def getAccountInfo(usersId):
+    query = '''
+                SELECT 
+                    * 
+                FROM 
+                    [dbo].[Users] 
+                WHERE 
+                    userId = ?
+            '''
+    
+    tuple = (usersId)
+    rows = dbfuncs.readDB(query, tuple)
+
+    objects_list = []
+
+    for row in rows:
+        d= collections.OrderedDict()
+        d['password'] = row[3]
+        d['email'] = row[4]
+
+        objects_list.append(d)
+
+    return json.dumps(objects_list)
+    
 def searchImages(query):
     params={
         'q': query,
@@ -434,6 +470,44 @@ def signup(request):
         return '', 200
     else:
         return '', 212
+
+def updateEmail(usersId, request):
+    query = '''
+                BEGIN
+                    IF NOT EXISTS (SELECT * FROM [dbo].[Users] 
+	                    WHERE Email = ?)
+                    BEGIN
+	                    UPDATE [dbo].[Users] 
+                        SET
+                            Email = ?
+                        WHERE
+                            userId = ?
+                    END
+                END
+            '''
+    tuple = (request['email'], request['email'], usersId)
+
+    rowsAffected = dbfuncs.addUsersDB(query, tuple)
+    
+    if rowsAffected == 1:
+        return '', 200
+    else:
+        return '', 212
+
+def updatePassword(usersId, request):
+    query = '''
+                 UPDATE 
+                    [dbo].[Users]
+                SET 
+                    Password = ?
+                WHERE
+                    userId = ?
+            '''
+    tuple = (request['password'], usersId)
+
+    dbfuncs.editDB(query, tuple)
+
+    return '', 200
 
 def getUserIdQuery():
     query = '''

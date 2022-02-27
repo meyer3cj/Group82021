@@ -1,3 +1,4 @@
+# from crypt import methods
 from flask import Flask,request
 import queries
 
@@ -21,9 +22,25 @@ def searchBoughtList(Term):
 def searchHistoryList(Term):
     return queries.searchHistory(Term)
 # Get information for single list item update from database
+@app.route('/<userId>/accountInfo', methods=['GET'])
+def getAccountInfo(userId):
+    return queries.getAccountInfo(userId)
+
 @app.route('/<userId>/<itemId>/item', methods=['GET'])
 def getItemList(userId, itemId):
     return queries.getItemList(userId, itemId)
+
+@app.route('/getitemName/<itemName>', methods=['GET'])
+def getImagedata(itemName):
+    name= itemName
+    print ('item name is ' +str(itemName))
+    urls = queries.searchImages(name)
+
+    return urls
+
+@app.route('/bought', methods=['GET'])
+def getBought():
+    return queries.getBought()
 
 # Post requests
 
@@ -58,28 +75,15 @@ def remove(itemId):
 
     return '', 200
 
-# Delete requests
+@app.route('/<usersId>/updateEmail', methods=['POST'])
+def updateEmail(usersId):
+    response = request.json
+    return queries.updateEmail(usersId, response)
 
-# Delete aa single item from list
-@app.route('/<usersId>/<itemId>/del', methods=['DELETE'])
-def delete(usersId, itemId):
-    return queries.deleteItems(usersId, itemId)
-
-@app.route('/getitemName/<itemName>', methods=['GET'])
-def getImagedata(itemName):
-    name= itemName
-    print ('item name is ' +str(itemName))
-    urls = queries.searchImages(name)
-
-    return urls
-
-@app.route('/bought', methods=['GET'])
-def getBought():
-    return queries.getBought()
-
-@app.route('/history', methods=['GET'])
-def getHistory():
-    return queries.getHistory()
+@app.route('/<usersId>/updatePassword', methods=['POST'])
+def updatePassword(usersId):
+    response = request.json
+    return queries.updatePassword(usersId, response)
 
 @app.route('/setBought/<itemId>',methods= ['POST'])
 def setBought(itemId):
@@ -91,3 +95,19 @@ def setunBought(itemId):
 
     queries.setUnbought(itemId)
     return '', 200
+
+
+# Delete requests
+
+# Delete aa single item from list
+@app.route('/<usersId>/<itemId>/del', methods=['DELETE'])
+def delete(usersId, itemId):
+    return queries.deleteItems(usersId, itemId)
+
+@app.route('/history', methods=['GET'])
+def getHistory():
+    return queries.getHistory()
+
+@app.route('/<usersId>/deleteAccount', methods=['DELETE'])
+def deleteAccount(usersId):
+    return queries.deleteAccount(usersId)

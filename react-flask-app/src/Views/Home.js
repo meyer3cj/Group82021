@@ -13,7 +13,6 @@ const Home = () => {
 
         fetch(`/${user[0].userId}/home`).then(response => {
             if(response.status === 200) {
-
                 return response.json()
             }
         }).then(data => setItems(data))

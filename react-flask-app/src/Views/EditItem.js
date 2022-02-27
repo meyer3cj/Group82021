@@ -68,17 +68,17 @@ const EditItem = () => {
             <Image src= {originalImage}/> <br></br>
             <Button onClick={async () => {
                     
-                    let itemName= name;
+                    let itemName = name;
 
                     const response = await api.get(`/getitemName/${itemName}`, itemName)
-                    let imageUrls= []
-                    for(let i=0; i< response.data.length; i++){
+                    let imageUrls = []
+                    for (let i = 0; i < response.data.length; i++) {
                         imageUrls.push(response.data[i])
                     }
                   
                     setImage(itemName)
                     setImageList(imageUrls)
-}}>Change Image</Button>
+            }}>Change Image</Button>
 
             </Form.Field> 
             <Form.Field>
