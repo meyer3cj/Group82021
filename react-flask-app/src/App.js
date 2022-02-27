@@ -5,6 +5,8 @@ import EditItem from "./Views/EditItem";
 import Bought from "./Views/Bought";
 import ItemHistoryList from "./Views/ItemHistoryList";
 import ItemHistory from "./Views/ItemHistory"
+import Login from "./Views/Login";
+import Signup from "./Views/Signup";
 
 export const App = () => {
     return(
@@ -13,11 +15,13 @@ export const App = () => {
                 <BrowserRouter>
                     <div>
                         <Routes>
-                            <Route exact path = '/' element={<Home />}/>
-                            <Route exact path = '/home' element={<Home />}/>
+                            <Route exact path = '/' element={<Login />}/>
+                            <Route exact path = '/login' element={<Login />}/>
+                            <Route exact path = '/signup' element={<Signup />}/>
+                            <Route exact path = '/:userId/home' element={<Home />}/>
                             <Route exact path = '/add' element={<AddItem />}/>
                             <Route exact path = '/bought' element={<Bought />}/>
-                            <Route exact path = '/edit/:itemId' element={<EditItem />}/>
+                            <Route exact path = '/:usersId/:itemId/edit' element={<EditItem />}/>
                             <Route exact path = '/history' element={<ItemHistory/>}/>
                         </Routes>
                     </div>

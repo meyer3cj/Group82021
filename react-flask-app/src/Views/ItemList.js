@@ -10,8 +10,11 @@ const api = axios.create({
 })
 
 export const ItemList = ({items}) => {
+    // Need to get user data for navigation
+    const user = JSON.parse(localStorage.getItem("user"));
+    const usersId = user[0].userId;
+
     // Use navigation for different forms
-    console.log({items})
     const navigate = useNavigate();
 
     // When buttons are clicked Navigate to proper routes
@@ -25,14 +28,14 @@ export const ItemList = ({items}) => {
      *                                  necessary information                                    *
     **********************************************************************************************/
     const editItemClicked = (itemId) => {
-        navigate(`/edit/${itemId}`);
+        navigate(`/${usersId}/${itemId}/edit`);
     }
 
     const removeItemClicked = async (itemId) => {
         const response = await api.post(`/remove/${itemId}`)
 
         if (response.status === 200) {
-            // Force a refresh of the page.
+            // TODO: Look for different way to not force a reload of the page
             window.location.reload();
         }
     }
@@ -43,10 +46,16 @@ export const ItemList = ({items}) => {
             window.location.reload();
         }
     }
-    return(   
-        <div>
-        
-        <List className= 'itemList'>
+    const logoutClicked = () => {
+        localStorage.clear();
+        navigate("/login");
+    }
+
+    return(
+        <List className='itemList'>
+            <button onClick={logoutClicked}>
+                Logout
+            </button>
             {items.map(item => {
                 return (
                     <List.Item key = {item.itemId}>
@@ -57,7 +66,7 @@ export const ItemList = ({items}) => {
                                 <p>${item.price}</p>
                             </div>
                             <p>{item.description}</p>
-                            <img src={item.image}></img> <br/>
+                            <img src={item.image} alt="" /> <br/>
                             <button onClick={e => {e.preventDefault(); editItemClicked(item.itemId)}}>Edit</button>
                             <button onClick={e => {e.preventDefault(); removeItemClicked(item.itemId)}}>Remove from list</button>
                             <button onClick={e => {e.preventDefault(); BoughtItemClicked(item.itemId)}}>set as purchased</button>
@@ -65,8 +74,8 @@ export const ItemList = ({items}) => {
                     </List.Item> 
                 )
             })}
-            <button onClick = {addItemClicked}>add</button>
-        </List></div>
+            <button onClick = {e => {e.preventDefault(); addItemClicked()}}>add</button>
+        </List>
     )
 }
 

@@ -2,7 +2,7 @@ import dbfuncs
 import json
 import collections
 from serpapi import GoogleSearch
-def getItems():
+def getItems(userId):
     query = '''
                 SELECT 
                     *
@@ -16,7 +16,7 @@ def getItems():
                     inlist = 1
             '''
             
-    tuple = (1)
+    tuple = (userId);
 
     rows = dbfuncs.readDB(query, tuple)
 
@@ -159,7 +159,7 @@ def removeItems(itemId):
     tuple = (str(itemId))
     dbfuncs.editDB(query, tuple)
     return '', 200
-def deleteItems(itemId):
+def deleteItems(usersId, itemId):
     query = '''
                 DELETE FROM [Items] 
                 WHERE 
@@ -167,27 +167,29 @@ def deleteItems(itemId):
                 AND
                     userId = ?
             '''
-    tuple = (str(itemId), 1)
+
+    tuple = (str(itemId), usersId)
 
     dbfuncs.editDB(query, tuple)
 
     return '', 200
 
 def addItemList(request):
-    query = """
+    query = '''
                 INSERT INTO 
                     [dbo].[Items] (UserID, ItemName, ItemPrice, ItemDescription, Purchased, ItemURL, ItemImage, inlist)
                 VALUES 
-                    (?,?,?,?,?,?,?,?)
-            """
-    tuple = (request['userId'], request['itemName'], request['price'], request['description'], False, request['url'], request['imageUrl'],1)
+                    (?,?,?,?,?,?,?)
+            '''
+
+    tuple = (request['usersId'], request['itemName'], request['price'], request['description'], False, request['url'], request['imageUrl'])
 
     dbfuncs.editDB(query, tuple)
 
     return '', 200
 
-def editItemList(itemId, request):
-    query = """
+def editItemList(usersId, itemId, request):
+    query = '''
                 UPDATE 
                     [dbo].[Items]
                 SET 
@@ -200,16 +202,16 @@ def editItemList(itemId, request):
                     itemID = ? 
                 AND 
                     userId = ?
-            """
+            '''
 
     # Inputs set into tuple for execute function
-    tuple = (request['itemName'], request['price'], request['description'], request['url'], request['imageUrl'], itemId, 1)
+    tuple = (request['itemName'], request['price'], request['description'], request['url'], request['imageUrl'], itemId, usersId)
     dbfuncs.editDB(query, tuple)
 
     return '', 200
 
-def getItemList(itemId):
-    query = """ 
+def getItemList(userId, itemId):
+    query = '''
                 SELECT 
                     * 
                 FROM 
@@ -218,9 +220,9 @@ def getItemList(itemId):
                     itemID = ?
                 AND
                     userId = ?
-            """
+            '''
     
-    tuple = (str(itemId), 1)
+    tuple = (str(itemId), str(userId))
     rows = dbfuncs.readDB(query, tuple)
 
     objects_list = []
@@ -241,7 +243,7 @@ def getItemList(itemId):
 
     return json.dumps(objects_list)
 
-def SearchImages(query):
+def searchImages(query):
     params={
         'q': query,
         'tbm':'isch',
@@ -376,3 +378,71 @@ def getHistory():
         objects_list.append(d)
 
     return json.dumps(objects_list)
+def login(request):
+    query = '''
+                SELECT
+                    *
+                FROM
+                    [dbo].[Users]
+                WHERE
+                    [dbo].[Users].Email = ?
+                AND
+                    [dbo].[Users].Password = ?
+            '''
+
+    tuple = (request['email'], request['password'])
+    rows = dbfuncs.readDB(query, tuple)
+
+    objects_list = []
+    print(rows)
+
+    try:
+        # If rows is not an empty array then populate and return
+        if rows:
+            for row in rows:
+                d= collections.OrderedDict()
+                d['userId'] = row[0]
+                objects_list.append(d)
+        else:
+            # Raise an exception to return a 401
+            raise Exception("Yes")
+
+        return json.dumps(objects_list)
+    except:
+        return '', 401
+
+def signup(request):
+    query = '''
+                BEGIN
+                    IF NOT EXISTS (SELECT * FROM [dbo].[Users] 
+                        WHERE Email = ?)
+                    BEGIN
+                        INSERT INTO [dbo].[Users] 
+                            (UserID, FirstName, LastName, Email, Password)
+                        VALUES 
+                            (?, ?, ?, ?, ?)
+                    END
+                END
+            '''
+
+    userId = getUserIdQuery()
+    tuple = (request['email'], userId, request['firstName'], request['lastName'], request['email'], request['password'])
+
+    rowsAffected = dbfuncs.addUsersDB(query, tuple)
+    
+    if rowsAffected == 1:
+        return '', 200
+    else:
+        return '', 212
+
+def getUserIdQuery():
+    query = '''
+                SELECT
+                    UserID 
+                FROM 
+                    Users
+            '''
+
+    userId = dbfuncs.getUserId(query)
+
+    return userId

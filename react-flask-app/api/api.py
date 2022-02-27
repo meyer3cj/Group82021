@@ -1,84 +1,93 @@
 from flask import Flask,request
-import itemfunctions
+import queries
 
 app = Flask(__name__)
 
 # Get requests
+
 # Get entire list for user
-@app.route('/home', methods=['GET'])
-def itemList():
-    return itemfunctions.getItems()
+@app.route('/<userId>/home', methods=['GET'])
+def itemList(userId):
+    return queries.getItems(userId)
 
 @app.route('/search/<Term>', methods=['GET'])
 def searchItemList(Term):
-    return itemfunctions.searchItems(Term)
+    return queries.searchItems(Term)
 
 @app.route('/searchBoughtList/<Term>', methods=['GET'])
 def searchBoughtList(Term):
-    return itemfunctions.searchBoughtitems(Term)
+    return queries.searchBoughtitems(Term)
 @app.route('/searchHistoryList/<Term>', methods=['GET'])
 def searchHistoryList(Term):
-    return itemfunctions.searchHistory(Term)
+    return queries.searchHistory(Term)
 # Get information for single list item update from database
-@app.route('/item/<itemId>', methods=['GET'])
-def getItemList(itemId):
-    return itemfunctions.getItemList(itemId)
+@app.route('/<userId>/<itemId>/item', methods=['GET'])
+def getItemList(userId, itemId):
+    return queries.getItemList(userId, itemId)
 
-# Post requestsj
+# Post requests
+
+# Login request to compare with database
+@app.route('/login', methods=['POST'])
+def login():
+    response = request.json
+    return queries.login(response)
+
+# Create to add user data to Users table in  database
+@app.route('/signup', methods=['POST'])
+def signup():
+    response = request.json
+    return queries.signup(response)
+
 # Add item to database
 @app.route('/add', methods=['POST'])
 def addItemList():
     response = request.json
-    itemfunctions.addItemList(response)
-
-    return '', 200
+    return queries.addItemList(response)
 
 # Send request to update database
-@app.route('/edit/<itemId>', methods=['POST'])
-def editItemList(itemId):
+@app.route('/<usersId>/<itemId>/edit', methods=['POST'])
+def editItemList(usersId, itemId):
     response = request.json
-    itemfunctions.editItemList(itemId, response)
-
-    return '', 200
+    return queries.editItemList(usersId, itemId, response)
 
 #soft delete, item will be in history but not in the user's main list
 @app.route('/remove/<itemId>', methods=['POST'])
 def remove(itemId):
-    itemfunctions.removeItems(itemId)
+    queries.removeItems(itemId)
 
     return '', 200
 
 # Delete requests
-# Delete aa single item from list
-@app.route('/del/<itemId>', methods=['DELETE'])
-def delete(itemId):
-    itemfunctions.deleteItems(itemId)
 
-    return '', 200
+# Delete aa single item from list
+@app.route('/<usersId>/<itemId>/del', methods=['DELETE'])
+def delete(usersId, itemId):
+    return queries.deleteItems(usersId, itemId)
 
 @app.route('/getitemName/<itemName>', methods=['GET'])
 def getImagedata(itemName):
     name= itemName
     print ('item name is ' +str(itemName))
-    urls=itemfunctions.SearchImages(name)
+    urls = queries.searchImages(name)
 
     return urls
 
 @app.route('/bought', methods=['GET'])
 def getBought():
-    return itemfunctions.getBought()
+    return queries.getBought()
 
 @app.route('/history', methods=['GET'])
 def getHistory():
-    return itemfunctions.getHistory()
+    return queries.getHistory()
 
 @app.route('/setBought/<itemId>',methods= ['POST'])
 def setBought(itemId):
 
-    itemfunctions.setBought(itemId)
+    queries.setBought(itemId)
     return '', 200
 @app.route('/setunBought/<itemId>',methods= ['POST'])
 def setunBought(itemId):
 
-    itemfunctions.setUnbought(itemId)
+    queries.setUnbought(itemId)
     return '', 200

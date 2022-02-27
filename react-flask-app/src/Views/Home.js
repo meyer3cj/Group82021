@@ -4,11 +4,16 @@ import axios from "axios";
 const Home = () => {
     const [items, setItems] = useState([])
 
+    // Get users list
     useEffect(() => {
-        fetch("/home").then(response => {
-        if(response.status === 200) {
-            return response.json()
-        }
+        // Get user info from local storage prior to inital load.
+        const user = JSON.parse(localStorage.getItem("user"));
+
+        fetch(`/${user[0].userId}/home`).then(response => {
+            if(response.status === 200) {
+
+                return response.json()
+            }
         }).then(data => setItems(data))
     }, [])
     const handleChange= async (e)=>{

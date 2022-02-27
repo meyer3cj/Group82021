@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Input, Button, List } from 'semantic-ui-react';
+import { Form, Input, Button } from 'semantic-ui-react';
 import { useNavigate } from 'react-router-dom';
 import ImageList from './ImageList';
 import axios from 'axios';
@@ -16,35 +16,25 @@ const AddItem = () => {
     const [price, setPrice] = useState("");
     const [description, setDescription] = useState("");
     const [url, setUrl] = useState("");
-    const [userId, setUserId] = useState("");
     const [image,setImage]= useState("");
     const [imageList, setImageList]= useState([]);
     const [imageSelected, setImageSelected]=useState("");
+
+    // Need to get user data for navigation
+    const user = JSON.parse(localStorage.getItem("user"));
+    const usersId = user[0].userId;
 
     useEffect(()=>{
 
     },[image,imageSelected])
     
-
-     // Use Effect to fetch data info
-     /* TODO: When we create login feature need to obtain userId from login
-        Currently hard codes userId to be 1 */
-     useEffect(() => {
-        fetch(`/home`).then(response => {
-        if(response.status === 200) {
-            return response.json()
-        }
-        }).then(data => {
-            setUserId(1);
-        })
-    }, [])
     const navigate = useNavigate();
     
 
     // Need to prevent default to prevent warning message that form is disconnected
     const navigateHome = (e) => { 
         e.preventDefault()
-        navigate("/home");
+        navigate(`/${usersId}/home`);
     }
 
     return(
@@ -83,7 +73,7 @@ const AddItem = () => {
                     setImageClicked={imageSelected => setImageSelected(imageSelected)}
                     />
                     <h2>Selected Image</h2>
-                    <img src={imageSelected}></img>
+                    <img src={imageSelected} alt="" />
                 </div>
             </Form.Field>
             <Form.Field className = "inputContainer">
@@ -121,7 +111,7 @@ const AddItem = () => {
                 <Button className = "submitButton" onClick={async () => {
                     const item = {
                         itemName: name,
-                        userId: userId,
+                        usersId: usersId,
                         price: price,
                         description: description,
                         imageUrl: imageSelected,
@@ -139,9 +129,9 @@ const AddItem = () => {
                     const response = await api.post('/add', item)
 
                     if (response.status === 200) {
-                        navigate("/home")
-                    }} 
-                }}>
+                        navigate(`/${usersId}/home`)
+                    }
+                }}}>
                     Submit
                 </Button>
             </Form.Field>
