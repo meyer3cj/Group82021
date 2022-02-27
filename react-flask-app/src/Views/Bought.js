@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import ItemList from './ItemList';
 import BoughtList from './boughtList'
 import axios from "axios";
 
-const Home = () => {
+const Bought = () => {
     const [items, setItems] = useState([])
 
     useEffect(() => {
@@ -33,7 +32,7 @@ const Home = () => {
 
     return(
         <div>
-        <a href='/'>home</a><br/>
+        <a href='/'>Home</a><br/>
         <a href="/bought">Bought items</a><br/>
         <a href="/history">Item history</a><br/>
         <input placeholder='search' onChange={handleChange}></input>
@@ -42,4 +41,4 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default Bought;

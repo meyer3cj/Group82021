@@ -18,13 +18,18 @@ const EditItem = () => {
     const [image, setImage]= useState("");
     const [originalImage,setOriginalImage]= useState("");
     const [imageList, setImageList]= useState([]);
-    const [imageSelected, setImageSelected]=useState("");    
+    const [imageSelected, setImageSelected]=useState("");   
+    
+    // Active user login info
+    const user = JSON.parse(localStorage.getItem("user"));
+    const usersId = user[0].userId;
+
     // Used for obtaining the item ID to edit.
     let { itemId } = useParams();
 
     // Use Effect to fetch data info
     useEffect(() => {
-        fetch(`/item/${itemId}`).then(response => {
+        fetch(`/${usersId}/${itemId}/item`).then(response => {
         if(response.status === 200) {
             return response.json()
         }
@@ -38,7 +43,7 @@ const EditItem = () => {
             setOriginalImage(data[0].image)
 
         })
-    }, [itemId])
+    }, [usersId, itemId])
     
 
     // Navigation
@@ -47,7 +52,7 @@ const EditItem = () => {
     // Need to prevent default to prevent warning message that form is disconnected
     const navigateHome = (e) => {
         e.preventDefault();
-        navigate("/home");
+        navigate(`/${user[0].userId}/home`);
     }
 
     return(   
@@ -63,17 +68,17 @@ const EditItem = () => {
             <Image src= {originalImage}/> <br></br>
             <Button onClick={async () => {
                     
-                    let itemName= name;
+                    let itemName = name;
 
                     const response = await api.get(`/getitemName/${itemName}`, itemName)
-                    let imageUrls= []
-                    for(let i=0; i< response.data.length; i++){
+                    let imageUrls = []
+                    for (let i = 0; i < response.data.length; i++) {
                         imageUrls.push(response.data[i])
                     }
                   
                     setImage(itemName)
                     setImageList(imageUrls)
-}}>Change Image</Button>
+            }}>Change Image</Button>
 
             </Form.Field> 
             <Form.Field>
@@ -123,10 +128,10 @@ const EditItem = () => {
                         url: url.toString().replace(/(^\w+:|^)\/\//, '')
                     };
 
-                    const response = await api.post(`/edit/${itemId}`, item)
+                    const response = await api.post(`/${usersId}/${itemId}/edit`, item)
 
                     if (response.status === 200) {
-                        navigate("/home")
+                        navigate(`/${usersId}/home`)
                     }
                 }}>
                     Submit
