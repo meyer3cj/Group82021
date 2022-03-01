@@ -38,9 +38,9 @@ def getImagedata(itemName):
 
     return urls
 
-@app.route('/bought', methods=['GET'])
-def getBought():
-    return queries.getBought()
+@app.route('/<userId>/bought', methods=['GET'])
+def getBought(userId):
+    return queries.getBought(userId)
 
 # Post requests
 
@@ -69,7 +69,7 @@ def editItemList(usersId, itemId):
     return queries.editItemList(usersId, itemId, response)
 
 #soft delete, item will be in history but not in the user's main list
-@app.route('/remove/<itemId>', methods=['POST'])
+@app.route('/<itemId>/remove', methods=['POST'])
 def remove(itemId):
     queries.removeItems(itemId)
 
@@ -85,14 +85,13 @@ def updatePassword(usersId):
     response = request.json
     return queries.updatePassword(usersId, response)
 
-@app.route('/setBought/<itemId>',methods= ['POST'])
+@app.route('/<itemId>/setBought',methods= ['POST'])
 def setBought(itemId):
-
     queries.setBought(itemId)
     return '', 200
-@app.route('/setunBought/<itemId>',methods= ['POST'])
+    
+@app.route('/<itemId>/setunBought',methods= ['POST'])
 def setunBought(itemId):
-
     queries.setUnbought(itemId)
     return '', 200
 
@@ -100,13 +99,13 @@ def setunBought(itemId):
 # Delete requests
 
 # Delete aa single item from list
-@app.route('/<usersId>/<itemId>/del', methods=['DELETE'])
+@app.route('/<usersId>/<itemId>/deleteItem', methods=['DELETE'])
 def delete(usersId, itemId):
     return queries.deleteItems(usersId, itemId)
 
-@app.route('/history', methods=['GET'])
-def getHistory():
-    return queries.getHistory()
+@app.route('/<usersId>/history', methods=['GET'])
+def getHistory(usersId):
+    return queries.getHistory(usersId)
 
 @app.route('/<usersId>/deleteAccount', methods=['DELETE'])
 def deleteAccount(usersId):

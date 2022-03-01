@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
 import ItemList from './ItemList';
 import axios from "axios";
-import LoginStyle from '../CSS_Files/LoginStyle.css'
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
     const [items, setItems] = useState([])
+
+    // Need to get user data for navigation
+    const user = JSON.parse(localStorage.getItem("user"));
+    const usersId = user[0].userId;
 
     // Get users list
     useEffect(() => {
@@ -17,8 +21,11 @@ const Home = () => {
             }
         }).then(data => setItems(data))
     }, [])
+
+    const navigate = useNavigate();
+
     const handleChange= async (e)=>{
-        if (e.target.value ==''){
+        if (e.target.value === ''){
             fetch("/home").then(response => {
                 if(response.status === 200) {
                     return response.json()
@@ -26,23 +33,53 @@ const Home = () => {
                 }).then(data => setItems(data))
         }
         else{
-        console.log(e.target.value)
-        let term= e.target.value
-        let response =await axios.get(`/search/${term}`)
-        console.log(response.data)
-        setItems(response.data)
-            }
+            let term= e.target.value
+            let response =await axios.get(`/search/${term}`)
+            setItems(response.data)
+        }
+    }
 
+    // Need to prevent default to prevent warning message that form is disconnected
+    const navigateHome = (e) => { 
+        e.preventDefault()
+        navigate(`/${usersId}/home`);
+    }
 
+    const navigateBought = (e) => { 
+        e.preventDefault()
+        navigate(`/${usersId}/bought`);
+    }
+
+    const navigateHistory = (e) => { 
+        e.preventDefault()
+        navigate(`/${usersId}/history`);
     }
 
     return(
         <div>
-        <a href='/'>home</a><br/>
-        <a href="/bought">Bought items</a><br/>
-        <a href="/history">Item history</a><br/>
-        <input placeholder="search" onChange={handleChange}></input>
-        <ItemList items = {items}/>
+            <div>
+                <button
+                    onClick={navigateHome}
+                >
+                    Home
+                </button>
+            </div>
+            <div>
+                <button
+                    onClick={navigateBought}
+                >
+                    Bought Items
+                </button>
+            </div>
+            <div>
+                <button
+                    onClick={navigateHistory}
+                >
+                    Items History
+                </button>
+            </div>
+            <input placeholder="search" onChange={handleChange}></input>
+            <ItemList items = {items}/>
         </div>
     );
 };

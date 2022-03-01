@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { List } from "semantic-ui-react";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -22,7 +21,7 @@ export const ItemList = ({items}) => {
     const addItemClicked = () => { 
         navigate("/add");
     }
-    const [searchTerm, setSearchTerm]= useState('')
+
     /*********************************************************************************************
      * Prevent default is called in order to prevent function from automatically getting called. *
      *    By doing this it will only get called when the user clicks edit and will pass the      *
@@ -33,7 +32,7 @@ export const ItemList = ({items}) => {
     }
 
     const removeItemClicked = async (itemId) => {
-        const response = await api.post(`/remove/${itemId}`)
+        const response = await api.post(`/${itemId}/remove`)
 
         if (response.status === 200) {
             // TODO: Look for different way to not force a reload of the page
@@ -41,8 +40,7 @@ export const ItemList = ({items}) => {
         }
     }
     const BoughtItemClicked = async (itemId) => {
-        console.log(itemId)
-        const response = await api.post(`/setBought/${itemId}`)
+        const response = await api.post(`/${itemId}/setBought`)
         if(response.status === 200){
             window.location.reload();
         }

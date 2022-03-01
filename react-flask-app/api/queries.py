@@ -191,10 +191,10 @@ def addItemList(request):
                 INSERT INTO 
                     [dbo].[Items] (UserID, ItemName, ItemPrice, ItemDescription, Purchased, ItemURL, ItemImage, inlist)
                 VALUES 
-                    (?,?,?,?,?,?,?)
+                    (?,?,?,?,?,?,?, ?)
             '''
 
-    tuple = (request['usersId'], request['itemName'], request['price'], request['description'], False, request['url'], request['imageUrl'])
+    tuple = (request['usersId'], request['itemName'], request['price'], request['description'], False, request['url'], request['imageUrl'], True)
 
     dbfuncs.editDB(query, tuple)
 
@@ -314,7 +314,7 @@ def searchImages(query):
             f.write ('<img src='+images[i]['thumbnail']+' height=100>'+'\n')
 '''
 
-def getBought():
+def getBought(usersId):
     query = '''
                 SELECT 
                     *
@@ -326,7 +326,7 @@ def getBought():
                     Purchased= 1
             '''
             
-    tuple = (1)
+    tuple = (usersId)
 
     rows = dbfuncs.readDB(query, tuple)
 
@@ -350,10 +350,13 @@ def getBought():
 
 def setBought(itemID):
     query = '''
-        update Items 
-        set Purchased = 1 
-        where ItemID = ? 
-    '''
+                UPDATE 
+                    Items 
+                SET 
+                    Purchased = 1 
+                WHERE 
+                    ItemID = ? 
+            '''
     tuple= (str(itemID))
 
     dbfuncs.editDB(query, tuple)
@@ -361,10 +364,14 @@ def setBought(itemID):
     return '', 200    
 def setUnbought(itemID):
     query = '''
-        update Items 
-        set Purchased = 0
-        where ItemID = ? 
-    '''
+                UPDATE 
+                    Items 
+                SET 
+                    Purchased = 0
+                WHERE 
+                    ItemID = ? 
+            '''
+
     tuple= (str(itemID))
 
     dbfuncs.editDB(query, tuple)
@@ -372,17 +379,21 @@ def setUnbought(itemID):
     return '', 200
 def placeInList(itemID):
     query = '''
-        update Items 
-        set inlist = 1
-        where ItemID = ? 
-    '''
+                UPDATE 
+                    Items 
+                SET 
+                    inlist = 1
+                WHERE 
+                    ItemID = ? 
+            '''
+
     tuple= (str(itemID))
 
     dbfuncs.editDB(query, tuple)
 
     return '', 200
 
-def getHistory():
+def getHistory(userId):
     query = '''
                 SELECT 
                     *
@@ -393,7 +404,7 @@ def getHistory():
                 order by ItemID desc
             '''
             
-    tuple = (1)
+    tuple = (userId)
 
     rows = dbfuncs.readDB(query, tuple)
 

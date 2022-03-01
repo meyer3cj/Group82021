@@ -1,6 +1,5 @@
 import React from 'react';
 import { List } from "semantic-ui-react";
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import "../CSS_Files/ListStyle.css";
 
@@ -10,42 +9,27 @@ const api = axios.create({
 })
 
 export const ItemHistoryList = ({items}) => {
-    // Use navigation for different forms
-    console.log({items})
-    const navigate = useNavigate();
-
-    // When buttons are clicked Navigate to proper routes
-    const addItemClicked = () => { 
-        navigate("/add");
-    }
+    // Need to get user data for navigation
+    const user = JSON.parse(localStorage.getItem("user"));
+    const usersId = user[0].userId;
 
     /*********************************************************************************************
      * Prevent default is called in order to prevent function from automatically getting called. *
      *    By doing this it will only get called when the user clicks edit and will pass the      *
      *                                  necessary information                                    *
     **********************************************************************************************/
-    const editItemClicked = (itemId) => {
-        navigate(`/edit/${itemId}`);
-    }
 
     const deleteItemClicked = async (itemId) => {
-        const response = await api.delete(`/del/${itemId}`)
+        const response = await api.delete(`/${usersId}/${itemId}/deleteItem`)
 
         if (response.status === 200) {
             // Force a refresh of the page.
             window.location.reload();
         }
     }
-    const unBoughtItemClicked = async (itemId) => {
-        console.log(itemId)
-        const response = await api.post(`/setunBought/${itemId}`)
-        if(response.status === 200){
-            window.location.reload();
-        }
-    }
+
     const returnItemClicked = async (itemId) => {
-        console.log(itemId)
-        const response = await api.post(`/setunBought/${itemId}`)
+        const response = await api.post(`/${itemId}/setunBought`)
         
         if(response.status === 200){
             window.location.reload();
@@ -63,15 +47,13 @@ export const ItemHistoryList = ({items}) => {
                                 <p>${item.price}</p>
                             </div>
                             <p>{item.description}</p>
-                            <img src={item.image}></img> <br/>
-                            <button onClick={e => {e.preventDefault(); editItemClicked(item.itemId)}}>Edit</button>
+                            <img src={item.image} alt="" />
                             <button onClick={e => {e.preventDefault(); deleteItemClicked(item.itemId)}}>Delete</button>
-                            <button onClick={e => {e.preventDefault(); returnItemClicked(item.itemId)}}> Return list</button>
+                            <button onClick={e => {e.preventDefault(); returnItemClicked(item.itemId)}}>Return item to list</button>
                         </div>
                     </List.Item>
                 )
             })}
-            <button onClick = {addItemClicked}>add</button>
         </List>
     )
 }

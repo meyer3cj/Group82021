@@ -3,7 +3,6 @@ import Home from './Views/Home';
 import AddItem from './Views/AddItem';
 import EditItem from "./Views/EditItem";
 import Bought from "./Views/Bought";
-import ItemHistoryList from "./Views/ItemHistoryList";
 import ItemHistory from "./Views/ItemHistory"
 import Login from "./Views/Login";
 import Signup from "./Views/Signup";
@@ -21,9 +20,9 @@ export const App = () => {
                             <Route exact path = '/signup' element={<Signup />}/>
                             <Route exact path = '/:userId/home' element={<Home />}/>
                             <Route exact path = '/add' element={<AddItem />}/>
-                            <Route exact path = '/bought' element={<Bought />}/>
+                            <Route exact path = '/:userId/bought' element={<Bought />}/>
                             <Route exact path = '/:usersId/:itemId/edit' element={<EditItem />}/>
-                            <Route exact path = '/history' element={<ItemHistory/>}/>
+                            <Route exact path = '/:userId/history' element={<ItemHistory/>}/>
                             <Route exact path = '/:userId/profile' element={<Profile />}/>
                         </Routes>
                     </div>
