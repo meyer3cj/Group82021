@@ -65,7 +65,7 @@ export const ItemList = ({items}) => {
             </button>
             {items.map(item => {
                 return (
-                    <List.Item className= 'item' key = {item.name}>
+                    <List.Item className= 'item' key = {item.itemId}>
                         <div>
 
                             <p>{item.itemId.toString()}</p>

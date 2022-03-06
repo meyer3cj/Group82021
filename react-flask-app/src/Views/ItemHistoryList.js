@@ -29,7 +29,7 @@ export const ItemHistoryList = ({items}) => {
     }
 
     const returnItemClicked = async (itemId) => {
-        const response = await api.post(`/${itemId}/setunBought`)
+        const response = await api.post(`/${itemId}/returnToList`)
         
         if(response.status === 200){
             window.location.reload();

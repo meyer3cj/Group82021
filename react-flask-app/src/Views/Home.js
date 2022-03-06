@@ -26,7 +26,7 @@ const Home = () => {
 
     const handleChange= async (e)=>{
         if (e.target.value === ''){
-            fetch("/home").then(response => {
+            fetch(`/${usersId}/home`).then(response => {
                 if(response.status === 200) {
                     return response.json()
                 }
@@ -34,7 +34,7 @@ const Home = () => {
         }
         else{
             let term= e.target.value
-            let response =await axios.get(`/search/${term}`)
+            let response =await axios.get(`/search/${usersId}/${term}`)
             setItems(response.data)
         }
     }

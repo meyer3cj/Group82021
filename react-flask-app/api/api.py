@@ -11,16 +11,16 @@ app = Flask(__name__)
 def itemList(userId):
     return queries.getItems(userId)
 
-@app.route('/search/<Term>', methods=['GET'])
-def searchItemList(Term):
-    return queries.searchItems(Term)
+@app.route('/search/<userID>/<Term>', methods=['GET'])
+def searchItemList(userID,Term):
+    return queries.searchItems(userID,Term)
 
-@app.route('/searchBoughtList/<Term>', methods=['GET'])
-def searchBoughtList(Term):
-    return queries.searchBoughtitems(Term)
-@app.route('/searchHistoryList/<Term>', methods=['GET'])
-def searchHistoryList(Term):
-    return queries.searchHistory(Term)
+@app.route('/searchBoughtList/<userID>/<Term>', methods=['GET'])
+def searchBoughtList(userID,Term):
+    return queries.searchBoughtitems(userID,Term)
+@app.route('/searchHistoryList/<usersID>/<Term>', methods=['GET'])
+def searchHistoryList(usersID,Term):
+    return queries.searchHistory(usersID,Term)
 # Get information for single list item update from database
 @app.route('/<userId>/accountInfo', methods=['GET'])
 def getAccountInfo(userId):
@@ -94,6 +94,13 @@ def setBought(itemId):
 def setunBought(itemId):
     queries.setUnbought(itemId)
     return '', 200
+
+@app.route('/<itemId>/returnToList',methods= ['POST'])
+def returnToList(itemId):
+    queries.placeInList(itemId)
+    return '', 200
+
+
 
 
 # Delete requests
