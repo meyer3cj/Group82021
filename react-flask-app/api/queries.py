@@ -16,7 +16,7 @@ def getItems(userId):
                     inlist = 1
             '''
             
-    tuple = (userId);
+    tuple = (userId)
 
     rows = dbfuncs.readDB(query, tuple)
 
@@ -38,27 +38,27 @@ def getItems(userId):
 
     return json.dumps(objects_list)
 
-def searchItems(Term):
+def searchItems(userID,Term):
     query = '''
                 SELECT 
                     *
                 FROM 
                     [Items]
                 WHERE 
-                    userId = ?
+                    UserId = ?
                 And
                     Purchased= 0
                 And 
                     inlist = 1
                 And
                     ItemName LIKE ?
-                or
-                    ItemDescription LIKE ?
             '''
             
-    tuple = (1,'%'+Term+'%','%'+Term+'%')
+    tuple = (userID,'%'+Term+'%')
 
     rows = dbfuncs.readDB(query, tuple)
+
+
 
     objects_list = []
 
@@ -77,7 +77,7 @@ def searchItems(Term):
         objects_list.append(d)
 
     return json.dumps(objects_list)
-def searchHistory(Term):
+def searchHistory(userID,Term):
     query = '''
                 SELECT 
                     *
@@ -87,12 +87,11 @@ def searchHistory(Term):
                     userId = ?
                 AND
                     itemName LIKE ?
-                or
-                    ItemDescription LIKE ?
+
                 order by ItemID desc
             '''
             
-    tuple = (1,'%'+Term+'%','%'+Term+'%')
+    tuple = (userID,'%'+Term+'%')
 
     rows = dbfuncs.readDB(query, tuple)
 
@@ -113,7 +112,7 @@ def searchHistory(Term):
         objects_list.append(d)
 
     return json.dumps(objects_list)
-def searchBoughtitems(Term):
+def searchBoughtitems(userID,Term):
     query = '''
                 SELECT 
                     *
@@ -126,11 +125,9 @@ def searchBoughtitems(Term):
                 And
                 
                     ItemName LIKE ?
-                or
-                    ItemDescription LIKE ?
             '''
             
-    tuple = (1,'%'+Term+'%')
+    tuple = (userID,'%'+Term+'%')
 
     rows = dbfuncs.readDB(query, tuple)
 
@@ -159,16 +156,14 @@ def removeItems(itemId):
     tuple = (str(itemId))
     dbfuncs.editDB(query, tuple)
     return '', 200
-def deleteItems(usersId, itemId):
+def deleteItems(itemId):
     query = '''
                 DELETE FROM [Items] 
                 WHERE 
                     ItemID = ?
-                AND
-                    userId = ?
             '''
 
-    tuple = (str(itemId), usersId)
+    tuple = (str(itemId))
 
     dbfuncs.editDB(query, tuple)
 

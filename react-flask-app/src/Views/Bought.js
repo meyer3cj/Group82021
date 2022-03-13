@@ -30,7 +30,7 @@ const Bought = () => {
         }
         else{
             let term= e.target.value
-            let response =await axios.get(`/searchBoughtList/${term}`)
+            let response =await axios.get(`/searchBoughtList/${usersId}/${term}`)
             setItems(response.data)
         }
     }
