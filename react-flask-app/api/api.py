@@ -106,9 +106,9 @@ def returnToList(itemId):
 # Delete requests
 
 # Delete aa single item from list
-@app.route('/<usersId>/<itemId>/deleteItem', methods=['DELETE'])
-def delete(usersId, itemId):
-    return queries.deleteItems(usersId, itemId)
+@app.route('/<itemId>/deleteItem', methods=['DELETE'])
+def delete(itemId):
+    return queries.deleteItems(itemId)
 
 @app.route('/<usersId>/history', methods=['GET'])
 def getHistory(usersId):

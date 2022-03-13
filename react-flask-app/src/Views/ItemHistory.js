@@ -33,7 +33,7 @@ const Home = () => {
         }
         else{
             let term= e.target.value
-            let response = await axios.get(`/searchHistoryList/${usersId}/${term}`)
+            let response = await axios.get(`/searchHistoryList/${term}`)
             setItems(response.data)
         }
     }

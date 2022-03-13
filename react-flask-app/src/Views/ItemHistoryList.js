@@ -20,7 +20,7 @@ export const ItemHistoryList = ({items}) => {
     **********************************************************************************************/
 
     const deleteItemClicked = async (itemId) => {
-        const response = await api.delete(`/${usersId}/${itemId}/deleteItem`)
+        const response = await api.delete(`/${itemId}/deleteItem`)
 
         if (response.status === 200) {
             // Force a refresh of the page.

@@ -156,16 +156,14 @@ def removeItems(itemId):
     tuple = (str(itemId))
     dbfuncs.editDB(query, tuple)
     return '', 200
-def deleteItems(usersId, itemId):
+def deleteItems(itemId):
     query = '''
                 DELETE FROM [Items] 
                 WHERE 
                     ItemID = ?
-                AND
-                    userId = ?
             '''
 
-    tuple = (str(itemId), usersId)
+    tuple = (str(itemId))
 
     dbfuncs.editDB(query, tuple)
 
