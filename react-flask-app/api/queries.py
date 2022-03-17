@@ -357,7 +357,8 @@ def setBought(itemID):
 
     dbfuncs.editDB(query, tuple)
 
-    return '', 200    
+    return '', 200
+
 def setUnbought(itemID):
     query = '''
                 UPDATE 
@@ -373,6 +374,7 @@ def setUnbought(itemID):
     dbfuncs.editDB(query, tuple)
 
     return '', 200
+
 def placeInList(itemID):
     query = '''
                 UPDATE 
@@ -526,7 +528,7 @@ def updateEmail(usersId, request):
     else:
         return '', 212
 
-def updatePassword(usersId, request):
+def updatePassword(usersId, hashed_password):
     query = '''
                  UPDATE 
                     [dbo].[Users]
@@ -535,7 +537,7 @@ def updatePassword(usersId, request):
                 WHERE
                     userId = ?
             '''
-    tuple = (request['password'], usersId)
+    tuple = (hashed_password, usersId)
 
     dbfuncs.editDB(query, tuple)
 

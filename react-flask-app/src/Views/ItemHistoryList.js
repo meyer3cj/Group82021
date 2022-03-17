@@ -32,6 +32,7 @@ export const ItemHistoryList = ({items}) => {
             window.location.reload();
         }
     }
+    
     return(    
         <List className= 'itemList'>
             {items.map(item => {

@@ -52,15 +52,13 @@ def getBought(userId):
 @app.route('/login', methods=['POST'])
 def login():
     response = request.json
-    object2 = queries.passHash(response)
-  
-    print(object2)
+    truePassword = queries.passHash(response)
 
-    object = queries.login(response)
+    login = queries.login(response)
 
     try: 
-        if bcrypt.check_password_hash(object2, response['password']):
-            return object
+        if bcrypt.check_password_hash(truePassword, response['password']):
+            return login
         else:
             raise Exception("Invalid")
     except:
@@ -104,7 +102,11 @@ def updateEmail(usersId):
 @app.route('/<usersId>/updatePassword', methods=['POST'])
 def updatePassword(usersId):
     response = request.json
-    return queries.updatePassword(usersId, response)
+
+     # Hash the password
+    hashed_password = bcrypt.generate_password_hash(response['password'])
+
+    return queries.updatePassword(usersId, hashed_password)
 
 @app.route('/<itemId>/setBought',methods= ['POST'])
 def setBought(itemId):

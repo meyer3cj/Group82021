@@ -45,24 +45,9 @@ export const ItemList = ({items}) => {
             window.location.reload();
         }
     }
-    
-    const logoutClicked = () => {
-        localStorage.clear();
-        navigate("/login");
-    }
-
-    const profileClicked = () => {
-        navigate(`/${usersId}/profile`);
-    }
 
     return(
         <List className='itemList'>
-            <button onClick={logoutClicked}>
-                Logout
-            </button>
-            <button onClick={profileClicked}>
-                Profile
-            </button>
             {items.map(item => {
                 return (
                     <List.Item className= 'item' key = {item.itemId}>
