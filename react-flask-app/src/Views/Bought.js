@@ -95,7 +95,7 @@ const Bought = () => {
                     Items History
                 </button>
             </div>
-            <input placeholder='search' onChange={handleChange}></input>
+            <input placeholder='Search' onChange={handleChange}></input>
             <BoughtList items = {items}/>
         </div>
     );
