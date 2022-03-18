@@ -9,9 +9,6 @@ const api = axios.create({
 })
 
 export const ItemHistoryList = ({items}) => {
-    // Need to get user data for navigation
-    const user = JSON.parse(localStorage.getItem("user"));
-    const usersId = user[0].userId;
 
     /*********************************************************************************************
      * Prevent default is called in order to prevent function from automatically getting called. *
@@ -35,6 +32,7 @@ export const ItemHistoryList = ({items}) => {
             window.location.reload();
         }
     }
+    
     return(    
         <List className= 'itemList'>
             {items.map(item => {

@@ -1,8 +1,10 @@
 # from crypt import methods
 from flask import Flask,request
 import queries
+import flask_bcrypt
 
 app = Flask(__name__)
+bcrypt = flask_bcrypt.Bcrypt(app)
 
 # Get requests
 
@@ -18,9 +20,11 @@ def searchItemList(userID,Term):
 @app.route('/searchBoughtList/<userID>/<Term>', methods=['GET'])
 def searchBoughtList(userID,Term):
     return queries.searchBoughtitems(userID,Term)
+
 @app.route('/searchHistoryList/<usersID>/<Term>', methods=['GET'])
 def searchHistoryList(usersID,Term):
     return queries.searchHistory(usersID,Term)
+    
 # Get information for single list item update from database
 @app.route('/<userId>/accountInfo', methods=['GET'])
 def getAccountInfo(userId):
@@ -48,13 +52,28 @@ def getBought(userId):
 @app.route('/login', methods=['POST'])
 def login():
     response = request.json
-    return queries.login(response)
+    truePassword = queries.passHash(response)
 
-# Create to add user data to Users table in  database
+    login = queries.login(response)
+
+    try: 
+        if bcrypt.check_password_hash(truePassword, response['password']):
+            return login
+        else:
+            raise Exception("Invalid")
+    except:
+        return '', 401
+
+
+# Create to add user data to Users table in database
 @app.route('/signup', methods=['POST'])
 def signup():
     response = request.json
-    return queries.signup(response)
+
+     # Hash the password
+    hashed_password = bcrypt.generate_password_hash(response['password'])
+
+    return queries.signup(response, hashed_password)
 
 # Add item to database
 @app.route('/add', methods=['POST'])
@@ -83,7 +102,11 @@ def updateEmail(usersId):
 @app.route('/<usersId>/updatePassword', methods=['POST'])
 def updatePassword(usersId):
     response = request.json
-    return queries.updatePassword(usersId, response)
+
+     # Hash the password
+    hashed_password = bcrypt.generate_password_hash(response['password'])
+
+    return queries.updatePassword(usersId, hashed_password)
 
 @app.route('/<itemId>/setBought',methods= ['POST'])
 def setBought(itemId):
@@ -99,9 +122,6 @@ def setunBought(itemId):
 def returnToList(itemId):
     queries.placeInList(itemId)
     return '', 200
-
-
-
 
 # Delete requests
 

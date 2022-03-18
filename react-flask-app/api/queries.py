@@ -2,6 +2,7 @@ import dbfuncs
 import json
 import collections
 from serpapi import GoogleSearch
+
 def getItems(userId):
     query = '''
                 SELECT 
@@ -356,7 +357,8 @@ def setBought(itemID):
 
     dbfuncs.editDB(query, tuple)
 
-    return '', 200    
+    return '', 200
+
 def setUnbought(itemID):
     query = '''
                 UPDATE 
@@ -372,6 +374,7 @@ def setUnbought(itemID):
     dbfuncs.editDB(query, tuple)
 
     return '', 200
+
 def placeInList(itemID):
     query = '''
                 UPDATE 
@@ -420,7 +423,9 @@ def getHistory(userId):
         objects_list.append(d)
 
     return json.dumps(objects_list)
+    
 def login(request):
+
     query = '''
                 SELECT
                     *
@@ -428,15 +433,12 @@ def login(request):
                     [dbo].[Users]
                 WHERE
                     [dbo].[Users].Email = ?
-                AND
-                    [dbo].[Users].Password = ?
             '''
 
-    tuple = (request['email'], request['password'])
+    tuple = (request['email'])
     rows = dbfuncs.readDB(query, tuple)
 
     objects_list = []
-    print(rows)
 
     try:
         # If rows is not an empty array then populate and return
@@ -453,7 +455,33 @@ def login(request):
     except:
         return '', 401
 
-def signup(request):
+def passHash(request):
+
+    query = '''
+                SELECT
+                    *
+                FROM
+                    [dbo].[Users]
+                WHERE
+                    [dbo].[Users].Email = ?
+            '''
+
+    tuple = (request['email'])
+    rows = dbfuncs.readDB(query, tuple)
+
+    try:
+        # If rows is not an empty array then populate and return
+        if rows:
+            for row in rows:
+                return row[3]
+        else:
+            # Raise an exception to return a 401
+            raise Exception("Yes")
+    except:
+        return '', 401
+
+def signup(request, hashed_password):
+
     query = '''
                 BEGIN
                     IF NOT EXISTS (SELECT * FROM [dbo].[Users] 
@@ -468,7 +496,7 @@ def signup(request):
             '''
 
     userId = getUserIdQuery()
-    tuple = (request['email'], userId, request['firstName'], request['lastName'], request['email'], request['password'])
+    tuple = (request['email'], userId, request['firstName'], request['lastName'], request['email'], hashed_password)
 
     rowsAffected = dbfuncs.addUsersDB(query, tuple)
     
@@ -500,7 +528,7 @@ def updateEmail(usersId, request):
     else:
         return '', 212
 
-def updatePassword(usersId, request):
+def updatePassword(usersId, hashed_password):
     query = '''
                  UPDATE 
                     [dbo].[Users]
@@ -509,7 +537,7 @@ def updatePassword(usersId, request):
                 WHERE
                     userId = ?
             '''
-    tuple = (request['password'], usersId)
+    tuple = (hashed_password, usersId)
 
     dbfuncs.editDB(query, tuple)
 

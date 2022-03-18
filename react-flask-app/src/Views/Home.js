@@ -24,7 +24,7 @@ const Home = () => {
 
     const navigate = useNavigate();
 
-    const handleChange= async (e)=>{
+    const handleChange= async (e) => {
         if (e.target.value === ''){
             fetch(`/${usersId}/home`).then(response => {
                 if(response.status === 200) {
@@ -33,7 +33,7 @@ const Home = () => {
                 }).then(data => setItems(data))
         }
         else{
-            let term= e.target.value
+            let term = e.target.value
             let response =await axios.get(`/search/${usersId}/${term}`)
             setItems(response.data)
         }
@@ -54,9 +54,31 @@ const Home = () => {
         e.preventDefault()
         navigate(`/${usersId}/history`);
     }
+        
+    const logoutClicked = () => {
+        localStorage.clear();
+        navigate("/login");
+    }
+
+    const profileClicked = () => {
+        navigate(`/${usersId}/profile`);
+    }
 
     return(
         <div>
+            <div style={{textAlign: 'right', margin: '10px'}}>
+                <button
+                    style={{marginRight: '10px'}}
+                    onClick = {profileClicked}
+                >
+                    Profile
+                </button>
+                <button
+                    onClick={logoutClicked}
+                >
+                    Logout
+                </button>
+            </div>
             <div>
                 <button
                     onClick={navigateHome}
