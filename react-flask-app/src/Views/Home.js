@@ -100,7 +100,7 @@ const Home = () => {
                     Items History
                 </button>
             </div>
-            <input placeholder="search" onChange={handleChange}></input>
+            <input placeholder="Search" onChange={handleChange}></input>
             <ItemList items = {items}/>
         </div>
     );
