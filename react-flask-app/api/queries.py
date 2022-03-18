@@ -157,6 +157,7 @@ def removeItems(itemId):
     tuple = (str(itemId))
     dbfuncs.editDB(query, tuple)
     return '', 200
+
 def deleteItems(itemId):
     query = '''
                 DELETE FROM [Items] 
@@ -200,7 +201,7 @@ def addItemList(request):
                 INSERT INTO 
                     [dbo].[Items] (UserID, ItemName, ItemPrice, ItemDescription, Purchased, ItemURL, ItemImage, inlist)
                 VALUES 
-                    (?,?,?,?,?,?,?, ?)
+                    (?,?,?,?,?,?,?,?)
             '''
 
     tuple = (request['usersId'], request['itemName'], request['price'], request['description'], False, request['url'], request['imageUrl'], True)

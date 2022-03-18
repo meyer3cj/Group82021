@@ -50,10 +50,31 @@ const Bought = () => {
         e.preventDefault()
         navigate(`/${usersId}/history`);
     }
+    
+    const logoutClicked = () => {
+        localStorage.clear();
+        navigate("/login");
+    }
 
+    const profileClicked = () => {
+        navigate(`/${usersId}/profile`);
+    }
 
     return(
         <div>
+             <div style={{textAlign: 'right', margin: '10px'}}>
+                <button
+                    style={{marginRight: '10px'}}
+                    onClick = {profileClicked}
+                >
+                    Profile
+                </button>
+                <button
+                    onClick={logoutClicked}
+                >
+                    Logout
+                </button>
+            </div>
             <div>
                 <button
                     onClick={navigateHome}
