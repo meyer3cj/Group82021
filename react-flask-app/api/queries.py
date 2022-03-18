@@ -169,7 +169,20 @@ def deleteItems(itemId):
 
     return '', 200
 
+def deleteAllitems(usersId):
+    query = '''
+                DELETE FROM [Items]
+                WHERE
+                    userId = ?
+            '''
+    tuple = (usersId)
+    
+    dbfuncs.editDB(query, tuple)
+
+    return '', 200
+
 def deleteAccount(usersId):
+    deleteAllitems(usersId)
     query = '''
                 DELETE FROM [Users]
                 WHERE
