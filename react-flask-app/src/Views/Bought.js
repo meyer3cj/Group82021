@@ -71,7 +71,7 @@ const Bought = () => {
                     Profile
                 </button>
                 <button
-                    className="btn"
+                    className="btnDanger"
                     onClick={logoutClicked}
                 >
                     Logout

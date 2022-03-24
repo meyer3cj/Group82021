@@ -74,7 +74,7 @@ const Home = () => {
                     Profile
                 </button>
                 <button
-                    className="btn"
+                    className="btnDanger"
                     onClick={logoutClicked}
                 >
                     Logout
