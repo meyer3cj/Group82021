@@ -14,13 +14,13 @@ export const ImageList=(props) =>{
                 return(
                     <List.Item className = 'image' key= {imageUrl.id}>
                         <Image  
-                        onClick={e => {
-                            e.preventDefault();
-                            setImageSelection(imageUrl.url);
-                            props.setImageClicked(imageUrl.url);
-                        }}
-                        src={imageUrl.url} 
-                        height= '200px'></Image>
+                            onClick={e => {
+                                e.preventDefault();
+                                setImageSelection(imageUrl.url);
+                                props.setImageClicked(imageUrl.url);
+                            }}
+                            src={imageUrl.url} 
+                        />
                     </List.Item>
                 )
             })}

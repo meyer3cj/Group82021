@@ -64,12 +64,14 @@ const Bought = () => {
         <div>
              <div style={{textAlign: 'right', margin: '10px'}}>
                 <button
+                    className="btn"
                     style={{marginRight: '10px'}}
                     onClick = {profileClicked}
                 >
                     Profile
                 </button>
                 <button
+                    className="btn"
                     onClick={logoutClicked}
                 >
                     Logout
@@ -77,12 +79,14 @@ const Bought = () => {
             </div>
             <div>
                 <button
+                    className="btn"
                     onClick={navigateHome}
                 >Home
                 </button>
             </div>
             <div>
                 <button
+                    className="btn"
                     onClick={navigateBought}
                 >
                     Bought Items
@@ -90,12 +94,18 @@ const Bought = () => {
             </div>
             <div>
                 <button
+                    className="btn"
                     onClick={navigateHistory}
                 >
                     Items History
                 </button>
             </div>
-            <input placeholder='Search' onChange={handleChange}></input>
+            <input
+                className="input"
+                type="text"
+                placeholder='Search'
+                onChange={handleChange} 
+            />
             <BoughtList items = {items}/>
         </div>
     );

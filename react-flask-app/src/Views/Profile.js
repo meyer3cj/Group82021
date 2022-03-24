@@ -49,7 +49,11 @@ const Profile = () => {
 
     return(
         <Form className = "formView">
-            <Button onClick={navigateHome}>Home</Button>
+            <Button 
+                className='btn'
+                onClick={navigateHome}>
+                    Home
+            </Button>
             <Form.Field className = "inputContainer">
                 <Input
                     type = "text"
@@ -57,7 +61,9 @@ const Profile = () => {
                     onChange = {e => setEmail(e.target.value)}
                 />
             </Form.Field>
-            <Button onClick={async () => {
+            <Button
+                className='btn'
+                onClick={async () => {
                     const profile = {
                         email: email
                     };
@@ -76,7 +82,9 @@ const Profile = () => {
                     onChange = {e => setPassword(e.target.value)}
                 />
             </Form.Field>
-            <Button onClick={async () => {
+            <Button 
+                className='btn'
+                onClick={async () => {
                     const profile = {
                         password: password
                     };
@@ -89,7 +97,11 @@ const Profile = () => {
                 }}>
                     Update Password
             </Button>
-            <Button onClick={deleteAccountClicked}>Delete Account</Button>
+            <Button 
+                className='btnDanger'
+                onClick={deleteAccountClicked}>
+                    Delete Account
+            </Button>
         </Form>
     );
 };

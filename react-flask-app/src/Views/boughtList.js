@@ -45,8 +45,8 @@ export const ItemList = ({items}) => {
                             </div>
                             <p>{item.description}</p>
                             <img src={item.image} alt="" / >
-                            <button onClick={e => {e.preventDefault(); deleteItemClicked(item.itemId)}}>Delete</button>
-                            <button onClick={e => {e.preventDefault(); unBoughtItemClicked(item.itemId)}}>Return to unbought</button>
+                            <button className='btn' onClick={e => {e.preventDefault(); deleteItemClicked(item.itemId)}}>Delete</button>
+                            <button className='btn' onClick={e => {e.preventDefault(); unBoughtItemClicked(item.itemId)}}>Set to unbought</button>
                         </div>
                     </List.Item>
                 )

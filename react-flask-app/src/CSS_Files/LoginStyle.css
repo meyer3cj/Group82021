@@ -122,12 +122,31 @@ form.sign-up-form {
     color: #fff;
     text-transform: uppercase;
     font-weight: 600;
-    margin: 10px 0;
+    margin: 10px;
     margin-right: 10px;
 }
 
 .btn:hover {
     background-color: #00bfa6;
+}
+
+.btnDanger {
+  width: 150px;
+  height: 49px;
+  border: none;
+  outline: none;    
+  border-radius: 48px;
+  cursor: pointer;
+  background-color: red;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin: 10px;
+  margin-right: 10px;
+}
+
+.btnDanger:hover {
+  background-color: darkred;
 }
 
 .social-text {

@@ -107,7 +107,6 @@ const Signup = () => {
                             }}>
                                 Signup
                             </Button><br/>
-                            <p><a  href='./Login'>Login</a></p>
                         </Form.Field>
                         
                     </Form>

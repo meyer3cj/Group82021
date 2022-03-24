@@ -1,5 +1,4 @@
 .formView {
-    border: 2px solid black;
     padding: 15px;
     margin: 20px;
     margin-bottom: 30px;
@@ -8,8 +7,6 @@
 .inputContainer {
     padding: 10px;
     margin: auto;
-    width: 50%;
-    border: 2px solid rgb(20, 241, 0);
 }
 
 input[type="text"] { 
@@ -17,17 +14,17 @@ input[type="text"] {
     padding: 20px 10px; 
     line-height: 28px;
     text-align: center;
+    background-color: #20dbc2;
 }
 
-.homeButton {
-    margin: 10px;
-    float: left;
+input[type="number"] { 
+    margin: auto;
+    padding: 10px; 
+    line-height: 8px;
+    text-align: center;
+    background-color: #20dbc2;
 }
 
-.submitButton {
-    margin: 10px;
-    float: right;
-}
 p{
     text-align: center;
 }

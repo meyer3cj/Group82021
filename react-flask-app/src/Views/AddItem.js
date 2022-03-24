@@ -49,7 +49,8 @@ const AddItem = () => {
                 />
             </Form.Field>
             <Form.Field>
-                <Button onClick={async () => {
+                <Button className= 'btn'
+                    onClick={async () => {
                     
                     let itemName= name;
 
@@ -61,25 +62,32 @@ const AddItem = () => {
                   
                     setImage(itemName)
                     setImageList(imageUrls)
-}}>
+                }}>
                     Search Images
                 </Button>
             </Form.Field>
-            <Form.Field>
-                <div id='images'>
+            <Form.Field className='inputContainer'>
+                <div
+                    id='images'>
                     <ImageList 
-                    name={image} 
-                    images={imageList}
-                    setImageClicked={imageSelected => setImageSelected(imageSelected)}
+                        name={image} 
+                        images={imageList}
+                        setImageClicked={imageSelected => setImageSelected(imageSelected)}
                     />
-                    <h2>Selected Image</h2>
-                    <img src={imageSelected} alt="" />
+                    <h2
+                        className='text'
+                    >
+                        Selected Image
+                    </h2>
+                    <img 
+                        className='image'
+                        src={imageSelected} alt="" />
                 </div>
             </Form.Field>
             <Form.Field className = "inputContainer">
                 <Input
                     className='input'
-                    type = "number"
+                    type = "text"
                     placeholder = "Price"
                     value = {price}
                     onChange = {e => setPrice(e.target.value)}
@@ -105,10 +113,10 @@ const AddItem = () => {
                 />
             </Form.Field>
             <Form.Field>
-                <Button className = "homeButton" onClick={navigateHome}>
+                <Button className = "btn" onClick={navigateHome}>
                     Home
                 </Button>
-                <Button className = "submitButton" onClick={async () => {
+                <Button className = "btn" onClick={async () => {
                     const item = {
                         itemName: name,
                         usersId: usersId,

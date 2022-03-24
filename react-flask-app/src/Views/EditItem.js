@@ -86,10 +86,12 @@ const EditItem = () => {
                     images={imageList}
                     setImageClicked={imageSelected => setImageSelected(imageSelected)}
                     />
-                    <h2>Original Image</h2>
-                    <Image src={originalImage}></Image>
-                    <h2>Selected Image</h2>
-                    <Image src={imageSelected}></Image>
+                    <h2
+                        className='text'
+                    >
+                        Selected Image
+                    </h2>
+                    <Image src={imageSelected} />
                 </div>
             </Form.Field>                           
             <Form.Field className = "inputContainer">
@@ -114,10 +116,10 @@ const EditItem = () => {
                 />
             </Form.Field>
             <Form.Field>
-                <Button className = "homeButton" onClick={navigateHome}>
+                <Button className = "btn" onClick={navigateHome}>
                     Home
                 </Button>
-                <Button className = "submitButton" onClick={async () => {
+                <Button className = "btn" onClick={async () => {
                     const item = {
                         itemName: name,
                         price: price,

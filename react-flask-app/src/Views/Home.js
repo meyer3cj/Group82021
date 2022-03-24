@@ -68,12 +68,14 @@ const Home = () => {
         <div>
             <div style={{textAlign: 'right', margin: '10px'}}>
                 <button
+                    className="btn"
                     style={{marginRight: '10px'}}
                     onClick = {profileClicked}
                 >
                     Profile
                 </button>
                 <button
+                    className="btnDanger"
                     onClick={logoutClicked}
                 >
                     Logout
@@ -81,6 +83,7 @@ const Home = () => {
             </div>
             <div>
                 <button
+                    className="btn"
                     onClick={navigateHome}
                 >
                     Home
@@ -88,6 +91,7 @@ const Home = () => {
             </div>
             <div>
                 <button
+                    className="btn"
                     onClick={navigateBought}
                 >
                     Bought Items
@@ -95,12 +99,18 @@ const Home = () => {
             </div>
             <div>
                 <button
+                    className="btn"
                     onClick={navigateHistory}
                 >
                     Items History
                 </button>
             </div>
-            <input placeholder="Search" onChange={handleChange}></input>
+                <input 
+                    className="input"
+                    type="text"
+                    placeholder="Search" 
+                    onChange={handleChange} 
+                />
             <ItemList items = {items}/>
         </div>
     );

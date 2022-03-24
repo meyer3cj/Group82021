@@ -46,8 +46,8 @@ export const ItemHistoryList = ({items}) => {
                             </div>
                             <p>{item.description}</p>
                             <img src={item.image} alt="" />
-                            <button onClick={e => {e.preventDefault(); deleteItemClicked(item.itemId)}}>Delete</button>
-                            <button onClick={e => {e.preventDefault(); returnItemClicked(item.itemId)}}>Return item to list</button>
+                            <button className='btn' onClick={e => {e.preventDefault(); deleteItemClicked(item.itemId)}}>Delete</button>
+                            <button className='btn' onClick={e => {e.preventDefault(); returnItemClicked(item.itemId)}}>Return item to list</button>
                         </div>
                     </List.Item>
                 )
