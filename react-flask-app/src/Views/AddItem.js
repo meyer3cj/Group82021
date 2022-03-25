@@ -87,7 +87,7 @@ const AddItem = () => {
             <Form.Field className = "inputContainer">
                 <Input
                     className='input'
-                    type = "text"
+                    type = "number"
                     placeholder = "Price"
                     value = {price}
                     onChange = {e => setPrice(e.target.value)}
