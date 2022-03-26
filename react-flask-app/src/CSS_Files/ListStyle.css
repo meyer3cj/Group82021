@@ -9,7 +9,10 @@
     color: #20dbc2 !important;
     text-shadow: 0px 0px 6px #000;
 }
-
+.link:hover { 
+    color: #00bfa6 !important;
+    text-shadow: 2px 2px #000;
+}
 .image{
     display: inline-flex;
     height: 100px;

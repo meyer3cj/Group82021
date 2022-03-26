@@ -11,7 +11,24 @@ body,
 input {
   font-family: 'Poppins', sans-serif;
   background: lightgrey;
-  padding-left: 30px;
+  
+}
+.Title{
+    font-size: 30px;
+    font-weight: 600;
+    color: #20dbc2;
+    padding-right: 20px;
+    text-shadow: 2px 2px 12px #000;
+    text-decoration: none;
+}
+.navbarstyle{
+    background-color: #234099;
+    padding: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    transform: translate(-11px, -11px);
+    border-radius: 0px;
+    box-shadow: 2px 2px 8px #000;
 }
 
 .container {

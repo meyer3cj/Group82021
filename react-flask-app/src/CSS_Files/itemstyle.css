@@ -1,8 +1,9 @@
 .item{
     background-color: white;
     margin: 10px;
-    width: 80%;
+    width: 60%;
     border-radius: 5px;
+    padding: 10px;
 }
 .item:hover{
     box-shadow: 2px 2px 8px #000;
@@ -20,6 +21,7 @@
     margin: 10px;
     color: blue;
 }
+
 .item div{
     padding: 10px;
 }

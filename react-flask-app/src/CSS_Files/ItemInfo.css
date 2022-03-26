@@ -29,6 +29,7 @@ input[type="number"] {
     margin-left: 5px;
     padding: 5px; 
     line-height: 28px;
+    border-radius: 10px;
     text-align: center;
     background-color: #20dbc2;
 }
