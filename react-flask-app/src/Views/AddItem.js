@@ -80,8 +80,12 @@ const AddItem = () => {
                         Selected Image
                     </h2>
                     <img 
-                        className='image'
-                        src={imageSelected} alt="" />
+                        className='imageSelected'
+                        src={imageSelected}
+                        onError={e => e.target.style.display = 'none'}
+                        onLoad={e => e.target.style.display = ''}
+                        alt="" 
+                    />
                 </div>
             </Form.Field>
             <Form.Field className = "inputContainer">

@@ -15,13 +15,19 @@ input[type="text"] {
     padding: 20px 10px; 
     line-height: 28px;
     text-align: center;
-    background-color: #20dbc2;
 }
 
 input[type="number"] { 
     margin: auto;
     padding: 10px; 
     line-height: 8px;
+    text-align: center;
+}
+
+.inputSearch[type="text"] { 
+    margin: auto;
+    padding: 20px 10px; 
+    line-height: 28px;
     text-align: center;
     background-color: #20dbc2;
 }

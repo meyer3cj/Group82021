@@ -18,6 +18,7 @@ export const ImageList=(props) =>{
                                 e.preventDefault();
                                 setImageSelection(imageUrl.url);
                                 props.setImageClicked(imageUrl.url);
+                                e.target.style.display = 'imageUrl.id'
                             }}
                             src={imageUrl.url} 
                         />

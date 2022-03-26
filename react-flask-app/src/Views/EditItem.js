@@ -63,8 +63,12 @@ const EditItem = () => {
                 />
             </Form.Field>
             <Form.Field>
-            <Image src= {originalImage}/> <br></br>
-            <Button onClick={async () => {
+                <Image src= {originalImage}/> <br></br>
+            </Form.Field> 
+            <Form.Field></Form.Field>
+            <Button 
+                className='btn'
+                onClick={async () => {
                     
                     let itemName = name;
 
@@ -78,7 +82,7 @@ const EditItem = () => {
                     setImageList(imageUrls)
             }}>Change Image</Button>
 
-            </Form.Field> 
+            
             <Form.Field>
                 <div id='images'>
                     <ImageList 
@@ -91,7 +95,13 @@ const EditItem = () => {
                     >
                         Selected Image
                     </h2>
-                    <Image src={imageSelected} />
+                    <Image 
+                        className='imageSelected'
+                        src={imageSelected}
+                        onError={e => e.target.style.display = 'none'}
+                        onLoad={e => e.target.style.display = ''}
+                        alt="" 
+                    />
                 </div>
             </Form.Field>                           
             <Form.Field className = "inputContainer">

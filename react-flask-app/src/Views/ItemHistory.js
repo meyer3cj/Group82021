@@ -105,9 +105,9 @@ const Home = () => {
                 </button>
             </div>
             <input 
-                className="input"
+                className="inputSearch"
                 type="text"
-                placeholder='Search' 
+                placeholder="Search" 
                 onChange={handleChange} 
             /> 
             <ItemHistoryList items = {items}/>
