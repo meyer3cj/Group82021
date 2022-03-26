@@ -32,3 +32,7 @@ input[type="number"] {
     text-align: center;
     background-color: #20dbc2;
 }
+.inputSearch[type="text"]:hover {
+    background-color: #00bfa6;
+    box-shadow: 2px 2px 8px #000;
+}

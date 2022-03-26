@@ -11,6 +11,7 @@ body,
 input {
   font-family: 'Poppins', sans-serif;
   background: lightgrey;
+  padding-left: 30px;
 }
 
 .container {
@@ -124,10 +125,12 @@ form.sign-up-form {
     font-weight: 600;
     margin: 10px;
     margin-right: 10px;
+    
 }
 
 .btn:hover {
     background-color: #00bfa6;
+    box-shadow: 2px 2px 8px #000;
 }
 
 .btnDanger {
@@ -147,6 +150,8 @@ form.sign-up-form {
 
 .btnDanger:hover {
   background-color: darkred;
+  
+  box-shadow: 2px 2px 8px #000;
 }
 
 .social-text {
