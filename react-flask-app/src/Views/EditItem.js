@@ -63,7 +63,6 @@ const EditItem = () => {
                 />
             </Form.Field>
             <Form.Field>
-                <Image src= {originalImage}/> <br></br>
             </Form.Field> 
             <Form.Field></Form.Field>
             <Button 
@@ -130,13 +129,21 @@ const EditItem = () => {
                     Home
                 </Button>
                 <Button className = "btn" onClick={async () => {
-                    const item = {
-                        itemName: name,
-                        price: price,
-                        description: description,
-                        imageUrl: imageSelected,
-                        url: url.toString().replace(/(^\w+:|^)\/\//, '')
-                    };
+                    
+                       let image = imageSelected;
+                       console.log(image)
+                       if (image === ""){
+                           image = originalImage;
+                       }
+                       console.log(image)
+                       const item = {
+                            itemName: name,
+                            price: price,
+                            description: description,
+                            imageUrl: image,
+                            url: url.toString().replace(/(^\w+:|^)\/\//, '')
+                        };
+                    
 
                     const response = await api.post(`/${usersId}/${itemId}/edit`, item)
 
