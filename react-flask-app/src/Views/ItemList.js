@@ -2,7 +2,7 @@ import { List } from "semantic-ui-react";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import "../CSS_Files/LoginStyle.css";
-import "../CSS_Files/itemstyle.css"
+import "../CSS_Files/itemstyle.css";
 
 // TODO: This is used in many places, can extract into its own file
 const api = axios.create({
@@ -53,11 +53,10 @@ export const ItemList = ({items}) => {
                     <List.Item className= 'item' key = {item.itemId}>
                         <div>
 
-                            <p>{item.itemId.toString()}</p>
                             <h3><a className='link' href={`//${item.url}`} target="_blank" rel="noreferrer">{item.name}</a></h3>
-                            <p>${item.price}</p>
+                            <p className="itemInfo">${item.price}</p>
 
-                            <p>{item.description}</p>
+                            <p className="itemInfo">{item.description}</p>
                             <img src={item.image} alt="" /> <br/>
                             <button className='btn' onClick={e => {e.preventDefault(); editItemClicked(item.itemId)}}>Edit</button>
                             <button className='btn' onClick={e => {e.preventDefault(); removeItemClicked(item.itemId)}}>Remove from list</button>
