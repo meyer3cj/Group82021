@@ -39,12 +39,9 @@ export const ItemHistoryList = ({items}) => {
                 return (
                     <List.Item key = {item.itemId}>
                         <div>
-                            <div>
-                               <p>{item.itemId.toString()}</p>
-                                <h3><a className='link' href={`//${item.url}`} target="_blank" rel="noreferrer">{item.name}</a></h3>
-                                <p>${item.price}</p>
-                            </div>
-                            <p>{item.description}</p>
+                            <h3><a className='link' href={`//${item.url}`} target="_blank" rel="noreferrer">{item.name}</a></h3>
+                            <p className="itemInfo">${item.price}</p>
+                            <p className="itemInfo">{item.description}</p>
                             <img src={item.image} alt="" />
                             <br/><button className='btn' onClick={e => {e.preventDefault(); deleteItemClicked(item.itemId)}}>Delete</button>
                             <button className='btn' onClick={e => {e.preventDefault(); returnItemClicked(item.itemId)}}>Return item to list</button>
