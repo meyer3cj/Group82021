@@ -21,8 +21,14 @@ input {
     text-shadow: 2px 2px 12px #000;
     text-decoration: none;
 }
+.Title:hover{
+    text-shadow: 2px 2px 12px #fff;
+    transition: 0.5s;
+    color: #00bfa6;
+    
+}
 .navbarstyle{
-    background-color: #234099;
+    background-image: linear-gradient(to right, #00bfa6, #000);
     padding: 10px;
     margin-bottom: 10px;
     width: 100%;
@@ -30,7 +36,10 @@ input {
     border-radius: 0px;
     box-shadow: 2px 2px 8px #000;
 }
-
+.navbarstyle button:hover{
+    box-shadow: 0px 0px 8px #fff;
+    transition: 0.5s;
+}
 .container {
    position: relative;
    width: 100%;
@@ -144,7 +153,6 @@ form.sign-up-form {
     margin-right: 10px;
     
 }
-
 .btn:hover {
     background-color: #00bfa6;
     box-shadow: 2px 2px 8px #000;

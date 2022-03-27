@@ -7,16 +7,16 @@
 .link { 
     text-decoration: none;
     color: #20dbc2 !important;
-    text-shadow: 0px 0px 6px #000;
 }
 .link:hover { 
     color: #00bfa6 !important;
-    text-shadow: 2px 2px #000;
+    text-shadow: 2px 2px 5px #000;
 }
 .image{
     display: inline-flex;
     height: 100px;
     max-width: 100px;
+    transform: translate(-15px,-10px);
 }
 
 .imageSelected{
@@ -30,9 +30,5 @@
 .text {
     margin: auto;
     text-align: center;
-    color: white;
-}
-
-.itemInfo {
     color: white;
 }
