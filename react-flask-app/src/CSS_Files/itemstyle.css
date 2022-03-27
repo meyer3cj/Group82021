@@ -1,5 +1,5 @@
 .item{
-    background-color: white;
+    background-color: #234099;
     margin: 10px;
     width: 60%;
     border-radius: 5px;
@@ -15,6 +15,7 @@
 .item p{
     font-size: 20px;
     margin: 10px;
+    color: white;
 }
 .item a{
     font-size: 20px;
