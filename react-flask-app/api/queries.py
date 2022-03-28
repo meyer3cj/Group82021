@@ -515,6 +515,7 @@ def signup(request, hashed_password):
     rowsAffected = dbfuncs.addUsersDB(query, tuple)
     
     if rowsAffected == 1:
+        print("YES")
         return '', 200
     else:
         return '', 212

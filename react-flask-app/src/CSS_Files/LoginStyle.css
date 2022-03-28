@@ -146,7 +146,7 @@ form.sign-up-form {
     border-radius: 48px;
     cursor: pointer;
     background-color: #20dbc2;
-    color: #fff;
+    color: #234099;
     text-transform: uppercase;
     font-weight: 600;
     margin: 10px;
@@ -247,7 +247,7 @@ form.sign-up-form {
 }
 
 .panel .content {
-  color: #fff;;
+  color: #234099;;
 }
 
 .panel h3 {

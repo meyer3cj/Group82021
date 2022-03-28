@@ -78,7 +78,7 @@ const Profile = () => {
             </Button>
             <Form.Field className = "inputContainer">
                 <Input
-                    type = "text"
+                    type = "password"
                     onChange = {e => setPassword(e.target.value)}
                 />
             </Form.Field>

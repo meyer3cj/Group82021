@@ -55,7 +55,6 @@ export const ItemList = ({items}) => {
 
                             <h3><a className='link' href={`//${item.url}`} target="_blank" rel="noreferrer">{item.name}</a></h3>
                             <p className="itemInfo">${item.price}</p>
-
                             <p className="itemInfo">{item.description}</p>
                             <img src={item.image} alt="" /> <br/>
                             <button className='btn' onClick={e => {e.preventDefault(); editItemClicked(item.itemId)}}>Edit</button>

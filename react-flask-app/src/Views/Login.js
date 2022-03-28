@@ -52,13 +52,16 @@ const Login = () => {
                         <Form.Field className='input-field'>
                             <i className='fas fa-user' />
                                 <Input 
+                                    type='password'
                                     placeholder = "Password"
                                     value = {password}
                                     onChange = {e => setPassword(e.target.value)}
                                 />
                         </Form.Field>
                         <Form.Field>
-                            <Button className = 'btn solid' onClick={async (e) => {
+                            <Button 
+                                className = 'btn solid' 
+                                onClick={async (e) => {
                                 e.preventDefault();
 
                                 // Wrap inside of try catch
@@ -89,7 +92,7 @@ const Login = () => {
                             }}>
                                 Submit
                             </Button>
-                                                    </Form.Field>
+                        </Form.Field>
                     </Form>
                 </div>
             </div>

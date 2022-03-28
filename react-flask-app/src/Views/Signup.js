@@ -34,13 +34,39 @@ const Signup = () => {
         navigate(`/login`);
     }
 
+    const handleSubmit = async () => { 
+        const user = {
+            firstName: firstName,
+            lastName: lastName,
+            password: password,
+            email: email
+        };
+
+        const response = await api.post('/signup', user)
+
+        try {
+             // 200 OK if user is added. If email already exists return 212
+            // NOTE: 212 is a custom status code we should probably log information about it.
+            if (response.status === 200) {
+                navigate(`/login`);
+            } else if (response.status === 212) {
+                // Error Validation
+                throw Error
+            }
+            else {
+                // Other status codes
+            }
+        }
+       catch {
+           // Catch errors and display front end error handling to user
+       }
+    }
+
     return(
         <div className='container'>
             <div className='forms-container'>
                 <div className='signin-signup'>
-                    <Form 
-                        action='#'
-                    >
+                    <Form>
                         <h2 className='title'>Sign up</h2>
                         <Form.Field className='input-field'>
                             <i className='fas fa-user'/>
@@ -72,59 +98,38 @@ const Signup = () => {
                         <Form.Field className='input-field'>
                             <i className='fas fa-envelope' />
                             <Input
-                                type = "text"
+                                type = "password"
                                 placeholder = "Password"
                                 value = {password}
                                 onChange = {e => setPassword(e.target.value)}
                             />
                         </Form.Field>
                         <Form.Field>
-                            <Button 
-                            className='btn'
-                            onClick={navigateLogin}>
-                                Cancel
-                            </Button>
-                            <Button 
-                                type = 'submit'
-                                className = "btn" 
-                                onClick={async () => {
-                                const user = {
-                                    firstName: firstName,
-                                    lastName: lastName,
-                                    password: password,
-                                    email: email
-                                };
-
-                                const response = await api.post('/signup', user)
-
-                                // 200 OK if user is added. If email already exists return 212
-                                // NOTE: 212 is a custom status code we should probably log information about it.
-                                if (response.status === 200) {
-                                    navigate(`/login`);
-                                } else if (response.status === 212) {
-                                    // Error Validation
-                                }
-                            }}>
+                            <Button
+                                className = "btn"
+                                onClick={handleSubmit}
+                            >
                                 Signup
-                            </Button><br/>
+                            </Button>
                         </Form.Field>
-                        
                     </Form>
                 </div>
             </div>
-            <div className='panel right-panel'>
+            <div className='panels-container'>
+                <div className='panel left-panel'>
                     <div className='content'>
                         <h3>One of us?</h3>
                         <p>
-                        As a frequent online shopping user, I want to organize and save all desired products in one location, so I can keep track of which purchases I have to make or have made. As a company owner, I want a way to make multiple shopping lists in one application, so that I can order each of my employees required equipment. As a mother, I want a way to save gift ideas for my children for later date in a single location, so that I can revisit the items later. As a student, I want a way to order supplies needed for school at the most affordable rate from different sites, so I can get save the most money ordering my supplies. As a teacher, I want a way to save assignment or project ideas for my students that I could come back to later, so I can easily locate the items to order for those projects later.
+                            As a frequent online shopping user, I want to organize and save all desired products in one location, so I can keep track of which purchases I have to make or have made. As a company owner, I want a way to make multiple shopping lists in one application, so that I can order each of my employees required equipment. As a mother, I want a way to save gift ideas for my children for later date in a single location, so that I can revisit the items later. As a student, I want a way to order supplies needed for school at the most affordable rate from different sites, so I can get save the most money ordering my supplies. As a teacher, I want a way to save assignment or project ideas for my students that I could come back to later, so I can easily locate the items to order for those projects later.
                         </p>
-                        <button 
-                            className='btn transparent' 
-                            id='sign-in-btn'
+                        <button
+                            className='btn transparent'
+                            onClick={navigateLogin}
                         >
-                            Sign In
+                            Sign in
                         </button>
                     </div>
+                </div>
             </div>
         </div>
     )

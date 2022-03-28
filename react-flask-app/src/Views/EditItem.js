@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Input, Button, Image } from 'semantic-ui-react';
+import { Form, Input, Button } from 'semantic-ui-react';
 import { useNavigate, useParams } from 'react-router-dom';
 import ImageList from './ImageList';
 import axios from 'axios';
@@ -61,40 +61,39 @@ const EditItem = () => {
                     value = {name}
                     onChange = {e => setName(e.target.value)}
                 />
-            </Form.Field>
-            <Form.Field>
             </Form.Field> 
-            <Form.Field></Form.Field>
-            <Button 
-                className='btn'
-                onClick={async () => {
-                    
-                    let itemName = name;
-
-                    const response = await api.get(`/getitemName/${itemName}`, itemName)
-                    let imageUrls = []
-                    for (let i = 0; i < response.data.length; i++) {
-                        imageUrls.push(response.data[i])
-                    }
-                  
-                    setImage(itemName)
-                    setImageList(imageUrls)
-            }}>Change Image</Button>
-
-            
             <Form.Field>
-                <div id='images'>
+                <Button 
+                    className='btn'
+                    onClick={async () => {
+                        
+                        let itemName = name;
+
+                        const response = await api.get(`/getitemName/${itemName}`, itemName)
+                        let imageUrls = []
+                        for (let i = 0; i < response.data.length; i++) {
+                            imageUrls.push(response.data[i])
+                        }
+                    
+                        setImage(itemName)
+                        setImageList(imageUrls)
+                }}>Change Image
+                </Button>
+            </Form.Field>
+            <Form.Field className='inputContainer'>
+                <div 
+                    id='images'>
                     <ImageList 
-                    name={image} 
-                    images={imageList}
-                    setImageClicked={imageSelected => setImageSelected(imageSelected)}
+                        name={image} 
+                        images={imageList}
+                        setImageClicked={imageSelected => setImageSelected(imageSelected)}
                     />
                     <h2
                         className='text'
                     >
                         Selected Image
                     </h2>
-                    <Image 
+                    <img 
                         className='imageSelected'
                         src={imageSelected}
                         onError={e => e.target.style.display = 'none'}

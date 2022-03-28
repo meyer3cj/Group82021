@@ -63,7 +63,7 @@ const Bought = () => {
     return(
         <div>
              <div  className= 'navbarstyle'style={{textAlign: 'right', margin: '10px'}}>
-               <a className="Title" href="#" onClick={navigateHome}>Kartz</a>
+               <a className="Title" href="/#" onClick={navigateHome}>Kartz</a>
                 <button
                     className="btn"
                     style={{marginRight: '10px'}}

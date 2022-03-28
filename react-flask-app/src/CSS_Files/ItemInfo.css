@@ -24,6 +24,13 @@ input[type="number"] {
     text-align: center;
 }
 
+input[type="password"] { 
+    margin: auto;
+    padding: 10px; 
+    line-height: 8px;
+    text-align: center;
+}
+
 .inputSearch[type="text"] {
     margin: auto;
     margin-left: 5px;
