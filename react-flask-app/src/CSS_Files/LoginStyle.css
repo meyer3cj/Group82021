@@ -229,7 +229,6 @@ form.sign-up-form {
 }
 
 .panel {
-  display: flex;
   flex-direction: column;
   align-items: flex-end;
   justify-content: space-around;
@@ -248,7 +247,7 @@ form.sign-up-form {
 }
 
 .panel .content {
-  color: #fff;
+  color: #fff;;
 }
 
 .panel h3 {
