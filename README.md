@@ -12,5 +12,15 @@
 | Prayag Prandit | Information Technology | panditpg@mail.uc.edu |
 | Abele Abdi | Information Technology | abdiam@mail.uc.edu |
 
-## Project Topic
-The project is designed to allow a user to gather items from their online shopping carts and can notify them of stock updates and price changes from multiple sites. The application will also save purchase information for ease of access when completing a purchase. The project is aimed towards consumers that frequently shop online on multiple websites in order to organize and monitor online items and services. 
+# Table of Contents
+
+1. [Project Description](https://github.com/meyer3cj/Group82021/blob/Master/homeworkAssignments/Abstract.md)  
+2. [Test plan and Results](https://github.com/meyer3cj/Group82021/blob/Master/homeworkAssignments/Testing%20doc.docx)  
+3. [User Manual](https://github.com/meyer3cj/Group82021/blob/Master/UserGuide.md)  
+4. [PPT Presentation](https://github.com/meyer3cj/Group82021/blob/Master/homeworkAssignments/Spring%20Presentation.pptx)  
+5. [Expo Poster](https://github.com/meyer3cj/Group82021/blob/Master/homeworkAssignments/Kartz%20Poster.pptx.pdf)  
+6. [Hours and Justification](https://github.com/meyer3cj/Group82021/blob/Master/homeworkAssignments/Summary%20of%20Hours.docx)
+
+## Asssesments
+7. [Fall Assessments](https://github.com/meyer3cj/Group82021/tree/Master/homeworkAssignments/Assessments/FallAssessments)
+8. [Spring Assessments](https://github.com/meyer3cj/Group82021/tree/Master/homeworkAssignments/Assessments/SpringAssessments)
